@@ -1,6 +1,6 @@
 {
- "built": "2026-09-27 15:58",
- "stamp": "20260927155804",
+ "built": "2026-09-27 16:40",
+ "stamp": "20260927164053",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -279,6 +279,196 @@
      "msg": "node 17 at (120.8, 75.3): platform leaves the frame",
      "nodes": [
       17
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "D-17-size-202-max.json",
+   "code": "D-17",
+   "name": "Size 202 x 83 m",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 30,
+   "footprint": [
+    202.4,
+    82.7
+   ],
+   "pass": false,
+   "hard": 19,
+   "soft": 0,
+   "note": "Phone size test: footprint 202 x 83 m (platforms 12 m). Which is the largest that still plays well on the phone?",
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 0 at (-15.2, 4.7): platform leaves the frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 1 at (12.0, 4.7): platform leaves the frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 2 at (39.2, 4.7): platform leaves the frame",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 3 at (66.4, 4.7): platform leaves the frame",
+     "nodes": [
+      3
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 4 at (93.6, 4.7): platform leaves the frame",
+     "nodes": [
+      4
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 5 at (120.8, 4.7): platform leaves the frame",
+     "nodes": [
+      5
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 6 at (148.0, 4.7): platform leaves the frame",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 7 at (175.2, 4.7): platform leaves the frame",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 8 at (-1.6, 28.2): platform leaves the frame",
+     "nodes": [
+      8
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 14 at (161.6, 28.2): platform leaves the frame",
+     "nodes": [
+      14
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 15 at (-15.2, 51.8): platform leaves the frame",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 22 at (175.2, 51.8): platform leaves the frame",
+     "nodes": [
+      22
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 23 at (-1.6, 75.3): platform leaves the frame",
+     "nodes": [
+      23
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 24 at (25.6, 75.3): platform leaves the frame",
+     "nodes": [
+      24
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 25 at (52.8, 75.3): platform leaves the frame",
+     "nodes": [
+      25
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 26 at (80.0, 75.3): platform leaves the frame",
+     "nodes": [
+      26
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 27 at (107.2, 75.3): platform leaves the frame",
+     "nodes": [
+      27
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 28 at (134.4, 75.3): platform leaves the frame",
+     "nodes": [
+      28
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 29 at (161.6, 75.3): platform leaves the frame",
+     "nodes": [
+      29
      ],
      "edges": []
     }

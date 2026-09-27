@@ -1,1 +1,372 @@
-{"built": "-", "stamp": "0", "maps": []}
+{
+ "built": "2026-09-27 15:00",
+ "stamp": "20260927150009",
+ "maps": [
+  {
+   "file": "D-11-size-94.json",
+   "code": "D-11",
+   "name": "Size 94 x 59 m",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 11,
+   "footprint": [
+    93.6,
+    59.1
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Phone size test: footprint 94 x 59 m (platforms 12 m). Which is the largest that still plays well on the phone?",
+   "findings": []
+  },
+  {
+   "file": "D-12-size-121.json",
+   "code": "D-12",
+   "name": "Size 121 x 59 m",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 14,
+   "footprint": [
+    120.8,
+    59.1
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Phone size test: footprint 121 x 59 m (platforms 12 m). Which is the largest that still plays well on the phone?",
+   "findings": []
+  },
+  {
+   "file": "D-13-size-148.json",
+   "code": "D-13",
+   "name": "Size 148 x 59 m",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 17,
+   "footprint": [
+    148.0,
+    59.1
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Phone size test: footprint 148 x 59 m (platforms 12 m). Which is the largest that still plays well on the phone?",
+   "findings": []
+  },
+  {
+   "file": "D-14-size-175.json",
+   "code": "D-14",
+   "name": "Size 175 x 59 m",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 20,
+   "footprint": [
+    175.2,
+    59.1
+   ],
+   "pass": false,
+   "hard": 4,
+   "soft": 0,
+   "note": "Phone size test: footprint 175 x 59 m (platforms 12 m). Which is the largest that still plays well on the phone?",
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 0 at (-1.6, 16.4): platform leaves the frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 6 at (161.6, 16.4): platform leaves the frame",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 13 at (-1.6, 63.6): platform leaves the frame",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 19 at (161.6, 63.6): platform leaves the frame",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "D-15-size-202.json",
+   "code": "D-15",
+   "name": "Size 202 x 59 m",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 23,
+   "footprint": [
+    202.4,
+    59.1
+   ],
+   "pass": false,
+   "hard": 6,
+   "soft": 0,
+   "note": "Phone size test: footprint 202 x 59 m (platforms 12 m). Which is the largest that still plays well on the phone?",
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 0 at (-15.2, 16.4): platform leaves the frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 7 at (175.2, 16.4): platform leaves the frame",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 8 at (-1.6, 40.0): platform leaves the frame",
+     "nodes": [
+      8
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 14 at (161.6, 40.0): platform leaves the frame",
+     "nodes": [
+      14
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 15 at (-15.2, 63.6): platform leaves the frame",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 22 at (175.2, 63.6): platform leaves the frame",
+     "nodes": [
+      22
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "D-16-size-121-tall.json",
+   "code": "D-16",
+   "name": "Size 121 x 83 m",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 18,
+   "footprint": [
+    120.8,
+    82.7
+   ],
+   "pass": false,
+   "hard": 9,
+   "soft": 0,
+   "note": "Phone size test: footprint 121 x 83 m (platforms 12 m). Which is the largest that still plays well on the phone?",
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 0 at (25.6, 4.7): platform leaves the frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 1 at (52.8, 4.7): platform leaves the frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 2 at (80.0, 4.7): platform leaves the frame",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 3 at (107.2, 4.7): platform leaves the frame",
+     "nodes": [
+      3
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 4 at (134.4, 4.7): platform leaves the frame",
+     "nodes": [
+      4
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 14 at (39.2, 75.3): platform leaves the frame",
+     "nodes": [
+      14
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 15 at (66.4, 75.3): platform leaves the frame",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 16 at (93.6, 75.3): platform leaves the frame",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "hard",
+     "msg": "node 17 at (120.8, 75.3): platform leaves the frame",
+     "nodes": [
+      17
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "M-01-meadow-array.json",
+   "code": "M-01",
+   "name": "Meadow Array",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 16,
+   "footprint": [
+    145.7,
+    67.0
+   ],
+   "pass": false,
+   "hard": 3,
+   "soft": 4,
+   "note": "Classic field: scattered platforms, every neighbour linked, plus relays.",
+   "findings": [
+    {
+     "rule": "T04",
+     "sev": "soft",
+     "msg": "node 3 uses the old cannon vocabulary",
+     "nodes": [
+      3
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T01",
+     "sev": "hard",
+     "msg": "node 4: category normal with neutral T4",
+     "nodes": [
+      4
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T04",
+     "sev": "soft",
+     "msg": "node 6 uses the old cannon vocabulary",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T04",
+     "sev": "soft",
+     "msg": "node 13 uses the old cannon vocabulary",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "16 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "G09",
+     "sev": "hard",
+     "msg": "retract gate of 6-7 on node 6 is 16 degrees from its front door",
+     "nodes": [
+      6
+     ],
+     "edges": [
+      3
+     ]
+    },
+    {
+     "rule": "G09",
+     "sev": "hard",
+     "msg": "retract gate of 13-14 on node 13 is 16 degrees from its front door",
+     "nodes": [
+      13
+     ],
+     "edges": [
+      17
+     ]
+    }
+   ]
+  }
+ ]
+}

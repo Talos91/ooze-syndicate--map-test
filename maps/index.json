@@ -1,6 +1,6 @@
 {
- "built": "2026-09-27 21:18",
- "stamp": "20260927211840",
+ "built": "2026-09-27 21:32",
+ "stamp": "20260927213259",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -643,6 +643,103 @@
      "nodes": [
       0,
       7
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "J-03-fork.json",
+   "code": "J-03",
+   "name": "Fork",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 13,
+   "footprint": [
+    146.4,
+    43.2
+   ],
+   "pass": false,
+   "hard": 5,
+   "soft": 4,
+   "note": "Lab test: each home's single deck reaches a Y that forks into two lanes; the lanes meet at a K junction (4 ports at 60 degrees) in the middle, so every lane can switch sides there.",
+   "findings": [
+    {
+     "rule": "N01",
+     "sev": "hard",
+     "msg": "node 6 has 1 decks",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N01",
+     "sev": "hard",
+     "msg": "node 12 has 1 decks",
+     "nodes": [
+      12
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N04",
+     "sev": "hard",
+     "msg": "node 6 keeps 1 fixed decks",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N04",
+     "sev": "hard",
+     "msg": "node 12 keeps 1 fixed decks",
+     "nodes": [
+      12
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N09",
+     "sev": "soft",
+     "msg": "no relay: plays as a plain field until the Last Stand",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 12: 0 T1 in its pocket",
+     "nodes": [
+      12
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 6: 0 T1 in its pocket",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "13 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "N10",
+     "sev": "hard",
+     "msg": "homes 6 and 12 are joined by 1 route(s) that share no platform",
+     "nodes": [
+      6,
+      12
      ],
      "edges": []
     }

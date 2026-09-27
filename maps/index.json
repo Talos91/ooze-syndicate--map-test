@@ -1,6 +1,6 @@
 {
- "built": "2026-09-27 16:40",
- "stamp": "20260927164053",
+ "built": "2026-09-27 21:18",
+ "stamp": "20260927211840",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -469,6 +469,180 @@
      "msg": "node 29 at (161.6, 75.3): platform leaves the frame",
      "nodes": [
       29
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "J-01-junction-grid.json",
+   "code": "J-01",
+   "name": "Junction Grid",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 18,
+   "footprint": [
+    144.0,
+    56.0
+   ],
+   "pass": false,
+   "hard": 2,
+   "soft": 4,
+   "note": "Lab test: junctions in a 4 x 2 grid (L corners, T edges), a platform on every grid edge. Every deck out of a platform reaches a junction that fans out to 2-3 platforms.",
+   "findings": [
+    {
+     "rule": "N09",
+     "sev": "soft",
+     "msg": "no relay: plays as a plain field until the Last Stand",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 17: 0 T1 in its pocket",
+     "nodes": [
+      17
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 14: 0 T1 in its pocket",
+     "nodes": [
+      14
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "18 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "N11",
+     "sev": "hard",
+     "msg": "5 two-deck platforms in a row: [0, 1, 8, 9, 14]",
+     "nodes": [
+      0,
+      1,
+      8,
+      9,
+      14
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N11",
+     "sev": "hard",
+     "msg": "5 two-deck platforms in a row: [6, 7, 12, 13, 17]",
+     "nodes": [
+      6,
+      7,
+      12,
+      13,
+      17
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "J-02-crossroads.json",
+   "code": "J-02",
+   "name": "Crossroads",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 17,
+   "footprint": [
+    144.0,
+    48.0
+   ],
+   "pass": false,
+   "hard": 5,
+   "soft": 4,
+   "note": "Lab test: each home has ONE deck, to an X junction that reaches three platforms; T junctions join the lanes, and the middle platforms (4 decks each) are the crossroads.",
+   "findings": [
+    {
+     "rule": "N01",
+     "sev": "hard",
+     "msg": "node 0 has 1 decks",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N01",
+     "sev": "hard",
+     "msg": "node 7 has 1 decks",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N04",
+     "sev": "hard",
+     "msg": "node 0 keeps 1 fixed decks",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N04",
+     "sev": "hard",
+     "msg": "node 7 keeps 1 fixed decks",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N09",
+     "sev": "soft",
+     "msg": "no relay: plays as a plain field until the Last Stand",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 0: 0 T1 in its pocket",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 7: 0 T1 in its pocket",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "17 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "N10",
+     "sev": "hard",
+     "msg": "homes 0 and 7 are joined by 1 route(s) that share no platform",
+     "nodes": [
+      0,
+      7
      ],
      "edges": []
     }

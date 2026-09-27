@@ -1,6 +1,6 @@
 {
- "built": "2026-09-27 21:55",
- "stamp": "20260927215525",
+ "built": "2026-09-27 22:12",
+ "stamp": "20260927221220",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -826,6 +826,62 @@
      "nodes": [
       0,
       16
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "J-06-three-banks.json",
+   "code": "J-06",
+   "name": "Three Banks",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 20,
+   "footprint": [
+    155.2,
+    74.9
+   ],
+   "pass": false,
+   "hard": 3,
+   "soft": 1,
+   "note": "Lab test after Daniele's Mushroom Wars sketch: two walled bases of 5 platforms, each with ONE bridge to a T junction at the wall that splits up to the top area (two Laser towers guarding its entries, a Forge in the middle) or down to the bottom area (3 platforms). No deck crosses the wall between top and bottom.",
+   "findings": [
+    {
+     "rule": "N07",
+     "sev": "hard",
+     "msg": "relay node 0 (retract) controls no deck",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "20 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "N10",
+     "sev": "hard",
+     "msg": "homes 2 and 11 are joined by 1 route(s) that share no platform",
+     "nodes": [
+      2,
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N11",
+     "sev": "hard",
+     "msg": "3 two-deck platforms in a row: [1, 10, 19]",
+     "nodes": [
+      1,
+      10,
+      19
      ],
      "edges": []
     }

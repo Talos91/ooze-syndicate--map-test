@@ -1,6 +1,6 @@
 {
- "built": "2026-09-27 21:53",
- "stamp": "20260927213259",
+ "built": "2026-09-27 21:55",
+ "stamp": "20260927215525",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -740,6 +740,92 @@
      "nodes": [
       6,
       12
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "J-04-walled-bases.json",
+   "code": "J-04",
+   "name": "Walled Bases",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 15,
+   "footprint": [
+    117.3,
+    48.0
+   ],
+   "pass": false,
+   "hard": 1,
+   "soft": 2,
+   "note": "Lab test: each home sits in a walled base (two T1 behind it) whose only way out is one deck into a lattice of X / T junctions; the middle is open and crosses everywhere.",
+   "findings": [
+    {
+     "rule": "N09",
+     "sev": "soft",
+     "msg": "no relay: plays as a plain field until the Last Stand",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "15 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "N10",
+     "sev": "hard",
+     "msg": "homes 0 and 10 are joined by 1 route(s) that share no platform",
+     "nodes": [
+      0,
+      10
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "J-05-x-lattice.json",
+   "code": "J-05",
+   "name": "X Lattice",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 21,
+   "footprint": [
+    153.3,
+    48.0
+   ],
+   "pass": false,
+   "hard": 1,
+   "soft": 2,
+   "note": "Lab test: a wide lattice of X junctions (every junction joins 4 platforms) with a walled, single-entry base for each home.",
+   "findings": [
+    {
+     "rule": "N09",
+     "sev": "soft",
+     "msg": "no relay: plays as a plain field until the Last Stand",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "21 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "N10",
+     "sev": "hard",
+     "msg": "homes 0 and 16 are joined by 1 route(s) that share no platform",
+     "nodes": [
+      0,
+      16
      ],
      "edges": []
     }

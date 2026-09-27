@@ -1,6 +1,6 @@
 {
- "code": "R-07",
- "name": "Big - Drawbridge",
+ "code": "R-09",
+ "name": "Big - Bridges and Swings",
  "group": "lab",
  "players": "versus",
  "playersLabel": "1v1",
@@ -108,11 +108,11 @@
    "plaza": null,
    "socket": null,
    "ring": 1,
-   "category": "strategic",
+   "category": "normal",
    "relay": null,
    "home": false,
    "neutral": {
-    "tier": 4,
+    "tier": 2,
     "structure": "vat"
    },
    "buildable": [
@@ -396,15 +396,17 @@
    "plaza": null,
    "socket": null,
    "ring": 0,
-   "category": "normal",
-   "relay": null,
+   "category": "relay",
+   "relay": "rotation",
    "home": false,
    "neutral": {
-    "tier": 1,
-    "structure": "vat"
+    "tier": 2,
+    "structure": "laser"
    },
    "buildable": [
-    "vat"
+    "laser",
+    "forge",
+    "monster_hub"
    ]
   },
   {
@@ -464,15 +466,17 @@
    "plaza": null,
    "socket": null,
    "ring": 0,
-   "category": "normal",
-   "relay": null,
+   "category": "relay",
+   "relay": "rotation",
    "home": false,
    "neutral": {
-    "tier": 1,
-    "structure": "vat"
+    "tier": 2,
+    "structure": "laser"
    },
    "buildable": [
-    "vat"
+    "laser",
+    "forge",
+    "monster_hub"
    ]
   },
   {
@@ -545,15 +549,17 @@
    "plaza": null,
    "socket": null,
    "ring": 1,
-   "category": "normal",
-   "relay": null,
+   "category": "relay",
+   "relay": "remote",
    "home": false,
    "neutral": {
-    "tier": 1,
-    "structure": "vat"
+    "tier": 2,
+    "structure": "laser"
    },
    "buildable": [
-    "vat"
+    "laser",
+    "forge",
+    "monster_hub"
    ]
   },
   {
@@ -644,15 +650,17 @@
    "plaza": null,
    "socket": null,
    "ring": 1,
-   "category": "normal",
-   "relay": null,
+   "category": "relay",
+   "relay": "remote",
    "home": false,
    "neutral": {
-    "tier": 1,
-    "structure": "vat"
+    "tier": 2,
+    "structure": "laser"
    },
    "buildable": [
-    "vat"
+    "laser",
+    "forge",
+    "monster_hub"
    ]
   },
   {
@@ -756,8 +764,8 @@
    "tier": "M",
    "seconds": 4,
    "level": 0,
-   "state": null,
-   "relay": null,
+   "state": "m1",
+   "relay": 32,
    "retracts": false,
    "deckMetres": 8.0,
    "centreDistance": 18.0,
@@ -899,8 +907,8 @@
    "tier": "M",
    "seconds": 4,
    "level": 0,
-   "state": null,
-   "relay": null,
+   "state": "r1",
+   "relay": 23,
    "retracts": false,
    "deckMetres": 8.0,
    "centreDistance": 18.0,
@@ -1003,8 +1011,8 @@
    "tier": "M",
    "seconds": 4,
    "level": 0,
-   "state": null,
-   "relay": null,
+   "state": "r2",
+   "relay": 23,
    "retracts": false,
    "deckMetres": 8.0,
    "centreDistance": 18.0,
@@ -1211,8 +1219,8 @@
    "tier": "M",
    "seconds": 4,
    "level": 0,
-   "state": null,
-   "relay": null,
+   "state": "m1",
+   "relay": 38,
    "retracts": false,
    "deckMetres": 8.0,
    "centreDistance": 18.0,
@@ -1315,8 +1323,8 @@
    "tier": "M",
    "seconds": 4,
    "level": 0,
-   "state": null,
-   "relay": null,
+   "state": "r1",
+   "relay": 27,
    "retracts": false,
    "deckMetres": 8.0,
    "centreDistance": 18.0,
@@ -1406,8 +1414,8 @@
    "tier": "M",
    "seconds": 4,
    "level": 0,
-   "state": null,
-   "relay": null,
+   "state": "r2",
+   "relay": 27,
    "retracts": false,
    "deckMetres": 8.0,
    "centreDistance": 18.0,
@@ -1504,17 +1512,19 @@
    }
   ]
  },
- "note": "Big square lattice (X / T junctions). One relay on the main passage, in the centre (Forge). The inward Last Stand keeps it; the outward finale plays on the rim without a relay.",
+ "note": "Big square lattice (X / T junctions). Five relays (relay-heavy): the centre and two mirrored pairs of different kinds, each on the passage it changes.",
  "geometricSymmetry": true,
  "labVariant": {
   "junctions": true,
   "skins": {
-   "vat": "faction",
+   "vat": "crystal",
    "laser": "obelisk",
    "forge": "anvil",
-   "monster": "alt"
+   "machinegoon": "pepperbox",
+   "monster_hub": "pit"
   }
  },
+ "relayHeavy": true,
  "layout": {
   "K": 1.0,
   "nodes": {

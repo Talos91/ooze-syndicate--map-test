@@ -1,6 +1,6 @@
 {
- "code": "R-07",
- "name": "Big - Drawbridge",
+ "code": "R-08",
+ "name": "Big - Remote Bridges",
  "group": "lab",
  "players": "versus",
  "playersLabel": "1v1",
@@ -108,11 +108,11 @@
    "plaza": null,
    "socket": null,
    "ring": 1,
-   "category": "strategic",
+   "category": "normal",
    "relay": null,
    "home": false,
    "neutral": {
-    "tier": 4,
+    "tier": 2,
     "structure": "vat"
    },
    "buildable": [
@@ -545,15 +545,17 @@
    "plaza": null,
    "socket": null,
    "ring": 1,
-   "category": "normal",
-   "relay": null,
+   "category": "relay",
+   "relay": "remote",
    "home": false,
    "neutral": {
-    "tier": 1,
-    "structure": "vat"
+    "tier": 2,
+    "structure": "laser"
    },
    "buildable": [
-    "vat"
+    "laser",
+    "forge",
+    "monster_hub"
    ]
   },
   {
@@ -644,15 +646,17 @@
    "plaza": null,
    "socket": null,
    "ring": 1,
-   "category": "normal",
-   "relay": null,
+   "category": "relay",
+   "relay": "remote",
    "home": false,
    "neutral": {
-    "tier": 1,
-    "structure": "vat"
+    "tier": 2,
+    "structure": "laser"
    },
    "buildable": [
-    "vat"
+    "laser",
+    "forge",
+    "monster_hub"
    ]
   },
   {
@@ -756,8 +760,8 @@
    "tier": "M",
    "seconds": 4,
    "level": 0,
-   "state": null,
-   "relay": null,
+   "state": "m1",
+   "relay": 32,
    "retracts": false,
    "deckMetres": 8.0,
    "centreDistance": 18.0,
@@ -1211,8 +1215,8 @@
    "tier": "M",
    "seconds": 4,
    "level": 0,
-   "state": null,
-   "relay": null,
+   "state": "m1",
+   "relay": 38,
    "retracts": false,
    "deckMetres": 8.0,
    "centreDistance": 18.0,
@@ -1504,15 +1508,15 @@
    }
   ]
  },
- "note": "Big square lattice (X / T junctions). One relay on the main passage, in the centre (Forge). The inward Last Stand keeps it; the outward finale plays on the rim without a relay.",
+ "note": "Big square lattice (X / T junctions). Three relays: the centre plus a mirrored pair of another kind on the other lane, so both Last Stand finales keep a relay.",
  "geometricSymmetry": true,
  "labVariant": {
   "junctions": true,
   "skins": {
-   "vat": "faction",
-   "laser": "obelisk",
-   "forge": "anvil",
-   "monster": "alt"
+   "vat": "biopod",
+   "laser": "tesla",
+   "forge": "heartforge",
+   "monster_hub": "hatchery"
   }
  },
  "layout": {

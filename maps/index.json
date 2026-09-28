@@ -1,6 +1,6 @@
 {
- "built": "2026-09-28 13:29",
- "stamp": "20260928132938",
+ "built": "2026-09-28 16:15",
+ "stamp": "20260928161548",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -1390,6 +1390,357 @@
     "monster": "alt"
    },
    "findings": []
+  },
+  {
+   "file": "W-01-arches.json",
+   "code": "W-01",
+   "name": "Arches",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 19,
+   "footprint": [
+    92.5,
+    79.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "Curvy, 11 platforms, 1 relay. The pockets climb into two arches - top and bottom - each turned twice by Curve_45s onto an axis platform; the middle road reaches the centre Forge, whose decks from the middle platforms are a drawbridge (retract). Bridges: S pockets, S / M / L, Curve_45.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk",
+    "forge": "anvil"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "19 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "W-02-serpent.json",
+   "code": "W-02",
+   "name": "Serpent",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 23,
+   "footprint": [
+    127.2,
+    69.7
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Curvy, 11 platforms, 3 relays. The middle road is a serpent: out of the home it bends down (Curve_45) onto a switch platform, then up and down again (Curve_45 left, right) into the centre Forge, whose serpent decks are a drawbridge (retract). The switches send the road on along the serpent or down a Curve_45 to the bottom axis platform; the pockets climb to the top one over Curve_45 arches. Bridges: S / M / L, Curve_45.",
+   "skins": {
+    "vat": "crystal",
+    "laser": "tesla",
+    "forge": "heartforge"
+   },
+   "findings": []
+  },
+  {
+   "file": "W-03-coil.json",
+   "code": "W-03",
+   "name": "Coil",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 19,
+   "footprint": [
+    94.1,
+    74.5
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "Curvy, 11 platforms, 1 relay. The pockets coil up and down on Curve_90s onto the top and bottom axis platforms (a Curve_90 then a Curve_45 each); the middle platforms reach the centre straight, and the centre is a remote console for those middle decks (the fastest road). Bridges: S pockets, S / M / L, Curve_90, Curve_45. Inward Last Stand keeps the console.",
+   "skins": {
+    "vat": "distillery",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "machinegoon": "pepperbox"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "19 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "W-04-roundabout.json",
+   "code": "W-04",
+   "name": "Roundabout",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 22,
+   "footprint": [
+    97.6,
+    72.2
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Curvy, 10 platforms, 3 relays. The centre (a T4) sits in a roundabout: a ring road of curves and junctions that passes through each side's gate platform and meets the centre by the stems of an X at the top and a T at the bottom. The upper ring is a Curve_90 each side, the lower ring two Curve_45s; the gates (retract) hold the lower ring's first decks, and the top platform (over Curve_45 arches, and on the X) is a remote console for the lower ring's last decks. Bridges: S / M / L, Curve_90, Curve_45, X, T.",
+   "skins": {
+    "vat": "reactor",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "monster_hub": "pit"
+   },
+   "findings": []
+  },
+  {
+   "file": "W-05-steps.json",
+   "code": "W-05",
+   "name": "Steps",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 19,
+   "footprint": [
+    120.9,
+    52.0
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Curvy, 12 platforms, 3 relays. The middle road steps down on a Curve_90 and a Curve_45 onto a gate platform, and climbs to the centre swing (rotation), which points at the two gate platforms or down to the bottom T. The gates (retract) hold the bottom crossing; the top platforms and the top axis platform make the upper lane. Bridges: S pockets, S / M / L, Curve_90, T.",
+   "skins": {
+    "vat": "biopod",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "machinegoon": "spitter"
+   },
+   "findings": []
+  },
+  {
+   "file": "W-06-meander.json",
+   "code": "W-06",
+   "name": "Meander",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 23,
+   "footprint": [
+    105.2,
+    80.1
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "Curvy, 11 platforms, 1 relay. The top and bottom lanes meander on Curve_90s: up, across, down, across into the axis platforms. The centre is a remote console for its own decks to the middle platforms (the fastest road). Bridges: S pockets, S / M / L, Curve_90. Inward Last Stand keeps the console.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "monster_hub": "hatchery"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (46.6, 6.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 22 at (113.4, 74.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      22
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "23 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "W-07-lens.json",
+   "code": "W-07",
+   "name": "Lens",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 23,
+   "footprint": [
+    88.3,
+    82.6
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 6,
+   "note": "Curvy, 11 platforms, 1 relay. The pockets sweep to the top and bottom axis platforms on crescents of three Curve_45s, so the map is a lens; the middle platforms reach the centre, a remote console for its own middle decks (the fastest road). Bridges: S pockets, S / M / L, Curve_45. Inward Last Stand keeps the console.",
+   "skins": {
+    "vat": "faction",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "monster": "alt"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (64.8, 4.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (99.1, 4.9): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 20 at (104.5, 74.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 21 at (96.8, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      21
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 22 at (59.3, 75.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      22
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "23 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "W-08-figure-eight.json",
+   "code": "W-08",
+   "name": "Figure Eight",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 18,
+   "footprint": [
+    109.7,
+    54.9
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Curvy, 10 platforms, 3 relays. The middle is a figure eight: an X junction on the axis and on each side a loop round the home's middle platform - a Curve_90 over, a Curve_90 under. The middle platforms are swings (rotation) between the upper and the lower loop; the top axis platform (over Curve_45 arches) is a remote console for the X's upper decks. Bridges: S pockets, S / M / L, Curve_45, Curve_90, X.",
+   "skins": {
+    "vat": "graduate",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "machinegoon": "pepperbox"
+   },
+   "findings": []
+  },
+  {
+   "file": "W-09-waves.json",
+   "code": "W-09",
+   "name": "Waves",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 27,
+   "footprint": [
+    112.8,
+    64.0
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "Curvy, 11 platforms, 1 relay. The top and bottom lanes roll on four Curve_45s each (a wave) to the axis platforms; the middle platforms reach the centre Forge over its drawbridge (retract). Bridges: S pockets, S / M / L, Curve_45. Inward Last Stand keeps the drawbridge.",
+   "skins": {
+    "vat": "crystal",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "machinegoon": "pepperbox",
+    "monster_hub": "pit"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "27 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "W-10-twin-dips.json",
+   "code": "W-10",
+   "name": "Twin Dips",
+   "modes": [
+    "2v2"
+   ],
+   "nodes": 21,
+   "footprint": [
+    100.9,
+    78.7
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "Special 2v2, 12 platforms, 1 relay. Two homes per side share a middle pocket. The top home's pocket climbs over the top on a Curve_45 S-bend to the top axis platform; the bottom home's pocket dips under the centre on a Curve_45 S-bend into a T below it. The top axis platform is a remote console for the shared pockets' decks into the centre (the fastest road). Bridges: S pockets, S / M / L, Curve_45, T. Inward Last Stand keeps the console.",
+   "skins": {
+    "vat": "reactor",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "machinegoon": "spitter",
+    "monster": "alt"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "21 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
   }
  ]
 }

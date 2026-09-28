@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 01:14",
- "stamp": "20260929011425",
+ "built": "2026-09-29 06:28",
+ "stamp": "20260929062803",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -1462,6 +1462,594 @@
      "rule": "L04",
      "sev": "soft",
      "msg": "15 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-11-round.json",
+   "code": "N-11",
+   "name": "Round",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 21,
+   "footprint": [
+    109.2,
+    81.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 5,
+   "note": "S, 13 platforms, open, inward. A round ring of four platforms on the hub's diagonals, joined by curved quarter arcs, circles a 4-way grinder hub (a rotor with no fixed deck: its pair of bridges turns from one diagonal to the other, killing what is on it). Each home's two pockets land on the ring's near side; a high platform over the top pocket drops onto the ring too. Point-symmetric. Survivor ring: the hub and the ring.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "heartforge"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (60.8, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 20 at (99.2, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 9: 0 T1 in its pocket",
+     "nodes": [
+      9
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 0 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "21 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-12-whirl.json",
+   "code": "N-12",
+   "name": "Whirl",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 25,
+   "footprint": [
+    133.9,
+    58.9
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "XS, 9 platforms, open, inward. The smallest ring: four platforms on the hub's diagonals, joined by curved quarter arcs round a switch hub (no fixed deck: its bridges reach one diagonal or the other). Each home sits off the ring's bottom-left platform and swings up to its pocket on a long C-shaped bridge of Curve_45s; the pocket drops onto the ring's top-left platform. Point-symmetric: a whirlpool. Survivor ring: the hub and the ring.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 20: 1 T1 in its pocket",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 4: 1 T1 in its pocket",
+     "nodes": [
+      4
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "25 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-13-crescent.json",
+   "code": "N-13",
+   "name": "Crescent",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 21,
+   "footprint": [
+    142.3,
+    76.9
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "M, 17 platforms, choke, outward. King of the hill with the hill in the middle between a top and a bottom crossing. Each home keeps a remote console one deck away that raises its side's two shortcuts from the middle platform up and down to the rim (a home-side console, a central advantage). The pockets climb to the rim on curved bridges (Curve_45). The hill falls first at the Last Stand; the rim with the consoles survives. Point-symmetric.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 13: 0 T1 in its pocket",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 7: 0 T1 in its pocket",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "21 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-14-hooks.json",
+   "code": "N-14",
+   "name": "Hooks",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 13,
+   "footprint": [
+    86.4,
+    55.6
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "XS, 9 platforms, choke, inward. A 4-way grinder hub (a rotor with no fixed deck) on the diagonals; each diagonal platform throws a Curve_90 hook back to the home side - the top one to the home, the bottom one to its pocket - and a long straight to the far side's platform. Point-symmetric. Survivor ring: the hub and its four platforms.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "anvil"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 2: 0 T1 in its pocket",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 10: 0 T1 in its pocket",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "13 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-15-round-table.json",
+   "code": "N-15",
+   "name": "Round Table",
+   "modes": [
+    "2v2"
+   ],
+   "nodes": 25,
+   "footprint": [
+    116.2,
+    81.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 7,
+   "note": "M, 17 platforms, open, inward, 2v2. The round ring of N-11 (four platforms on curved quarter arcs round a 4-way grinder hub) with two homes per side sharing a platform between them; each home's pocket lands on the ring, and a high platform over the top pocket drops onto it too. Point-symmetric. Survivor ring: the hub and the ring.",
+   "skins": {
+    "vat": "hive",
+    "forge": "heartforge"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (64.7, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 24 at (95.3, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      24
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 2: 1 T1 in its pocket",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 4: 1 T1 in its pocket",
+     "nodes": [
+      4
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 20: 1 T1 in its pocket",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 22: 1 T1 in its pocket",
+     "nodes": [
+      22
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "25 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-16-galaxy.json",
+   "code": "N-16",
+   "name": "Galaxy",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 19,
+   "footprint": [
+    112.8,
+    74.8
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "M, 15 platforms, choke, inward. Two spiral arms: from each home a long bridge rises and hooks round (two Curve_45s) into the centre from the side. The centre is a switch whose bridges reach the top and bottom platforms (state 1) or the two diagonal platforms (state 2); the arms are fixed. Each home also has a long deck to the far crossing platform - the second lane. Point-symmetric: the arms read as a two-armed galaxy. Survivor ring: the switch and its four platforms.",
+   "skins": {
+    "vat": "crystal",
+    "forge": "anvil"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 16: 0 T1 in its pocket",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 2: 0 T1 in its pocket",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "19 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-17-whirlpool.json",
+   "code": "N-17",
+   "name": "Whirlpool",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 25,
+   "footprint": [
+    115.4,
+    81.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 9,
+   "note": "M, 17 platforms, open, inward. The round ring (curved quarter arcs round a 4-way grinder hub) inside a full rim: each pocket lands on the ring, a high platform drops onto it too, and the rim crosses the map at the very top and bottom. Point-symmetric. Survivor ring: the hub and the ring.",
+   "skins": {
+    "vat": "crystal",
+    "forge": "heartforge"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (56.5, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (102.9, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 2 at (79.7, 5.4): beyond the standard 160 x 80 frame",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 22 at (80.3, 74.6): beyond the standard 160 x 80 frame",
+     "nodes": [
+      22
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 23 at (57.1, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      23
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 24 at (103.5, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      24
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 0 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 13: 0 T1 in its pocket",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "25 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-18-side-hairpins.json",
+   "code": "N-18",
+   "name": "Side Hairpins",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 27,
+   "footprint": [
+    166.2,
+    59.6
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 5,
+   "note": "M, 15 platforms, choke, inward. Behind each home its two pockets are joined by a wide hairpin (a U of four Curve_45s bulging out at the map's edge - the slow back road). The pockets climb on curved bridges to the rim, which crosses at the top and bottom; the middle is a switch hub whose bridges reach the middle platforms or the rim crossings. Point-symmetric. Survivor ring: the hub, the middle platforms and the crossings.",
+   "skins": {
+    "vat": "reactor",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 9 at (4.4, 32.4): beyond the standard 160 x 80 frame",
+     "nodes": [
+      9
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 10 at (157.1, 36.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 16 at (2.9, 44.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 17 at (155.6, 47.6): beyond the standard 160 x 80 frame",
+     "nodes": [
+      17
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "27 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-19-knotwork.json",
+   "code": "N-19",
+   "name": "Knotwork",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 21,
+   "footprint": [
+    124.9,
+    67.1
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "M, 16 platforms, choke, outward. An X junction knots the middle: its four bridges run to the middle platforms and the top and bottom crossings. Each home's remote console raises its side's shortcuts from the middle platform to the rim; the pockets climb to the rim on curved bridges. At the Last Stand the knot falls first and the rim survives with the consoles. Point-symmetric.",
+   "skins": {
+    "vat": "graduate",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 8: 0 T1 in its pocket",
+     "nodes": [
+      8
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 12: 0 T1 in its pocket",
+     "nodes": [
+      12
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "21 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-20-s-bends.json",
+   "code": "N-20",
+   "name": "S-Bends",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 27,
+   "footprint": [
+    152.3,
+    42.2
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "S, 11 platforms, choke, inward. Every lane is an S-bend: from each home's two pockets a bridge snakes (Curve_45 one way then the other) onto the switch hub's top-left and bottom-left platforms; long straights cross from those to the far side. The pockets behind the home are joined by a hairpin. The hub's bridges pick one diagonal or the other. Point-symmetric. Survivor ring: the hub and its four platforms.",
+   "skins": {
+    "vat": "hive",
+    "forge": "anvil"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "27 nodes, 1 method(s)",
      "nodes": [],
      "edges": []
     }

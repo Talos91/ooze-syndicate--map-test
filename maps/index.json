@@ -1,6 +1,6 @@
 {
- "built": "2026-09-28 16:15",
- "stamp": "20260928161548",
+ "built": "2026-09-28 16:32",
+ "stamp": "20260928163230",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -970,6 +970,93 @@
      ]
     }
    ]
+  },
+  {
+   "file": "O-01-rotor.json",
+   "code": "O-01",
+   "name": "Rotor",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 14,
+   "footprint": [
+    101.9,
+    51.2
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "Small, 11 platforms, 1 rotor. The centre is a rotating platform (Forge): its two side decks to the X junctions carry the middle road straight across, or it swings to its deck down to the bottom T, sending the flow onto the bottom lane. Its upper decks to the top platforms stay fixed. Bridges: S pockets, S / M / L, X, T. Inward Last Stand keeps the rotor.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "heartforge",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "14 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "O-02-twin-rotors.json",
+   "code": "O-02",
+   "name": "Twin Rotors",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 17,
+   "footprint": [
+    130.9,
+    50.8
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "Mid, 15 platforms, 2 rotors. Each side's middle road meets a rotating platform that either turns it into the centre (a T4) or swings it down onto the bottom lane; its deck back to the top platform stays fixed. The top and bottom lanes cross the axis at T junctions whose stems hold the centre. Bridges: S pockets, S / M / L, T. Inward Last Stand keeps the rotors.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "monster_hub": "hatchery"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "17 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "O-03-triple-rotor.json",
+   "code": "O-03",
+   "name": "Triple Rotor",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 19,
+   "footprint": [
+    141.4,
+    58.8
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Large, 17 platforms, 3 rotors. The centre rotor (Forge) carries the middle road straight across or swings it down to the bottom T; its upper decks to the top rotors stay fixed. The top rotors carry the top lane across the axis T or swing down into the middle platforms. Bridges: S pockets, S / M / L, T. Inward Last Stand keeps the centre rotor, outward the top rotors.",
+   "skins": {
+    "vat": "faction",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "monster": "alt"
+   },
+   "findings": []
   },
   {
    "file": "R-01-fork-road.json",

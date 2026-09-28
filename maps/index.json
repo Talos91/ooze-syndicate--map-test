@@ -1,6 +1,6 @@
 {
  "built": "2026-09-29 01:14",
- "stamp": "20260928213803",
+ "stamp": "20260929011425",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -968,6 +968,502 @@
      "edges": [
       17
      ]
+    }
+   ]
+  },
+  {
+   "file": "N-01-knot.json",
+   "code": "N-01",
+   "name": "Knot",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 9,
+   "footprint": [
+    92.7,
+    50.5
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 4,
+   "note": "XS, 9 platforms, choke, inward. The axis switch (Forge, review 2026-09-29: was a rotor) holds the map together: its two fixed decks go up to the pockets a / a', and its switched bridges connect either the middle road (m / m', state 1) and the axis platforms above and below (u / w, state 2), so whoever fires it decides whether the middle road crosses. Survivor ring: everything but the homes.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "heartforge"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 3: 0 T1 in its pocket",
+     "nodes": [
+      3
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 4: 0 T1 in its pocket",
+     "nodes": [
+      4
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "9 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "G10",
+     "sev": "soft",
+     "msg": "relay 6: no clear ledge, the tower holds the socket",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-02-drawbridge-cross.json",
+   "code": "N-02",
+   "name": "Drawbridge Cross",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 10,
+   "footprint": [
+    82.7,
+    55.2
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "XS, 10 platforms, choke, inward. Both axis platforms are retract relays (review 2026-09-29: the bottom too). The top one: its two bridges down to the left and right pockets are drawbridges (two decks - a commitment), so firing it cuts the top lane in one go and the fight moves through the middle platforms and the bottom axis. Survivor ring: everything but the homes.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "10 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-03-hex-switch.json",
+   "code": "N-03",
+   "name": "Hex Switch",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 15,
+   "footprint": [
+    116.9,
+    50.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 2,
+   "note": "M, 15 platforms, open, inward. A hexagon of platforms round a 6-bridge switch hub (Forge): state 1 bridges the bottom centre and the two top sides, state 2 the top centre and the two bottom sides (review 2026-09-29), so every fire moves all three roads into the hub. The hub has no fixed deck; its bridges hold it in every state (a relay hub). Braided pockets outside. Survivor ring: the hub and the hexagon.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "anvil"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "15 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "G10",
+     "sev": "soft",
+     "msg": "relay 7: no clear ledge, the tower holds the socket",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-04-console.json",
+   "code": "N-04",
+   "name": "Console",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 17,
+   "footprint": [
+    134.0,
+    59.8
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "M, 17 platforms, choke, outward. A king-of-the-hill map: the T4 hill sits on the axis between the two crossings. Each home keeps a remote console (k) one deck away; it raises that side's two shortcuts from the mid platform m up to u and down to w - a home-side console driving a central advantage. The hill falls at the Last Stand; the rim with the consoles and both crossings survives.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 9: 0 T1 in its pocket",
+     "nodes": [
+      9
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 10: 0 T1 in its pocket",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "17 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-05-switchyard.json",
+   "code": "N-05",
+   "name": "Switchyard",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 15,
+   "footprint": [
+    125.3,
+    50.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 2,
+   "note": "M, 15 platforms, choke, inward. Two lanes on each side meet a 6-way switch on the axis (fixed decks to m / m', a switched bridge up to the top gate u or down to the bottom gate w). The top and bottom axis platforms are gates now (review 2026-09-29: relays were easy to avoid): each draws up its two lane bridges, and its fixed decks go down to the mid platforms. Every crossing of the axis is a relay.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "heartforge",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "15 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "G10",
+     "sev": "soft",
+     "msg": "relay 7: no clear ledge, the tower holds the socket",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-06-ring-road.json",
+   "code": "N-06",
+   "name": "Ring Road",
+   "modes": [
+    "2v2"
+   ],
+   "nodes": 19,
+   "footprint": [
+    115.8,
+    77.1
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "L, 19 platforms, open, inward, 2v2. A ring road runs round the map; teammates share k. The centre is a rotor hub: its pair of bridges turns from the middle road (m / m') to the axis (t / z), and it has no fixed deck. The bottom diagonal platforms beside it are gates (review 2026-09-29: always some risk near the centre): each draws up its bridge into the hub (a gate on the top diagonals would face the camera, rule G09). Survivor ring: everything inside the ring road.",
+   "skins": {
+    "vat": "hive",
+    "forge": "anvil",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "19 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "G11",
+     "sev": "soft",
+     "msg": "relay 6: widest free gap 45 degrees (pad 9.6 m out)",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G10",
+     "sev": "soft",
+     "msg": "relay 6: no clear ledge, the tower holds the socket",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-07-rim-run.json",
+   "code": "N-07",
+   "name": "Rim Run",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 18,
+   "footprint": [
+    117.0,
+    76.9
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 2,
+   "note": "L, 18 platforms, open, both finales. A rim ring round a T4 hill, crossing the axis on top (t) and at the bottom twice (z, y). In the core m is a retract relay: its decks into the hill and up to u retract. On the rim each pocket a is a remote console driving the FAR side's bottom shortcut w'-z (a home-side console, a central advantage). Outward: the rim survives with the consoles; inward: the hill, k / k' and m / m' survive with the retract.",
+   "skins": {
+    "vat": "reactor",
+    "laser": "tesla",
+    "forge": "heartforge"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 10: 1 T1 in its pocket",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 1 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-08-descent.json",
+   "code": "N-08",
+   "name": "Descent",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 19,
+   "footprint": [
+    104.1,
+    81.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 9,
+   "note": "L, 19 platforms, choke, inward, three rings. The homes and pockets fall first, then the middle lanes, leaving the centre. The centre is now a rotor hub with no fixed deck (a meat grinder: its pair turns from the middle road to the axis and back, killing whatever is on it), and the bottom diagonal platforms q are gates drawing up their bridge into the hub (review 2026-09-29: experts dodged the old rotor).",
+   "skins": {
+    "vat": "hive",
+    "forge": "anvil",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (58.1, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (101.9, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 17 at (58.1, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      17
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 18 at (101.9, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      18
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 0 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 7: 0 T1 in its pocket",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "19 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "G11",
+     "sev": "soft",
+     "msg": "relay 9: widest free gap 45 degrees (pad 9.6 m out)",
+     "nodes": [
+      9
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G10",
+     "sev": "soft",
+     "msg": "relay 9: no clear ledge, the tower holds the socket",
+     "nodes": [
+      9
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-09-grinder.json",
+   "code": "N-09",
+   "name": "Grinder",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 13,
+   "footprint": [
+    128.6,
+    50.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 4,
+   "note": "S, 13 platforms, choke, inward. A 6-way meat grinder: a hexagon of platforms round a rotor hub whose three bridges (120 degrees apart) turn 60 degrees every fire - bottom centre + top sides, then top centre + bottom sides - so the hub is always connected and every turn kills whatever is on its bridges (review 2026-09-29; short bridges so the hexagon fits). Two lanes per side feed the hexagon. Survivor ring: the hub and the hexagon.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "heartforge"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 5: 0 T1 in its pocket",
+     "nodes": [
+      5
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 7: 0 T1 in its pocket",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "13 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "G10",
+     "sev": "soft",
+     "msg": "relay 6: no clear ledge, the tower holds the socket",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-10-hill.json",
+   "code": "N-10",
+   "name": "Hill",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 15,
+   "footprint": [
+    119.2,
+    65.7
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "M, 15 platforms, choke, inward. A T4 hill on the axis. Each side's mid platform m is a retract relay: its deck into the hill and its deck back to the pocket a retract (a commitment on the main road). The top axis platform t is a remote console that raises the mid-to-bottom shortcuts m-w on both sides (a central console driving the approaches). Survivor ring: the hill, the axis platforms, u / w and m / m'.",
+   "skins": {
+    "vat": "hive",
+    "forge": "heartforge",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "15 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
     }
    ]
   },

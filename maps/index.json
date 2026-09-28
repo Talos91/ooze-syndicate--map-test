@@ -1,6 +1,6 @@
 {
  "built": "2026-09-28 13:29",
- "stamp": "20260928125654",
+ "stamp": "20260928132938",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -970,6 +970,426 @@
      ]
     }
    ]
+  },
+  {
+   "file": "R-01-fork-road.json",
+   "code": "R-01",
+   "name": "Fork Road",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 13,
+   "footprint": [
+    112.2,
+    44.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "Small (11 platforms), 1 relay. Each home's road forks (Junction_Fork) to an upper and a lower platform; both reach the centre Forge, whose lower decks are a drawbridge (retract). The pockets run on to the fork's platforms. Bridges: S pockets, S / M / L, Fork. Inward Last Stand keeps the drawbridge.",
+   "skins": {
+    "vat": "biopod",
+    "laser": "obelisk",
+    "forge": "anvil"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "13 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "R-02-crossroads.json",
+   "code": "R-02",
+   "name": "Crossroads",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 15,
+   "footprint": [
+    106.4,
+    64.3
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Small (12 platforms), 3 relays. Each home steps onto an X junction that reaches the upper platform, the lower platform and the centre. The centre is a swing (rotation): the two decks to the X junctions (the middle road), or the long deck down to the bottom T, which the gates guard. The lower platforms are gates (retract) on the bottom crossing. Bridges: S pockets, S / M / L, X, T.",
+   "skins": {
+    "vat": "crystal",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "machinegoon": "spitter"
+   },
+   "findings": []
+  },
+  {
+   "file": "R-03-knot.json",
+   "code": "R-03",
+   "name": "Knot",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 15,
+   "footprint": [
+    85.0,
+    78.7
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Small (11 platforms), 5 relays (relay-heavy). Each home's Y junction reaches the two knot platforms; the knot is a K junction in the middle. The upper knot platforms are gates (retract) into the knot, the lower ones switches (the knot or the bottom T), and the top of the axis is a remote console that cuts both homes' Y roads. Bridges: S pockets, M, Y, K, T.",
+   "skins": {
+    "vat": "distillery",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "machinegoon": "pepperbox"
+   },
+   "findings": []
+  },
+  {
+   "file": "R-04-causeway.json",
+   "code": "R-04",
+   "name": "Causeway",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 21,
+   "footprint": [
+    132.9,
+    64.3
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 1,
+   "note": "Mid (15 platforms), 1 relay. The middle road is a causeway of T junctions joined by one long junction-to-junction deck; the T stems climb to the top road and drop to the bottom platforms. The centre Forge is a remote console that opens / closes the causeway's last decks. Bridges: S pockets, S / M / L, T, junction-to-junction L. Inward Last Stand keeps the console.",
+   "skins": {
+    "vat": "hive",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "monster_hub": "hatchery"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "21 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "R-05-fork-gates.json",
+   "code": "R-05",
+   "name": "Fork Gates",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 18,
+   "footprint": [
+    125.7,
+    64.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Mid (15 platforms), 3 relays. Each home's road splits at a Fork: the upper arm to the centre switch, the lower arm onto the bottom lane. The centre is a switch: its side decks, or its deck down to the bottom lane's T junction; above it, a fixed triangle to the top platforms. The lower arm's platforms are swings (rotation): up to the switch's side, or across to the bottom T. Bridges: S pockets, S / M / L, Fork, T.",
+   "skins": {
+    "vat": "reactor",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "monster_hub": "pit"
+   },
+   "findings": []
+  },
+  {
+   "file": "R-06-switchyard.json",
+   "code": "R-06",
+   "name": "Switchyard",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 17,
+   "footprint": [
+    121.0,
+    78.6
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Mid (15 platforms), 5 relays (relay-heavy). Every home has a switch in front of it: its deck to the upper or the lower centre platform. The centre is a drawbridge (retract) on its upper decks. The top platforms are swings (rotation): across to the T above the centre, or back to the switch; the bottom crossing is a Y. Bridges: S pockets, S / M / L, T, Y.",
+   "skins": {
+    "vat": "graduate",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "machinegoon": "spitter"
+   },
+   "findings": []
+  },
+  {
+   "file": "R-07-three-roads.json",
+   "code": "R-07",
+   "name": "Three Roads",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 29,
+   "footprint": [
+    192.6,
+    81.5
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 10,
+   "note": "Big, 1 relay. Three roads: the middle one runs through an X junction and a T at the centre, where the Forge's drawbridge (retract) joins them; the top and bottom roads climb from the pockets over L junctions and reach the axis platforms, which the Forge links to (fixed). Bridges: S pockets, S / M / L, X, T, L. Inward Last Stand keeps the drawbridge.",
+   "skins": {
+    "vat": "faction",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "monster": "alt"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (80.0, 5.2): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 7 at (2.0, 25.6): beyond the standard 160 x 80 frame",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 8 at (158.0, 25.6): beyond the standard 160 x 80 frame",
+     "nodes": [
+      8
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 12 at (-10.3, 40.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      12
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 13 at (170.3, 40.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 20 at (1.0, 55.9): beyond the standard 160 x 80 frame",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 21 at (159.0, 55.9): beyond the standard 160 x 80 frame",
+     "nodes": [
+      21
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 27 at (12.3, 74.8): beyond the standard 160 x 80 frame",
+     "nodes": [
+      27
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 28 at (147.7, 74.8): beyond the standard 160 x 80 frame",
+     "nodes": [
+      28
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "29 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "R-08-braid.json",
+   "code": "R-08",
+   "name": "Braid",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 29,
+   "footprint": [
+    186.6,
+    72.7
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 6,
+   "note": "Big, 3 relays. Each home's road forks (Fork) and the two strands braid through a K junction before the centre. The centre is a switch: its upper side decks, or its long deck up to the top axis platform. The top and bottom lanes are long T-junction bridges that drop into the braid; the top lane's platforms are remote consoles for the bottom lane's axis crossing (two junction-to-junction decks at a T). Bridges: S pockets, S / M / L, Fork, K, T, junction-to-junction.",
+   "skins": {
+    "vat": "biopod",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "monster_hub": "hatchery"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 5 at (1.5, 26.1): beyond the standard 160 x 80 frame",
+     "nodes": [
+      5
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 6 at (158.5, 26.1): beyond the standard 160 x 80 frame",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 16 at (-7.3, 43.1): beyond the standard 160 x 80 frame",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 17 at (167.3, 43.1): beyond the standard 160 x 80 frame",
+     "nodes": [
+      17
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 22 at (2.4, 59.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      22
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 23 at (157.6, 59.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      23
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "R-09-ring-road.json",
+   "code": "R-09",
+   "name": "Ring Road",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 23,
+   "footprint": [
+    179.9,
+    65.8
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 2,
+   "note": "Big, 5 relays (relay-heavy). A ring road around a hub: the centre is an X junction whose four decks reach the two hub platforms and the top / bottom axis platforms. The bottom axis platform is a remote console for the hub's side decks; the hub platforms are swings (rotation) down to the bottom lane or to the console; the top lane has gates (retract) half-way. Each home reaches the ring through an X junction. Bridges: S pockets, S / M / L, X.",
+   "skins": {
+    "vat": "crystal",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "machinegoon": "pepperbox",
+    "monster_hub": "pit"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 14 at (-4.0, 40.5): beyond the standard 160 x 80 frame",
+     "nodes": [
+      14
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 15 at (164.0, 40.5): beyond the standard 160 x 80 frame",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "R-10-team-bridges.json",
+   "code": "R-10",
+   "name": "Team Bridges",
+   "modes": [
+    "2v2"
+   ],
+   "nodes": 31,
+   "footprint": [
+    143.2,
+    78.5
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 0,
+   "note": "Special, 2v2, 3 relays. Two homes per side share a Y junction and a K junction knot toward the centre. The centre is a swing (rotation): the upper knot platforms or the top axis T. The top and bottom lanes are long T-junction bridges; the bottom lane's platforms are remote consoles for the top lane's axis crossing. Bridges: S pockets, S / M / L, Y, K, T, junction-to-junction.",
+   "skins": {
+    "vat": "reactor",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "machinegoon": "spitter",
+    "monster": "alt"
+   },
+   "findings": []
   }
  ]
 }

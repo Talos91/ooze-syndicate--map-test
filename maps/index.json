@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 16:09",
- "stamp": "20260929160933",
+ "built": "2026-09-29 16:22",
+ "stamp": "20260929162251",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -3043,6 +3043,90 @@
      "rule": "L04",
      "sev": "soft",
      "msg": "13 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-33-crossing-three.json",
+   "code": "N-33",
+   "name": "Crossing Three",
+   "modes": [
+    "3v3"
+   ],
+   "nodes": 21,
+   "footprint": [
+    129.0,
+    78.5
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 7,
+   "note": "L, 18 platforms, 3v3, inward. Three homes a side. The middle home's front is an X junction feeding both pockets and the middle platform; the centre is a six-way roundabout (Junction_Hub6) fed from the middle platforms and the top platforms, which are gates drawing up their spoke and their bridge to the middle in one go. The survivor ring keeps the lane platforms too, so all six players have producers at the end. Mirrored left / right.",
+   "skins": {
+    "vat": "crystal",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 4: 1 T1 in its pocket",
+     "nodes": [
+      4
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 5: 1 T1 in its pocket",
+     "nodes": [
+      5
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 15: 0 T1 in its pocket",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 16: 0 T1 in its pocket",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 19: 0 T1 in its pocket",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 20: 0 T1 in its pocket",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "21 nodes, 1 method(s)",
      "nodes": [],
      "edges": []
     }

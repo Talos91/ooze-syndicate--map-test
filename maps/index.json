@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 13:54",
- "stamp": "20260929135436",
+ "built": "2026-09-29 14:26",
+ "stamp": "20260929142621",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -1194,13 +1194,13 @@
    ],
    "nodes": 19,
    "footprint": [
-    115.8,
-    77.1
+    131.1,
+    65.9
    ],
    "pass": true,
    "hard": 0,
-   "soft": 3,
-   "note": "L, 19 platforms, open, inward, 2v2. A ring road runs round the map; teammates share k. The centre is a rotor hub: its pair of bridges turns from the middle road (m / m') to the axis (t / z), and it has no fixed deck. The bottom diagonal platforms beside it are gates (review 2026-09-29: always some risk near the centre): each draws up its bridge into the hub (a gate on the top diagonals would face the camera, rule G09). Survivor ring: everything inside the ring road.",
+   "soft": 2,
+   "note": "L, 19 platforms, open, inward, 2v2. A ring road runs round the map; teammates share k. The centre is a rotor hub: its pair of bridges turns from the middle road (m / m') to the axis (t / z), and it has no fixed deck. The bottom diagonal platforms beside it are gates (review 2026-09-29: always some risk near the centre): each draws up its bridge into the hub (a gate on the top diagonals would face the camera, rule G09; they keep no bridge into the hub, which leaves the hub's relay button a free 90-degree slot above it, rule G11). Survivor ring: everything inside the ring road.",
    "skins": {
     "vat": "hive",
     "forge": "anvil",
@@ -1215,20 +1215,11 @@
      "edges": []
     },
     {
-     "rule": "G11",
-     "sev": "soft",
-     "msg": "relay 6: widest free gap 45 degrees (pad 9.6 m out)",
-     "nodes": [
-      6
-     ],
-     "edges": []
-    },
-    {
      "rule": "G10",
      "sev": "soft",
-     "msg": "relay 6: no clear ledge, the tower holds the socket",
+     "msg": "relay 9: no clear ledge, the tower holds the socket",
      "nodes": [
-      6
+      9
      ],
      "edges": []
     }
@@ -1285,12 +1276,12 @@
    ],
    "nodes": 19,
    "footprint": [
-    104.1,
-    81.4
+    127.4,
+    77.8
    ],
    "pass": true,
    "hard": 0,
-   "soft": 9,
+   "soft": 4,
    "note": "L, 19 platforms, choke, inward, three rings. The homes and pockets fall first, then the middle lanes, leaving the centre. The centre is now a rotor hub with no fixed deck (a meat grinder: its pair turns from the middle road to the axis and back, killing whatever is on it), and the bottom diagonal platforms q are gates drawing up their bridge into the hub (review 2026-09-29: experts dodged the old rotor).",
    "skins": {
     "vat": "hive",
@@ -1299,38 +1290,11 @@
    },
    "findings": [
     {
-     "rule": "G01",
+     "rule": "T03",
      "sev": "soft",
-     "msg": "node 0 at (58.1, 5.3): beyond the standard 160 x 80 frame",
+     "msg": "home 10: 0 T1 in its pocket",
      "nodes": [
-      0
-     ],
-     "edges": []
-    },
-    {
-     "rule": "G01",
-     "sev": "soft",
-     "msg": "node 1 at (101.9, 5.3): beyond the standard 160 x 80 frame",
-     "nodes": [
-      1
-     ],
-     "edges": []
-    },
-    {
-     "rule": "G01",
-     "sev": "soft",
-     "msg": "node 17 at (58.1, 74.7): beyond the standard 160 x 80 frame",
-     "nodes": [
-      17
-     ],
-     "edges": []
-    },
-    {
-     "rule": "G01",
-     "sev": "soft",
-     "msg": "node 18 at (101.9, 74.7): beyond the standard 160 x 80 frame",
-     "nodes": [
-      18
+      10
      ],
      "edges": []
     },
@@ -1344,28 +1308,10 @@
      "edges": []
     },
     {
-     "rule": "T03",
-     "sev": "soft",
-     "msg": "home 7: 0 T1 in its pocket",
-     "nodes": [
-      7
-     ],
-     "edges": []
-    },
-    {
      "rule": "L04",
      "sev": "soft",
      "msg": "19 nodes, 1 method(s)",
      "nodes": [],
-     "edges": []
-    },
-    {
-     "rule": "G11",
-     "sev": "soft",
-     "msg": "relay 9: widest free gap 45 degrees (pad 9.6 m out)",
-     "nodes": [
-      9
-     ],
      "edges": []
     },
     {

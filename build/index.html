@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ooze Syndicate — Map Build</title>
+<style>
+:root{color-scheme:dark}
+:root{
+  --bg:#0b0f14; --panel:#111820; --panel2:#0d1319; --text:#dfe8f0; --muted:#7c8b99; --accent:#2ee6ff;
+  --ok:#7dff5a; --border:#22303b; --hard:#ff5a5a; --soft:#ffc24a; --btn:#16212b; --btnh:#1c2b38;
+  --deck:#566d80; --deckedge:#8aa3b6; --plate:#1d2a35; --platerim:#3f5566;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--text);font:13px/1.4 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif;overflow:hidden}
+#app{display:flex;flex-direction:column;height:100vh}
+button,select,input,textarea{font:inherit;color:var(--text);background:var(--btn);border:1px solid var(--border);border-radius:5px;padding:4px 9px}
+button{cursor:pointer}
+button:hover{background:var(--btnh)}
+button.on{background:var(--accent);color:#04222a;border-color:var(--accent);font-weight:600}
+#top{display:flex;flex-wrap:nowrap;gap:6px;align-items:center;padding:6px 8px;background:var(--panel);border-bottom:1px solid var(--border)}
+#top .grp{display:flex;gap:4px;align-items:center;padding-right:8px;border-right:1px solid var(--border)}
+#top .grp:last-of-type{border-right:none}
+#path{width:280px}
+#msg{margin-left:auto;color:var(--muted);font-size:12px;flex:1 1 0;min-width:0;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+main{flex:1;display:flex;min-height:0}
+#palette{width:176px;flex:0 0 176px;background:var(--panel);border-right:1px solid var(--border);overflow-y:auto;padding:8px}
+#palette h4{margin:10px 0 5px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+#palette h4:first-child{margin-top:0}
+.item.exp{border-style:dashed;border-color:#6b5a2a}
+#palette h4.exp{color:#ffc24a}
+.pal{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.item{background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:4px 2px 3px;text-align:center;cursor:grab;user-select:none;touch-action:none}
+.item:hover{border-color:var(--accent)}
+.item svg{width:64px;height:48px;display:block;margin:0 auto;pointer-events:none}
+.item span{font-size:11px;color:var(--muted);pointer-events:none}
+#wrap{flex:1;position:relative;overflow:hidden}
+#stage{width:100%;height:100%;display:block;touch-action:none}
+#hint{position:absolute;left:10px;bottom:8px;color:var(--muted);font-size:11.5px;pointer-events:none;background:#0b0f14cc;padding:3px 7px;border-radius:4px}
+aside{width:300px;flex:0 0 300px;background:var(--panel);border-left:1px solid var(--border);display:flex;flex-direction:column;min-height:0}
+aside .body{flex:1;overflow-y:auto;padding:10px}
+aside h3{margin:12px 0 6px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:3px}
+aside h3:first-child{margin-top:0}
+.fld{margin-bottom:8px}
+.fld label{display:block;color:var(--muted);font-size:11px;margin-bottom:2px}
+.fld input,.fld select,.fld textarea{width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chips button{padding:3px 8px;font-size:12px}
+#sum{padding:7px;border-radius:5px;text-align:center;font-weight:600;margin-bottom:6px}
+#sum.pass{background:#123322;color:var(--ok)} #sum.fail{background:#331717;color:var(--hard)} #sum.idle{background:var(--panel2);color:var(--muted);font-weight:400}
+.find{padding:5px 6px;border-radius:4px;margin-bottom:4px;font-size:12px}
+.find.hard{background:#2a1414;color:#ffb3b3} .find.soft{background:#2a2413;color:#ffe0a3} .find.waived{background:#1a2020;color:var(--muted)}
+.muted{color:var(--muted)}
+#legend{position:absolute;right:10px;top:10px;background:#0b0f14e6;border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-size:11.5px;max-width:300px}
+#legend b{color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+#legend #lg-x{float:right;padding:0 6px;line-height:16px}
+#legend .lg{display:flex;align-items:center;gap:7px;margin-top:4px;color:var(--muted)}
+#legend .lg svg{width:30px;height:14px;flex:0 0 30px}
+#lg-show{position:absolute;right:10px;top:10px}
+#legend{max-height:calc(100% - 20px);overflow-y:auto}
+#legend .lgh{margin-top:8px;padding-top:5px;border-top:1px solid var(--border);color:var(--accent);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+#legend .lk{display:flex;gap:7px;margin-top:3px;color:var(--muted)}
+#legend kbd{flex:0 0 108px;font:600 10.5px/1.5 inherit;color:var(--text);background:var(--btn);border:1px solid var(--border);border-radius:3px;padding:0 4px;height:max-content}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div id="top">
+    <div class="grp">
+      <button id="b-new">New</button>
+      <select id="open"><option value="">Open…</option></select>
+      <input id="path" type="text" title="Save path (References/&lt;pack&gt;/json/&lt;file&gt;.json)">
+      <button id="b-save">Save</button>
+      <button id="b-lab">Send to Lab</button>
+    </div>
+    <div class="grp">
+      <button id="b-chain" title="A bridge added on another bridge's end: one longer bridge, or two separate bridges joined by a Link (so a rotor can drive just one). Key: J">Chain: merge</button>
+      <button id="b-dir8" title="Bridges leave a platform only in the 8 compass directions (every 45 degrees) - keeps layouts symmetric. Key: D">8 directions</button>
+      <button id="b-mirror" title="Copy everything left of the middle line to the right, mirrored (homes A become B)">Mirror left → right</button>
+      <button id="b-mirror-y" title="Copy everything above the middle line to the bottom, mirrored (homes A become B)">Mirror top → bottom</button>
+      <button id="b-check">Check rules</button>
+      <button id="b-fit">Fit</button>
+      <button id="b-undo">Undo</button>
+    </div>
+    <div class="grp" id="adv"><a href="/" style="color:var(--muted);font-size:12px">advanced editor</a></div>
+    <div id="msg"></div>
+  </div>
+  <main>
+    <div id="palette"></div>
+    <div id="wrap">
+      <svg id="stage" xmlns="http://www.w3.org/2000/svg"><g id="world"></g></svg>
+      <div id="legend"><b>Legend</b> <button id="lg-x" title="Hide">×</button><div class="lg"><svg viewBox="0 0 30 14"><rect x="2" y="2" width="26" height="10" fill="none" stroke="#4a6070" stroke-width="1.3" stroke-dasharray="3 2"/></svg><span>Standard map frame, 160 × 80 m</span></div><div class="lg"><svg viewBox="0 0 30 14"><rect x="2" y="2" width="26" height="10" fill="none" stroke="#5a4a30" stroke-width="1.3" stroke-dasharray="1.5 2"/></svg><span>Largest allowed frame, 202 × 83 m</span></div><div class="lg"><svg viewBox="0 0 30 14"><line x1="15" y1="0" x2="15" y2="14" stroke="#3a5060" stroke-width="1.5" stroke-dasharray="1.5 1.5"/></svg><span>Middle lines (the two Mirror buttons copy across them)</span></div><div class="lg"><svg viewBox="0 0 30 14"><circle cx="15" cy="7" r="4.5" fill="none" stroke="#2ee6ff" stroke-width="1.2" stroke-dasharray="2 1.5"/></svg><span>Loose bridge end: drop a platform, junction or bridge on it</span></div><div class="lg"><svg viewBox="0 0 30 14"><circle cx="15" cy="7" r="2.5" fill="#2ee6ff"/></svg><span>Open junction port</span></div><div class="lg"><svg viewBox="0 0 30 14"><circle cx="15" cy="7" r="5.5" fill="none" stroke="#7dff5a" stroke-width="1.5"/></svg><span>While placing: the bridge will snap onto this node</span></div><div class="lg"><svg viewBox="0 0 30 14"><circle cx="15" cy="7" r="5.5" fill="none" stroke="#ffd23f" stroke-width="1" stroke-dasharray="1.5 1.5"/></svg><span>Survivor ring platform (Last Stand keeps it)</span></div><div class="lg"><svg viewBox="0 0 30 14"><circle cx="7" cy="7" r="4" fill="none" stroke="#2ee6ff" stroke-width="1.3"/><circle cx="16" cy="7" r="4" fill="none" stroke="#7dff5a" stroke-width="1.3"/><circle cx="25" cy="7" r="4" fill="none" stroke="#ff8c2a" stroke-width="1.3"/></svg><span>Home A · Home B · Relay (yellow ring: hill)</span></div><div class="lg"><svg viewBox="0 0 30 14"><line x1="1" y1="7" x2="29" y2="7" stroke="#ff5a5a" stroke-width="1.5"/></svg><span>Bridge off its honest length or angle</span></div><div class="lg"><svg viewBox="0 0 30 14"><circle cx="10" cy="7" r="4.5" fill="none" stroke="#ff5a5a" stroke-width="1.3"/><circle cx="21" cy="7" r="4.5" fill="none" stroke="#ffc24a" stroke-width="1.3"/></svg><span>Rule finding: hard · soft (after Check rules)</span></div><div class="lg"><svg viewBox="0 0 30 14"><rect x="3" y="2" width="24" height="10" rx="2" fill="none" stroke="#6b5a2a" stroke-width="1.3" stroke-dasharray="2.5 1.5"/></svg><span>EXP pieces (dashed in the palette): experiments for us - never checked, lab-pushed or shipped</span></div><div class="lgh">Controls</div><div class="lk"><kbd>Palette: click, then click</kbd><span>pick up a palette item, click the map to put it down (or drag it there)</span></div><div class="lk"><kbd>Click a piece</kbd><span>selects it; press and drag to move it</span></div><div class="lk"><kbd>Drag a piece</kbd><span>swings it on its bridge to the earlier piece, keeping the length</span></div><div class="lk"><kbd>Shift+drag</kbd><span>moves the whole set snapped together (Ctrl+drag too)</span></div><div class="lk"><kbd>Alt+drag</kbd><span>pulls the piece off its bridges</span></div><div class="lk"><kbd>Double-click / double-tap</kbd><span>unsnaps a piece from every bridge (a bridge: its far end)</span></div><div class="lk"><kbd>R / Shift+R</kbd><span>rotates a free junction or curve 15° (side panel: 15° / 45°)</span></div><div class="lk"><kbd>Tab</kbd><span>junction on one bridge: next port · while placing: another port</span></div><div class="lk"><kbd>F</kbd><span>flips a curve on its bridge</span></div><div class="lk"><kbd>D</kbd><span>8 directions on / off (bridges every 45°)</span></div><div class="lk"><kbd>Ctrl+C / Ctrl+X</kbd><span>copy / cut the selected piece with its loose bridges (with Shift: its whole snapped set)</span></div><div class="lk"><kbd>Ctrl+V</kbd><span>paste on the pointer: click to drop, R turns it, Esc cancels</span></div><div class="lk"><kbd>Del</kbd><span>deletes the selection</span></div><div class="lk"><kbd>Esc</kbd><span>cancels placing, puts a carried piece back</span></div><div class="lk"><kbd>Ctrl+Z</kbd><span>undo</span></div><div class="lk"><kbd>Wheel · drag empty space</kbd><span>zoom · pan</span></div><div class="lk"><kbd>Relay letters</kbd><span>every relay gets its own letter (A, B, C ...); a bridge it drives shows the letter in its state colour</span></div><div class="lk"><kbd>J</kbd><span>Chain: merge / separate. Separate keeps bridges added end to end as two bridges through a Link, so a relay drives just one (a bridge with a relay state always stays separate)</span></div><div class="lk"><kbd>Flex S-bridge</kbd><span>joins two places wherever they are, bending into an S (EXP); any bridge: side panel, Make it a flex S-bridge</span></div><div class="lk"><kbd>Junction on a port</kbd><span>plugs straight in, no bridge (EXP); Tab picks its port</span></div><div class="lk"><kbd>Bridge on a loose end</kbd><span>one longer bridge</span></div><div class="lk"><kbd>Bridge ending near a node</kbd><span>snaps onto it (closes triangles)</span></div></div>
+      <button id="lg-show" style="display:none">Legend</button>
+      <div id="hint">Pieces and controls: see the legend (top right)</div>
+    </div>
+    <aside><div class="body" id="side"></div></aside>
+  </main>
+</div>
+<script>
+// the public copy: the same save / list / download calls, kept in this browser (localStorage) and as files
+(function(){
+const KEY = "ooze-build-maps", subs = [];
+const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e){ return {}; } };
+const snap = () => { const all = read(); const docs = Object.keys(all).map(id => ({id, data: () => all[id]})); return {docs, size: docs.length}; };
+const db = {collection: () => ({
+  doc: id => ({set: async v => { const all = read(); all[id] = v; try { localStorage.setItem(KEY, JSON.stringify(all)); } catch (e){ throw new Error("this browser won't store it - use Download"); } subs.forEach(f => f(snap())); }}),
+  onSnapshot: (f) => { subs.push(f); f(snap()); return () => {}; }})};
+const downloads = {save: async ({filename, data}) => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([data], {type:"application/json"})); a.download = filename; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); return {status:"saved"}; }};
+window.claude = {use: async name => name === "db" ? db : name === "downloads" ? downloads : null};
+})();
+</script>
+<script>
+(function(){
+"use strict";
+const KIT = {"R": 6.0, "PIER": 1.6, "S": 4.0, "MODS": {"S": 1, "M": 2, "L": 3}, "CENTRE": {"S": 19.2, "M": 23.2, "L": 27.2}, "FRAME": [160.0, 80.0], "MAX_FRAME": [202.0, 83.0], "GAP": 15.0, "CLEAR": 8.6, "pieces": {"Junction_T": {"ports": [0.0, 90.0, 180.0], "r": 2.4}, "Junction_X": {"ports": [0.0, 90.0, 180.0, 270.0], "r": 2.4}, "Junction_Y": {"ports": [0.0, 120.0, 240.0], "r": 2.400033801845299}, "Junction_L": {"ports": [0.0, 90.0], "r": 2.4}, "Junction_Fork": {"ports": [30.0, 180.0, 330.0], "r": 3.300014001485448}, "Junction_Hub6": {"ports": [0.0, 60.0, 120.0, 180.0, 240.0, 300.0], "r": 3.600007401381281}, "Junction_K": {"ports": [60.0, 120.0, 240.0, 300.0], "r": 2.400033801845299}}, "rules": [{"id": "M01", "sev": "hard", "area": "data", "text": "The map has code, name, group, modes, nodes, edges, rings, lastStand, seats; node ids are 0..N-1 in order; every deck joins two different existing nodes; one deck per node pair."}, {"id": "M02", "sev": "hard", "area": "data", "text": "Codes and names are unique across the pool."}, {"id": "M03", "sev": "soft", "area": "data", "text": "No two maps share a skeleton (same graph, tiers and relays)."}, {"id": "M04", "sev": "soft", "area": "data", "text": "Pool balance: about half the battle maps are open (at least half the non-home platforms carry 4+ decks), half choke; about half offer an outward finale (35-65 % each, pools of 6+)."}, {"id": "M05", "sev": "soft", "area": "data", "text": "Every battle map carries its tags: size (XS / S / M / L), family (open / choke), finale (inward / outward / both)."}, {"id": "G01", "sev": "hard", "area": "geometry", "text": "Every platform lies wholly inside the 202 x 83 m maximum footprint (centred on the frame; soft beyond the standard 160 x 80)."}, {"id": "G02", "sev": "hard", "area": "geometry", "text": "Node centres are at least 15 m apart (a junction: 8 m, and a curve counts at its arc's middle; two nodes joined by a deck are judged by its honest length instead)."}, {"id": "G03", "sev": "hard", "area": "geometry", "text": "Tier comes from drawn length: centre distance within 1 m of 19.2 / 23.2 / 27.2 m (S / M / L)."}, {"id": "G04", "sev": "hard", "area": "geometry", "text": "Every deck's centre line stays at least 8.6 m from every foreign node centre."}, {"id": "G05", "sev": "hard", "area": "geometry", "text": "The approved planner leaves it clean: 0 clashes, 0 decks over a platform, 0 short (overlapping) piers, 0 relay ledges on a deck, every deck within 1.5 m of its tier's 4 / 8 / 12 m."}, {"id": "G06", "sev": "hard", "area": "geometry", "text": "A relay's moving decks never cross another deck (they stay on the ground)."}, {"id": "G07", "sev": "soft", "area": "geometry", "text": "At most 2 raised decks (overpasses), and only on M / L decks."}, {"id": "G08", "sev": "hard", "area": "geometry", "text": "Pier leans within 80 degrees (the kit's clamp); soft warning above 70."}, {"id": "G09", "sev": "hard", "area": "geometry", "text": "The front door is clear: no relay tower ledge and no retract gate within 45 degrees of a platform's front (the camera side, where units leave and enter)."}, {"id": "G11", "sev": "hard", "area": "geometry", "text": "Relay button pad: the widest free gap among all of a relay node's deck headings (every state, ghosts included) is at least 51.9 degrees (relay v2; test_maps4 fails below it)."}, {"id": "G13", "sev": "hard", "area": "geometry", "text": "Junction maps: every two decks (not meeting at a junction's ports) keep at least 0.3 m between their full 3.48 m widths, measured exit to exit - test_maps4's clash check (two decks leaving one platform need about 37 degrees)."}, {"id": "G10", "sev": "soft", "area": "geometry", "text": "Relay towers stand on a rim ledge, not on the socket (a tower on the socket pushes the structure to the front)."}, {"id": "N02", "sev": "hard", "area": "graph", "text": "At most 21 platforms (deck junctions don't count)."}, {"id": "N03", "sev": "hard", "area": "graph", "text": "Relays only add shortcuts: every platform stays connected with every relay deck removed (a stranded junction is fine)."}, {"id": "N04", "sev": "hard", "area": "graph", "text": "No relay steals a platform's fixed bridges: every non-relay platform keeps at least 2 fixed decks (tutorial: 1; junctions exempt)."}, {"id": "N05", "sev": "hard", "area": "relay", "text": "A relay node keeps at least 2 fixed decks (a hub - a rotation / switch keeping 2+ decks in every state - counts its own decks) and is never a home, a special node or a T4."}, {"id": "N07", "sev": "hard", "area": "relay", "text": "Every relay deck belongs to one relay of its kind: rotation / switch / retract decks touch their own relay, remote decks name their console."}, {"id": "N08", "sev": "hard", "area": "relay", "text": "Relay state groups are whole: every relay of a kind switches the full map-wide state set (Sim.relay_groups is map-wide), so no relay has a hidden empty state."}, {"id": "N09", "sev": "soft", "area": "relay", "text": "Battle maps carry at least one relay."}, {"id": "N13", "sev": "hard", "area": "relay", "text": "A rotor is a rigid body: every state has the same number of decks (at least 2), all of one tier, at the same angular spacing (a 2-to-1 rotor is illegal; targets at different tiers make it a switch)."}, {"id": "N14", "sev": "hard", "area": "relay", "text": "A switch carries at least 2 bridges (any tiers); its inactive bridges are its ghosts."}, {"id": "N15", "sev": "hard", "area": "relay", "text": "A remote is a bargain across the map: its console and every deck it drives are at least 2 bridges apart, and consistently either the console is nearer a home than its decks are (a home-side console driving a central advantage) or farther (a central console driving a home approach)."}, {"id": "N16", "sev": "hard", "area": "relay", "text": "A retract is a commitment: the relay retracts at least 2 decks, or a deck into a relay hub or the T4, or it stands on a chokepoint (removing the relay node separates every pair of enemy homes)."}, {"id": "N10", "sev": "hard", "area": "graph", "text": "Two lanes: every pair of enemy homes is joined by at least 2 routes that share no platform (battle maps)."}, {"id": "N11", "sev": "hard", "area": "graph", "text": "Short corridors: never more than 2 two-deck platforms in a row (battle maps)."}, {"id": "N12", "sev": "hard", "area": "relay", "text": "Relays on the main routes: every relay moves a deck that lies on a main route between two enemy homes (the fastest, or up to 25 % longer - PROVISIONAL) in at least one relay setting."}, {"id": "T01", "sev": "hard", "area": "nodes", "text": "Special nodes are exactly the T4 neutrals: category strategic <=> neutral tier 4 (the sim turns any T4 into a T4-only special node)."}, {"id": "T02", "sev": "hard", "area": "nodes", "text": "Neutral tiers are 1-4; homes and relay nodes carry no vat neutral."}, {"id": "T03", "sev": "soft", "area": "nodes", "text": "Each home's pocket: at least two T1 neutrals one S deck away; nothing above T2 next to a home."}, {"id": "T04", "sev": "soft", "area": "nodes", "text": "No stale structure vocabulary (cannon / old buildable lists): node kinds come from category."}, {"id": "S01", "sev": "hard", "area": "seats", "text": "Every listed mode has its seats: the right count, distinct home nodes, the right teams; modes and seats agree."}, {"id": "S02", "sev": "hard", "area": "seats", "text": "Enemy homes are at least minEnemyHomeHops (default 2) bridges apart; homes are not neighbours."}, {"id": "S03", "sev": "hard", "area": "fairness", "text": "Seats reach the Last Stand survivor ring equally (sim walk, both relay configurations): spread <= 1.0 s (soft above 0.3 s). Teams compare the nearest teammate."}, {"id": "S04", "sev": "hard", "area": "fairness", "text": "Every seat sees the same map: sorted travel times to every node match within 2.0 s (soft above 1.0 s), both relay configurations. Teams compare the nearest teammate."}, {"id": "S05", "sev": "soft", "area": "fairness", "text": "Monster reach is fair: from each seat's nearest relay, a monster (MONSTER_REACH bridges) reaches the same number of enemy homes."}, {"id": "L01", "sev": "hard", "area": "last stand", "text": "Last Stand methods come from inward / outward / chaos; battle maps offer at least one (outward-only is fine)."}, {"id": "L02", "sev": "hard", "area": "last stand", "text": "Every node sits on a ring; every method's order lists each ring once; the last ring in the order survives."}, {"id": "L03", "sev": "hard", "area": "last stand", "text": "No survivor-ring platform is ever cut off over FIXED decks as the rings fall (relays held until their rings have gone): Sim._plan_waves drops whatever a wave cuts off."}, {"id": "L04", "sev": "soft", "area": "last stand", "text": "Maps with 9+ nodes offer at least two methods."}, {"id": "L06", "sev": "hard", "area": "last stand", "text": "No dead ends through the collapse: after every wave but the last, every standing platform keeps at least 2 standing fixed decks (the very last stage is exempt)."}, {"id": "L07", "sev": "hard", "area": "last stand", "text": "The survivor ring feeds: it holds at least one producing neutral (T1-T3, not a home or relay) per seat (battle maps)."}, {"id": "L05", "sev": "hard", "area": "last stand", "text": "The finale keeps a decision: after the last wave at least one standing relay still changes a travel time between two survivor-ring platforms (its two configurations differ) - battle maps with relays."}, {"id": "J01", "sev": "hard", "area": "junction", "text": "A deck at a junction keeps its tier's honest length: platform - junction 14 / 18 / 22 m, junction - junction 8.8 / 12.8 / 16.8 m."}, {"id": "J02", "sev": "hard", "area": "junction", "text": "Decks leave a junction along its ports (within 3 degrees)."}, {"id": "J03", "sev": "hard", "area": "junction", "text": "A junction carries at least 2 decks and never more than its ports (Junction_Hub6: 6)."}, {"id": "C01", "sev": "hard", "area": "campaign", "text": "Seat A (the player, VEX) starts on the LEFT half of the match camera's screen, the rival on the right (mission backgrounds carry readable signs and can't be mirrored)."}, {"id": "P01", "sev": "hard", "area": "phone", "text": "Phone fit (tests/phone_fit.tscn): smallest tap >= 44 pt, nothing off screen or under the HUD, no badge off screen or on another badge."}], "allPieces": {"Junction_T": [{"a": 0.0, "x": 2.4, "y": 0.0}, {"a": 90.0, "x": 0.0, "y": 2.4}, {"a": 180.0, "x": -2.4, "y": 0.0}], "Junction_X": [{"a": 0.0, "x": 2.4, "y": 0.0}, {"a": 90.0, "x": 0.0, "y": 2.4}, {"a": 180.0, "x": -2.4, "y": 0.0}, {"a": 270.0, "x": -0.0, "y": -2.4}], "Junction_Y": [{"a": 0.0, "x": 2.4, "y": 0.0}, {"a": 120.0, "x": -1.2, "y": 2.0785}, {"a": 240.0, "x": -1.2, "y": -2.0785}], "Junction_L": [{"a": 0.0, "x": 2.4, "y": 0.0}, {"a": 90.0, "x": 0.0, "y": 2.4}], "Junction_Fork": [{"a": 30.0, "x": 2.8579, "y": 1.65}, {"a": 180.0, "x": -3.3, "y": 0.0}, {"a": 330.0, "x": 2.8579, "y": -1.65}], "Junction_Hub6": [{"a": 0.0, "x": 3.6, "y": 0.0}, {"a": 60.0, "x": 1.8, "y": 3.1177}, {"a": 120.0, "x": -1.8, "y": 3.1177}, {"a": 180.0, "x": -3.6, "y": 0.0}, {"a": 240.0, "x": -1.8, "y": -3.1177}, {"a": 300.0, "x": 1.8, "y": -3.1177}], "Junction_K": [{"a": 60.0, "x": 1.2, "y": 2.0785}, {"a": 120.0, "x": -1.2, "y": 2.0785}, {"a": 240.0, "x": -1.2, "y": -2.0785}, {"a": 300.0, "x": 1.2, "y": -2.0785}], "Curve_45": [{"a": 180.0, "x": 0.0, "y": 0.0}, {"a": 45, "x": 3.5992, "y": 1.4908}], "Curve_90": [{"a": 180.0, "x": 0.0, "y": 0.0}, {"a": 90, "x": 5.09, "y": 5.09}]}, "default_dir": "References/Ooze Syndicate maps - lab tests/json"};
+const SPR = {"Bend_120": {"file": "exp_Bend_120.png", "half": 3.229, "experimental": true, "model": true, "url": "sprites/exp_Bend_120.png"}, "Bend_135": {"file": "exp_Bend_135.png", "half": 3.202, "experimental": true, "model": true, "url": "sprites/exp_Bend_135.png"}, "Bend_150": {"file": "exp_Bend_150.png", "half": 3.229, "experimental": true, "model": true, "url": "sprites/exp_Bend_150.png"}, "Crossing": {"file": "exp_Crossing.png", "half": 6.3, "experimental": true, "model": true, "url": "sprites/exp_Crossing.png"}, "Curve_30": {"file": "exp_Curve_30.png", "half": 4.971, "experimental": true, "model": true, "url": "sprites/exp_Curve_30.png"}, "Curve_60": {"file": "exp_Curve_60.png", "half": 8.393, "experimental": true, "model": true, "url": "sprites/exp_Curve_60.png"}, "Curve_W45": {"file": "exp_Curve_W45.png", "half": 8.71, "experimental": true, "model": true, "url": "sprites/exp_Curve_W45.png"}, "Curve_W90": {"file": "exp_Curve_W90.png", "half": 12.23, "experimental": true, "model": true, "url": "sprites/exp_Curve_W90.png"}, "Deck_Half_2m": {"file": "exp_Deck_Half_2m.png", "half": 2.34, "experimental": true, "model": true, "url": "sprites/exp_Deck_Half_2m.png"}, "Deck_Span_16m": {"file": "exp_Deck_Span_16m.png", "half": 16.322, "experimental": true, "model": true, "url": "sprites/exp_Deck_Span_16m.png"}, "Deck_Span_20m": {"file": "exp_Deck_Span_20m.png", "half": 20.322, "experimental": true, "model": true, "url": "sprites/exp_Deck_Span_20m.png"}, "Junction_Hub5": {"file": "exp_Junction_Hub5.png", "half": 4.059, "experimental": true, "model": true, "url": "sprites/exp_Junction_Hub5.png"}, "Junction_Kletter": {"file": "exp_Junction_Kletter.png", "half": 4.899, "experimental": true, "model": true, "url": "sprites/exp_Junction_Kletter.png"}, "Junction_Kletter30": {"file": "exp_Junction_Kletter30.png", "half": 5.308, "experimental": true, "model": true, "url": "sprites/exp_Junction_Kletter30.png"}, "Junction_Kletter60": {"file": "exp_Junction_Kletter60.png", "half": 6.694, "experimental": true, "model": true, "url": "sprites/exp_Junction_Kletter60.png"}, "Junction_T45": {"file": "exp_Junction_T45.png", "half": 4.899, "experimental": true, "model": true, "url": "sprites/exp_Junction_T45.png"}, "Junction_WideFork": {"file": "exp_Junction_WideFork.png", "half": 4.899, "experimental": true, "model": true, "url": "sprites/exp_Junction_WideFork.png"}, "Round_4": {"file": "exp_Round_4.png", "half": 6.31, "experimental": true, "model": true, "url": "sprites/exp_Round_4.png"}, "Round_6": {"file": "exp_Round_6.png", "half": 6.347, "experimental": true, "model": true, "url": "sprites/exp_Round_6.png"}, "Sbend_L2": {"file": "exp_Sbend_L2.png", "half": 8.319, "experimental": true, "model": true, "url": "sprites/exp_Sbend_L2.png"}, "Sbend_L4": {"file": "exp_Sbend_L4.png", "half": 8.328, "experimental": true, "model": true, "url": "sprites/exp_Sbend_L4.png"}, "Sbend_R2": {"file": "exp_Sbend_R2.png", "half": 8.319, "experimental": true, "model": true, "url": "sprites/exp_Sbend_R2.png"}, "Sbend_R4": {"file": "exp_Sbend_R4.png", "half": 8.328, "experimental": true, "model": true, "url": "sprites/exp_Sbend_R4.png"}, "platform": {"file": "platform.png", "half": 6.46, "bbox": [-6.169, -6.169, 6.169, 6.169], "url": "sprites/platform.png"}, "vat_t1": {"file": "vat_t1.png", "half": 3.435, "bbox": [-3.144, -1.77, 1.77, 1.77], "url": "sprites/vat_t1.png"}, "vat_t2": {"file": "vat_t2.png", "half": 3.865, "bbox": [-3.283, -1.87, 3.574, 1.87], "url": "sprites/vat_t2.png"}, "vat_t3": {"file": "vat_t3.png", "half": 3.675, "bbox": [-3.384, -1.972, 3.384, 1.972], "url": "sprites/vat_t3.png"}, "vat_t4": {"file": "vat_t4.png", "half": 4.125, "bbox": [-3.835, -2.094, 3.835, 2.094], "url": "sprites/vat_t4.png"}, "laser": {"file": "laser.png", "half": 2.41, "bbox": [-2.119, -2.119, 2.119, 2.119], "url": "sprites/laser.png"}, "forge": {"file": "forge.png", "half": 2.75, "bbox": [-2.461, -2.378, 2.378, 2.461], "url": "sprites/forge.png"}, "socket": {"file": "socket.png", "half": 1.805, "bbox": [-1.515, -1.515, 1.515, 1.515], "url": "sprites/socket.png"}, "deck": {"file": "deck.png", "half": 4.322, "bbox": [-0.042, -1.745, 4.031, 1.745], "url": "sprites/deck.png"}, "deck_over_ramp": {"file": "deck_over_ramp.png", "half": 4.323, "bbox": [-0.042, -1.746, 4.032, 1.746], "url": "sprites/deck_over_ramp.png"}, "deck_over_span": {"file": "deck_over_span.png", "half": 4.4, "bbox": [-0.125, -2.158, 4.109, 2.158], "url": "sprites/deck_over_span.png"}, "deck_under_ramp": {"file": "deck_under_ramp.png", "half": 4.323, "bbox": [-0.042, -1.746, 4.032, 1.746], "url": "sprites/deck_under_ramp.png"}, "deck_under_span": {"file": "deck_under_span.png", "half": 4.322, "bbox": [-0.042, -1.745, 4.031, 1.745], "url": "sprites/deck_under_span.png"}, "pier": {"file": "pier.png", "half": 7.95, "bbox": [5.536, -2.123, 7.659, 2.123], "url": "sprites/pier.png"}, "relay_retract": {"file": "relay_retract.png", "half": 3.25, "bbox": [-2.958, -2.083, 2.083, 2.083], "url": "sprites/relay_retract.png"}, "deck_retract": {"file": "deck_retract.png", "half": 4.322, "bbox": [-0.042, -1.579, 4.031, 1.579], "url": "sprites/deck_retract.png"}, "relay_rotation": {"file": "relay_rotation.png", "half": 3.25, "bbox": [-2.958, -2.083, 2.083, 2.083], "url": "sprites/relay_rotation.png"}, "deck_rotation": {"file": "deck_rotation.png", "half": 4.322, "bbox": [-0.042, -1.745, 4.031, 1.745], "url": "sprites/deck_rotation.png"}, "relay_switch": {"file": "relay_switch.png", "half": 3.25, "bbox": [-2.958, -2.083, 2.083, 2.083], "url": "sprites/relay_switch.png"}, "deck_switch": {"file": "deck_switch.png", "half": 4.322, "bbox": [-0.042, -1.745, 4.031, 1.745], "url": "sprites/deck_switch.png"}, "relay_remote": {"file": "relay_remote.png", "half": 3.25, "bbox": [-2.958, -2.083, 2.083, 2.083], "url": "sprites/relay_remote.png"}, "deck_remote": {"file": "deck_remote.png", "half": 4.322, "bbox": [-0.042, -1.87, 4.031, 1.745], "url": "sprites/deck_remote.png"}, "Curve_45": {"file": "Curve_45.png", "half": 5.104, "bbox": [-0.041, -2.739, 4.814, 1.784], "url": "sprites/Curve_45.png"}, "Curve_90": {"file": "Curve_90.png", "half": 7.13, "bbox": [-0.062, -5.134, 6.839, 1.767], "url": "sprites/Curve_90.png"}, "Junction_Fork": {"file": "Junction_Fork.png", "half": 4.009, "bbox": [-3.344, -3.137, 3.718, 3.137], "url": "sprites/Junction_Fork.png"}, "Junction_Hub6": {"file": "Junction_Hub6.png", "half": 4.269, "bbox": [-3.644, -3.977, 3.644, 3.977], "url": "sprites/Junction_Hub6.png"}, "Junction_K": {"file": "Junction_K.png", "half": 3.232, "bbox": [-2.693, -2.942, 2.693, 2.942], "url": "sprites/Junction_K.png"}, "Junction_L": {"file": "Junction_L.png", "half": 2.71, "bbox": [-1.758, -2.42, 2.42, 1.758], "url": "sprites/Junction_L.png"}, "Junction_T": {"file": "Junction_T.png", "half": 2.71, "bbox": [-2.42, -2.42, 2.42, 1.758], "url": "sprites/Junction_T.png"}, "Junction_X": {"file": "Junction_X.png", "half": 2.71, "bbox": [-2.42, -2.42, 2.42, 2.42], "url": "sprites/Junction_X.png"}, "Junction_Y": {"file": "Junction_Y.png", "half": 3.229, "bbox": [-2.691, -2.939, 2.442, 2.939], "url": "sprites/Junction_Y.png"}, "Link": {"file": "exp_Link.png", "half": 2.354, "experimental": true, "url": "sprites/exp_Link.png"}};
+const LIST = [{"path": "References/Ooze Syndicate maps - lab tests/json/H-01-honey-gate.json", "pack": "Ooze Syndicate maps - lab tests", "file": "H-01-honey-gate.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/H-02-honey-gates.json", "pack": "Ooze Syndicate maps - lab tests", "file": "H-02-honey-gates.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/H-03-honey-remote.json", "pack": "Ooze Syndicate maps - lab tests", "file": "H-03-honey-remote.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/J-01-junction-grid.json", "pack": "Ooze Syndicate maps - lab tests", "file": "J-01-junction-grid.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/J-02-crossroads.json", "pack": "Ooze Syndicate maps - lab tests", "file": "J-02-crossroads.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/J-03-fork.json", "pack": "Ooze Syndicate maps - lab tests", "file": "J-03-fork.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/J-04-walled-bases.json", "pack": "Ooze Syndicate maps - lab tests", "file": "J-04-walled-bases.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/J-05-x-lattice.json", "pack": "Ooze Syndicate maps - lab tests", "file": "J-05-x-lattice.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/J-06-three-banks.json", "pack": "Ooze Syndicate maps - lab tests", "file": "J-06-three-banks.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/K-01-diamond-gate.json", "pack": "Ooze Syndicate maps - lab tests", "file": "K-01-diamond-gate.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/K-02-diamond-swings.json", "pack": "Ooze Syndicate maps - lab tests", "file": "K-02-diamond-swings.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/K-03-diamond-switches.json", "pack": "Ooze Syndicate maps - lab tests", "file": "K-03-diamond-switches.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/K-04-square-drawbridge.json", "pack": "Ooze Syndicate maps - lab tests", "file": "K-04-square-drawbridge.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/K-05-square-remote-bridges.json", "pack": "Ooze Syndicate maps - lab tests", "file": "K-05-square-remote-bridges.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/K-06-square-bridges-and-swings.json", "pack": "Ooze Syndicate maps - lab tests", "file": "K-06-square-bridges-and-swings.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/K-07-square-team-bridges.json", "pack": "Ooze Syndicate maps - lab tests", "file": "K-07-square-team-bridges.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/L-01-big-vat-m-01.json", "pack": "Ooze Syndicate maps - lab tests", "file": "L-01-big-vat-m-01.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/L-02-big-vat-d-13.json", "pack": "Ooze Syndicate maps - lab tests", "file": "L-02-big-vat-d-13.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-01-knot.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-01-knot.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-02-drawbridge-cross.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-02-drawbridge-cross.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-03-hex-switch.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-03-hex-switch.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-04-console.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-04-console.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-05-switchyard.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-05-switchyard.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-06-ring-road.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-06-ring-road.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-07-rim-run.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-07-rim-run.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-08-descent.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-08-descent.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-09-grinder.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-09-grinder.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-10-hill.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-10-hill.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-11-round.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-11-round.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-12-whirl.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-12-whirl.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-13-crescent.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-13-crescent.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-14-hooks.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-14-hooks.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-15-round-table.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-15-round-table.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-16-galaxy.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-16-galaxy.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-17-whirlpool.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-17-whirlpool.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-18-side-hairpins.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-18-side-hairpins.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-19-knotwork.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-19-knotwork.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-20-s-bends.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-20-s-bends.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-21-roundabout.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-21-roundabout.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-22-hex-gates.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-22-hex-gates.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-23-crossroads.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-23-crossroads.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-24-k-crossing.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-24-k-crossing.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-25-y-ring.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-25-y-ring.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-26-t-bridges.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-26-t-bridges.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-27-fork-delta.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-27-fork-delta.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-28-l-loops.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-28-l-loops.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-29-twin-roundabouts.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-29-twin-roundabouts.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-30-knot-garden.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-30-knot-garden.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-31-trefoil.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-31-trefoil.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-32-carousel.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-32-carousel.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-33-crossing-three.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-33-crossing-three.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-34-tri-roundabout.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-34-tri-roundabout.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-35-round-four.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-35-round-four.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-36-four-corners.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-36-four-corners.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-37-crescent-four.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-37-crescent-four.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-38-switchyard-three.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-38-switchyard-three.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-39-serpent-lines.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-39-serpent-lines.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-40-star.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-40-star.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/N-99-new-map.json", "pack": "Ooze Syndicate maps - lab tests", "file": "N-99-new-map.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/O-01-rotor.json", "pack": "Ooze Syndicate maps - lab tests", "file": "O-01-rotor.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/O-02-twin-rotors.json", "pack": "Ooze Syndicate maps - lab tests", "file": "O-02-twin-rotors.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/O-03-triple-rotor.json", "pack": "Ooze Syndicate maps - lab tests", "file": "O-03-triple-rotor.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/R-01-fork-road.json", "pack": "Ooze Syndicate maps - lab tests", "file": "R-01-fork-road.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/R-02-crossroads.json", "pack": "Ooze Syndicate maps - lab tests", "file": "R-02-crossroads.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/R-03-knot.json", "pack": "Ooze Syndicate maps - lab tests", "file": "R-03-knot.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/R-04-causeway.json", "pack": "Ooze Syndicate maps - lab tests", "file": "R-04-causeway.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/R-05-fork-gates.json", "pack": "Ooze Syndicate maps - lab tests", "file": "R-05-fork-gates.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/R-06-switchyard.json", "pack": "Ooze Syndicate maps - lab tests", "file": "R-06-switchyard.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/R-07-three-roads.json", "pack": "Ooze Syndicate maps - lab tests", "file": "R-07-three-roads.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/R-08-braid.json", "pack": "Ooze Syndicate maps - lab tests", "file": "R-08-braid.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/R-09-ring-road.json", "pack": "Ooze Syndicate maps - lab tests", "file": "R-09-ring-road.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/R-10-team-bridges.json", "pack": "Ooze Syndicate maps - lab tests", "file": "R-10-team-bridges.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/W-01-arches.json", "pack": "Ooze Syndicate maps - lab tests", "file": "W-01-arches.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/W-02-serpent.json", "pack": "Ooze Syndicate maps - lab tests", "file": "W-02-serpent.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/W-03-coil.json", "pack": "Ooze Syndicate maps - lab tests", "file": "W-03-coil.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/W-04-roundabout.json", "pack": "Ooze Syndicate maps - lab tests", "file": "W-04-roundabout.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/W-05-steps.json", "pack": "Ooze Syndicate maps - lab tests", "file": "W-05-steps.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/W-06-meander.json", "pack": "Ooze Syndicate maps - lab tests", "file": "W-06-meander.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/W-07-lens.json", "pack": "Ooze Syndicate maps - lab tests", "file": "W-07-lens.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/W-08-figure-eight.json", "pack": "Ooze Syndicate maps - lab tests", "file": "W-08-figure-eight.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/W-09-waves.json", "pack": "Ooze Syndicate maps - lab tests", "file": "W-09-waves.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/W-10-twin-dips.json", "pack": "Ooze Syndicate maps - lab tests", "file": "W-10-twin-dips.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/X-01-small-drawbridge.json", "pack": "Ooze Syndicate maps - lab tests", "file": "X-01-small-drawbridge.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/X-02-mid-drawbridge.json", "pack": "Ooze Syndicate maps - lab tests", "file": "X-02-mid-drawbridge.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/X-03-big-drawbridge.json", "pack": "Ooze Syndicate maps - lab tests", "file": "X-03-big-drawbridge.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/X-04-small-three-gates.json", "pack": "Ooze Syndicate maps - lab tests", "file": "X-04-small-three-gates.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/X-05-small-five-gates.json", "pack": "Ooze Syndicate maps - lab tests", "file": "X-05-small-five-gates.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/X-06-mid-doorsteps.json", "pack": "Ooze Syndicate maps - lab tests", "file": "X-06-mid-doorsteps.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/X-07-mid-five-gates.json", "pack": "Ooze Syndicate maps - lab tests", "file": "X-07-mid-five-gates.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/X-08-big-three-gates.json", "pack": "Ooze Syndicate maps - lab tests", "file": "X-08-big-three-gates.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/X-09-big-five-gates.json", "pack": "Ooze Syndicate maps - lab tests", "file": "X-09-big-five-gates.json"}, {"path": "References/Ooze Syndicate maps - lab tests/json/X-10-team-drawbridges.json", "pack": "Ooze Syndicate maps - lab tests", "file": "X-10-team-drawbridges.json"}, {"path": "References/Ooze Syndicate maps - size test/json/D-11-size-94.json", "pack": "Ooze Syndicate maps - size test", "file": "D-11-size-94.json"}, {"path": "References/Ooze Syndicate maps - size test/json/D-12-size-121.json", "pack": "Ooze Syndicate maps - size test", "file": "D-12-size-121.json"}, {"path": "References/Ooze Syndicate maps - size test/json/D-13-size-148.json", "pack": "Ooze Syndicate maps - size test", "file": "D-13-size-148.json"}, {"path": "References/Ooze Syndicate maps - size test/json/D-14-size-175.json", "pack": "Ooze Syndicate maps - size test", "file": "D-14-size-175.json"}, {"path": "References/Ooze Syndicate maps - size test/json/D-15-size-202.json", "pack": "Ooze Syndicate maps - size test", "file": "D-15-size-202.json"}, {"path": "References/Ooze Syndicate maps - size test/json/D-16-size-121-tall.json", "pack": "Ooze Syndicate maps - size test", "file": "D-16-size-121-tall.json"}, {"path": "References/Ooze Syndicate maps - size test/json/D-17-size-202-max.json", "pack": "Ooze Syndicate maps - size test", "file": "D-17-size-202-max.json"}, {"path": "References/Ooze Syndicate maps 4.2 - Alpha 11 classics/json/A-01-orbital-nexus.json", "pack": "Ooze Syndicate maps 4.2 - Alpha 11 classics", "file": "A-01-orbital-nexus.json"}, {"path": "References/Ooze Syndicate maps 4.2 - Alpha 11 classics/json/A-02-switchback-foundry.json", "pack": "Ooze Syndicate maps 4.2 - Alpha 11 classics", "file": "A-02-switchback-foundry.json"}, {"path": "References/Ooze Syndicate maps 4.2 - Alpha 11 classics/json/A-03-aurora-concourse.json", "pack": "Ooze Syndicate maps 4.2 - Alpha 11 classics", "file": "A-03-aurora-concourse.json"}, {"path": "References/Ooze Syndicate maps 4.2 - Alpha 11 classics/json/A-04-trident-exchange.json", "pack": "Ooze Syndicate maps 4.2 - Alpha 11 classics", "file": "A-04-trident-exchange.json"}, {"path": "References/Ooze Syndicate maps 4.2 - tutorial/json/T-03-first-batch.json", "pack": "Ooze Syndicate maps 4.2 - tutorial", "file": "T-03-first-batch.json"}, {"path": "References/Ooze Syndicate maps 4.2 - tutorial/json/T-04-vat-row.json", "pack": "Ooze Syndicate maps 4.2 - tutorial", "file": "T-04-vat-row.json"}, {"path": "References/Ooze Syndicate maps 4.2 - tutorial/json/T-05-border-run.json", "pack": "Ooze Syndicate maps 4.2 - tutorial", "file": "T-05-border-run.json"}, {"path": "References/Ooze Syndicate maps 4.2 - tutorial/json/T-06-pivot.json", "pack": "Ooze Syndicate maps 4.2 - tutorial", "file": "T-06-pivot.json"}, {"path": "References/Ooze Syndicate maps 4.2 - tutorial/json/T-07-switchyard.json", "pack": "Ooze Syndicate maps 4.2 - tutorial", "file": "T-07-switchyard.json"}, {"path": "References/Ooze Syndicate maps 4.2 - tutorial/json/T-08-relay-works.json", "pack": "Ooze Syndicate maps 4.2 - tutorial", "file": "T-08-relay-works.json"}, {"path": "References/Ooze Syndicate maps 4.2 - tutorial/json/T-09-collapse-ring.json", "pack": "Ooze Syndicate maps 4.2 - tutorial", "file": "T-09-collapse-ring.json"}, {"path": "References/Ooze Syndicate maps 4.2 - tutorial/json/T-10-long-decks.json", "pack": "Ooze Syndicate maps 4.2 - tutorial", "file": "T-10-long-decks.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/B-01-orbital-nexus.json", "pack": "Ooze Syndicate maps 4.2", "file": "B-01-orbital-nexus.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/B-02-switchback-foundry.json", "pack": "Ooze Syndicate maps 4.2", "file": "B-02-switchback-foundry.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/B-03-khepri-wheel.json", "pack": "Ooze Syndicate maps 4.2", "file": "B-03-khepri-wheel.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/B-04-aurora-concourse.json", "pack": "Ooze Syndicate maps 4.2", "file": "B-04-aurora-concourse.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/B-05-trident-exchange.json", "pack": "Ooze Syndicate maps 4.2", "file": "B-05-trident-exchange.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/C-01-meridian-rotunda.json", "pack": "Ooze Syndicate maps 4.2", "file": "C-01-meridian-rotunda.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/C-02-vantage-wire.json", "pack": "Ooze Syndicate maps 4.2", "file": "C-02-vantage-wire.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/C-03-tessel-spindle.json", "pack": "Ooze Syndicate maps 4.2", "file": "C-03-tessel-spindle.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/C-04-norrin-junction.json", "pack": "Ooze Syndicate maps 4.2", "file": "C-04-norrin-junction.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/C-05-aurelia-breach.json", "pack": "Ooze Syndicate maps 4.2", "file": "C-05-aurelia-breach.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/D-01-tier-ladder.json", "pack": "Ooze Syndicate maps 4.2", "file": "D-01-tier-ladder.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/D-02-relay-bench.json", "pack": "Ooze Syndicate maps 4.2", "file": "D-02-relay-bench.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/D-03-ring-bench.json", "pack": "Ooze Syndicate maps 4.2", "file": "D-03-ring-bench.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/S-01-karth-line.json", "pack": "Ooze Syndicate maps 4.2", "file": "S-01-karth-line.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/S-02-sable-salient.json", "pack": "Ooze Syndicate maps 4.2", "file": "S-02-sable-salient.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/S-03-halcyon-trench.json", "pack": "Ooze Syndicate maps 4.2", "file": "S-03-halcyon-trench.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/S-04-oberon-bastion.json", "pack": "Ooze Syndicate maps 4.2", "file": "S-04-oberon-bastion.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/S-05-corvid-rampart.json", "pack": "Ooze Syndicate maps 4.2", "file": "S-05-corvid-rampart.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/T-01-first-steps.json", "pack": "Ooze Syndicate maps 4.2", "file": "T-01-first-steps.json"}, {"path": "References/Ooze Syndicate maps 4.2/json/T-02-turning-tide.json", "pack": "Ooze Syndicate maps 4.2", "file": "T-02-turning-tide.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-01-meadow-array.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-01-meadow-array.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-02-scatter-field.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-02-scatter-field.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-03-drift-belt.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-03-drift-belt.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-04-reef-cluster.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-04-reef-cluster.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-05-shoal-grid.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-05-shoal-grid.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-06-spore-fields.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-06-spore-fields.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-07-vat-hollows.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-07-vat-hollows.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-08-neon-delta.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-08-neon-delta.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-09-shard-archipelago.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-09-shard-archipelago.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-10-glow-terraces.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-10-glow-terraces.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-11-moss-ridge.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-11-moss-ridge.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-12-sludge-basin.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-12-sludge-basin.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-13-vapor-isles.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-13-vapor-isles.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-14-relay-marsh.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-14-relay-marsh.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-15-cinder-steppe.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-15-cinder-steppe.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-16-halo-glade.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-16-halo-glade.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-17-tri-moon-pastures.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-17-tri-moon-pastures.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-18-ember-flats.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-18-ember-flats.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-19-echo-dunes.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-19-echo-dunes.json"}, {"path": "References/Ooze Syndicate maps 4.3 classic/json/M-20-orbital-orchards.json", "pack": "Ooze Syndicate maps 4.3 classic", "file": "M-20-orbital-orchards.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-21-lantern-reach.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-21-lantern-reach.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-22-coral-steps.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-22-coral-steps.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-23-fungal-terrace.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-23-fungal-terrace.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-24-pylon-heath.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-24-pylon-heath.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-25-mirror-moor.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-25-mirror-moor.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-26-static-fen.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-26-static-fen.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-27-cobalt-commons.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-27-cobalt-commons.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-28-twin-tides.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-28-twin-tides.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-29-quarry-row.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-29-quarry-row.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-30-sporefall-plain.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-30-sporefall-plain.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-31-glass-crossing.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-31-glass-crossing.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-32-rust-marches.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-32-rust-marches.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-33-triad-hollow.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-33-triad-hollow.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-34-spindle-moor.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-34-spindle-moor.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-35-prism-glade.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-35-prism-glade.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-36-whisper-fork.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-36-whisper-fork.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-37-switchyard-sprawl.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-37-switchyard-sprawl.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-38-relay-labyrinth.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-38-relay-labyrinth.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-39-circuit-warren.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-39-circuit-warren.json"}, {"path": "References/Ooze Syndicate maps 4.4 classic/json/M-40-junction-maze.json", "pack": "Ooze Syndicate maps 4.4 classic", "file": "M-40-junction-maze.json"}, {"path": "References/Ooze Syndicate maps 4.6 relay/json/M-51-relay-rookery.json", "pack": "Ooze Syndicate maps 4.6 relay", "file": "M-51-relay-rookery.json"}, {"path": "References/Ooze Syndicate maps 4.6 relay/json/M-52-tangle-works.json", "pack": "Ooze Syndicate maps 4.6 relay", "file": "M-52-tangle-works.json"}, {"path": "References/Ooze Syndicate maps 4.6 relay/json/M-53-crosswire-commons.json", "pack": "Ooze Syndicate maps 4.6 relay", "file": "M-53-crosswire-commons.json"}, {"path": "References/Ooze Syndicate maps 4.6 relay/json/M-54-gearwheel-glade.json", "pack": "Ooze Syndicate maps 4.6 relay", "file": "M-54-gearwheel-glade.json"}, {"path": "References/Ooze Syndicate maps 4.6 relay/json/M-55-pulse-warrens.json", "pack": "Ooze Syndicate maps 4.6 relay", "file": "M-55-pulse-warrens.json"}, {"path": "References/Ooze Syndicate maps 4.6 relay/json/M-56-circuitry-steps.json", "pack": "Ooze Syndicate maps 4.6 relay", "file": "M-56-circuitry-steps.json"}, {"path": "References/Ooze Syndicate maps 4.6 relay/json/M-57-relay-quarry.json", "pack": "Ooze Syndicate maps 4.6 relay", "file": "M-57-relay-quarry.json"}, {"path": "References/Ooze Syndicate maps 4.6 relay/json/M-58-signal-tangle.json", "pack": "Ooze Syndicate maps 4.6 relay", "file": "M-58-signal-tangle.json"}, {"path": "References/Ooze Syndicate maps 4.6 relay/json/M-59-dynamo-plaza.json", "pack": "Ooze Syndicate maps 4.6 relay", "file": "M-59-dynamo-plaza.json"}, {"path": "References/Ooze Syndicate maps 4.6 relay/json/M-60-breaker-yards.json", "pack": "Ooze Syndicate maps 4.6 relay", "file": "M-60-breaker-yards.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-01-knot.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-01-knot.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-02-drawbridge-cross.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-02-drawbridge-cross.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-03-hex-switch.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-03-hex-switch.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-04-console.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-04-console.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-05-switchyard.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-05-switchyard.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-06-ring-road.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-06-ring-road.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-07-rim-run.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-07-rim-run.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-08-descent.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-08-descent.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-09-grinder.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-09-grinder.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-10-hill.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-10-hill.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-11-round.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-11-round.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-12-whirl.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-12-whirl.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-13-crescent.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-13-crescent.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-14-hooks.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-14-hooks.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-15-round-table.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-15-round-table.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-16-galaxy.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-16-galaxy.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-17-whirlpool.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-17-whirlpool.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-18-side-hairpins.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-18-side-hairpins.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-19-knotwork.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-19-knotwork.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-20-s-bends.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-20-s-bends.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-21-roundabout.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-21-roundabout.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-22-hex-gates.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-22-hex-gates.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-23-crossroads.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-23-crossroads.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-24-k-crossing.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-24-k-crossing.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-25-y-ring.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-25-y-ring.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-26-t-bridges.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-26-t-bridges.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-27-fork-delta.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-27-fork-delta.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-28-l-loops.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-28-l-loops.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-29-twin-roundabouts.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-29-twin-roundabouts.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-30-knot-garden.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-30-knot-garden.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-31-trefoil.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-31-trefoil.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-32-carousel.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-32-carousel.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-33-crossing-three.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-33-crossing-three.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-34-tri-roundabout.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-34-tri-roundabout.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-35-round-four.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-35-round-four.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-36-four-corners.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-36-four-corners.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-37-crescent-four.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-37-crescent-four.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-38-switchyard-three.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-38-switchyard-three.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-39-serpent-lines.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-39-serpent-lines.json"}, {"path": "References/Ooze Syndicate maps 5.0/json/N-40-star.json", "pack": "Ooze Syndicate maps 5.0", "file": "N-40-star.json"}];
+const EXPP = {
+ "note": "EXPERIMENTAL connector pieces for the Build page only (Daniele 2026-09-29: \"add all of these to the map builder ... we\ntouch no rule, nothing goes in staging or release or test, this is for us\").",
+ "pieces": {
+  "Curve_30": [
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 30,
+    "edge_centre": [
+     3.82,
+     1.0236
+    ]
+   }
+  ],
+  "Curve_60": [
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 60,
+    "edge_centre": [
+     6.6164,
+     3.82
+    ]
+   }
+  ],
+  "Curve_W45": [
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 45,
+    "edge_centre": [
+     7.2054,
+     2.9846
+    ]
+   }
+  ],
+  "Curve_W90": [
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 90,
+    "edge_centre": [
+     10.19,
+     10.19
+    ]
+   }
+  ],
+  "Sbend_L2": [
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     8.0,
+     2.0
+    ]
+   }
+  ],
+  "Sbend_R2": [
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     8.0,
+     -2.0
+    ]
+   }
+  ],
+  "Sbend_L4": [
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     8.0,
+     4.0
+    ]
+   }
+  ],
+  "Sbend_R4": [
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     8.0,
+     -4.0
+    ]
+   }
+  ],
+  "Bend_120": [
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     2.4,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 120.0,
+    "edge_centre": [
+     -1.2,
+     2.0785
+    ]
+   }
+  ],
+  "Bend_135": [
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     2.4,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 135.0,
+    "edge_centre": [
+     -1.6971,
+     1.6971
+    ]
+   }
+  ],
+  "Bend_150": [
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     2.4,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 150.0,
+    "edge_centre": [
+     -2.0785,
+     1.2
+    ]
+   }
+  ],
+  "Junction_T45": [
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     3.8,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 45.0,
+    "edge_centre": [
+     3.3941,
+     3.3941
+    ]
+   },
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     -2.4,
+     0.0
+    ]
+   }
+  ],
+  "Junction_WideFork": [
+   {
+    "angle_deg": 45.0,
+    "edge_centre": [
+     3.3941,
+     3.3941
+    ]
+   },
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     -3.3,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 315.0,
+    "edge_centre": [
+     3.3941,
+     -3.3941
+    ]
+   }
+  ],
+  "Junction_Kletter30": [
+   {
+    "angle_deg": 30.0,
+    "edge_centre": [
+     4.1569,
+     2.4
+    ]
+   },
+   {
+    "angle_deg": 90.0,
+    "edge_centre": [
+     0.0,
+     3.2
+    ]
+   },
+   {
+    "angle_deg": 270.0,
+    "edge_centre": [
+     -0.0,
+     -3.2
+    ]
+   },
+   {
+    "angle_deg": 330.0,
+    "edge_centre": [
+     4.1569,
+     -2.4
+    ]
+   }
+  ],
+  "Link": [
+   {
+    "angle_deg": 180,
+    "edge_centre": [
+     0,
+     0
+    ]
+   },
+   {
+    "angle_deg": 0,
+    "edge_centre": [
+     0,
+     0
+    ]
+   }
+  ],
+  "Junction_Kletter": [
+   {
+    "angle_deg": 45.0,
+    "edge_centre": [
+     3.3941,
+     3.3941
+    ]
+   },
+   {
+    "angle_deg": 90.0,
+    "edge_centre": [
+     0.0,
+     3.8
+    ]
+   },
+   {
+    "angle_deg": 270.0,
+    "edge_centre": [
+     -0.0,
+     -3.8
+    ]
+   },
+   {
+    "angle_deg": 315.0,
+    "edge_centre": [
+     3.3941,
+     -3.3941
+    ]
+   }
+  ],
+  "Junction_Kletter60": [
+   {
+    "angle_deg": 60.0,
+    "edge_centre": [
+     3.2,
+     5.5426
+    ]
+   },
+   {
+    "angle_deg": 90.0,
+    "edge_centre": [
+     0.0,
+     5.7
+    ]
+   },
+   {
+    "angle_deg": 270.0,
+    "edge_centre": [
+     -0.0,
+     -5.7
+    ]
+   },
+   {
+    "angle_deg": 300.0,
+    "edge_centre": [
+     3.2,
+     -5.5426
+    ]
+   }
+  ],
+  "Junction_Hub5": [
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     3.4,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 72.0,
+    "edge_centre": [
+     1.0507,
+     3.2336
+    ]
+   },
+   {
+    "angle_deg": 144.0,
+    "edge_centre": [
+     -2.7507,
+     1.9985
+    ]
+   },
+   {
+    "angle_deg": 216.0,
+    "edge_centre": [
+     -2.7507,
+     -1.9985
+    ]
+   },
+   {
+    "angle_deg": 288.0,
+    "edge_centre": [
+     1.0507,
+     -3.2336
+    ]
+   }
+  ],
+  "Round_4": [
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     6.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 90.0,
+    "edge_centre": [
+     0.0,
+     6.0
+    ]
+   },
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     -6.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 270.0,
+    "edge_centre": [
+     -0.0,
+     -6.0
+    ]
+   }
+  ],
+  "Round_6": [
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     6.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 60.0,
+    "edge_centre": [
+     3.0,
+     5.1962
+    ]
+   },
+   {
+    "angle_deg": 120.0,
+    "edge_centre": [
+     -3.0,
+     5.1962
+    ]
+   },
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     -6.0,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 240.0,
+    "edge_centre": [
+     -3.0,
+     -5.1962
+    ]
+   },
+   {
+    "angle_deg": 300.0,
+    "edge_centre": [
+     3.0,
+     -5.1962
+    ]
+   }
+  ],
+  "Crossing": [
+   {
+    "angle_deg": 0.0,
+    "edge_centre": [
+     2.4,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 90.0,
+    "edge_centre": [
+     0.0,
+     6.0
+    ]
+   },
+   {
+    "angle_deg": 180.0,
+    "edge_centre": [
+     -2.4,
+     0.0
+    ]
+   },
+   {
+    "angle_deg": 270.0,
+    "edge_centre": [
+     0.0,
+     -6.0
+    ]
+   }
+  ]
+ },
+ "info": {
+  "Curve_30": {
+   "label": "Curve 30",
+   "group": "Curves (new)",
+   "kind": "curve",
+   "radius": 7.639437268410977,
+   "arc_m": 4
+  },
+  "Curve_60": {
+   "label": "Curve 60",
+   "group": "Curves (new)",
+   "kind": "curve",
+   "radius": 7.639437268410977,
+   "arc_m": 8
+  },
+  "Curve_W45": {
+   "label": "Wide 45",
+   "group": "Curves (new)",
+   "kind": "curve",
+   "radius": 10.185916357881302,
+   "arc_m": 8
+  },
+  "Curve_W90": {
+   "label": "Wide 90",
+   "group": "Curves (new)",
+   "kind": "curve",
+   "radius": 10.185916357881302,
+   "arc_m": 16
+  },
+  "Sbend_L2": {
+   "label": "S-bend 2 m left",
+   "group": "S-bends",
+   "kind": "sbend",
+   "length_m": 8,
+   "offset_m": 2,
+   "twin": "Sbend_R2"
+  },
+  "Sbend_R2": {
+   "label": "S-bend 2 m right",
+   "group": "S-bends",
+   "kind": "sbend",
+   "length_m": 8,
+   "offset_m": -2,
+   "twin": "Sbend_L2"
+  },
+  "Sbend_L4": {
+   "label": "S-bend 4 m left",
+   "group": "S-bends",
+   "kind": "sbend",
+   "length_m": 8,
+   "offset_m": 4,
+   "twin": "Sbend_R4"
+  },
+  "Sbend_R4": {
+   "label": "S-bend 4 m right",
+   "group": "S-bends",
+   "kind": "sbend",
+   "length_m": 8,
+   "offset_m": -4,
+   "twin": "Sbend_L4"
+  },
+  "Bend_120": {
+   "label": "Bend 120",
+   "group": "Bends / junctions (new)",
+   "kind": "hub",
+   "turn_deg": 60
+  },
+  "Bend_135": {
+   "label": "Bend 135",
+   "group": "Bends / junctions (new)",
+   "kind": "hub",
+   "turn_deg": 45
+  },
+  "Bend_150": {
+   "label": "Bend 150",
+   "group": "Bends / junctions (new)",
+   "kind": "hub",
+   "turn_deg": 30
+  },
+  "Junction_T45": {
+   "label": "T-45",
+   "group": "Bends / junctions (new)",
+   "kind": "hub"
+  },
+  "Junction_WideFork": {
+   "label": "Wide fork",
+   "group": "Bends / junctions (new)",
+   "kind": "hub"
+  },
+  "Junction_Kletter30": {
+   "label": "K 30\u00b0",
+   "group": "Bends / junctions (new)",
+   "kind": "hub",
+   "note": "the letter K with its arms 30 degrees off horizontal (turn it 180 for arms left)"
+  },
+  "Link": {
+   "label": "Link",
+   "group": "Bends / junctions (new)",
+   "kind": "link",
+   "note": "joins two bridges end to end without merging them, so each keeps its own relay state (e.g. a rotor on one)"
+  },
+  "Junction_Kletter": {
+   "label": "K 45\u00b0",
+   "group": "Bends / junctions (new)",
+   "kind": "hub",
+   "note": "shaped like the letter K: a straight top-bottom run with two arms up-right and down-right (turn it 180 for arms left)"
+  },
+  "Junction_Kletter60": {
+   "label": "K 60\u00b0",
+   "group": "Bends / junctions (new)",
+   "kind": "hub",
+   "note": "the letter K with its arms 60 degrees off horizontal (turn it 180 for arms left)"
+  },
+  "Junction_Hub5": {
+   "label": "Hub5 star",
+   "group": "Bends / junctions (new)",
+   "kind": "hub"
+  },
+  "Round_4": {
+   "label": "Roundabout 4",
+   "group": "Bends / junctions (new)",
+   "kind": "round",
+   "ring": [
+    2.6,
+    5.0
+   ]
+  },
+  "Round_6": {
+   "label": "Roundabout 6",
+   "group": "Bends / junctions (new)",
+   "kind": "round",
+   "ring": [
+    2.6,
+    5.0
+   ]
+  },
+  "Crossing": {
+   "label": "Crossing (no join)",
+   "group": "Bends / junctions (new)",
+   "kind": "crossing",
+   "routes": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     3
+    ]
+   ],
+   "note": "two routes, one passing over the other; they don't meet"
+  }
+ }
+};
+let bundle = null, saved = {};
+const C = window.claude;
+const dbp = C && C.use ? C.use("db") : Promise.resolve(null);
+const dlp = C && C.use ? C.use("downloads") : Promise.resolve(null);
+const docId = path => (path.split("/").pop().replace(/\.json$/i, "") || "map").replace(/[^A-Za-z0-9._-]/g, "_").slice(0, 120);
+window.MB_LOCAL = async function(url, body){
+  if (url === "/api/kit") return KIT;
+  if (url === "/sprites/sprites.json") return SPR;
+  if (url === "/api/maps") return LIST;
+  if (url === "/experimental/pieces.json") return EXPP;
+  if (url.startsWith("/api/map?path=")){
+    const path = decodeURIComponent(url.slice(14));
+    if (path.startsWith("saved:")){ const d = saved[path.slice(6)]; if (!d) throw new Error("that saved map is gone"); return Object.assign(JSON.parse(d.map), {_savePath: d.path}); }
+    const mine = saved[docId(path)];
+    if (mine && mine.path === path) return Object.assign(JSON.parse(mine.map), {_savedNote: "(your saved version, " + (mine.savedAt || "").slice(0, 16).replace("T", " ") + ")"});
+    if (!bundle){ const r = await fetch("maps.json"); bundle = await r.json(); }
+    if (!bundle[path]) throw new Error("not in this copy");
+    return JSON.parse(JSON.stringify(bundle[path]));
+  }
+  if (url === "/api/check") throw new Error("Check rules needs the local map server - Save, and Claude checks it");
+  if (url === "/api/save" || url === "/api/lab"){
+    const db = await dbp;
+    if (!db) throw new Error("saving isn't available in this view - use Download");
+    const id = docId(body.path), m = body.map;
+    await db.collection("maps").doc(id).set({path: body.path, code: m.code || "", name: m.name || "", savedAt: new Date().toISOString(), map: JSON.stringify(m)});
+    saved[id] = {path: body.path, code: m.code || "", name: m.name || "", savedAt: new Date().toISOString(), map: JSON.stringify(m)};   // before the snapshot comes back
+    return {saved: "in this browser as " + id};
+  }
+  throw new Error("not available without the local server: " + url);
+};
+function tweak(){
+  const q = s => document.querySelector(s);
+  if (!q("#b-lab") || !q("#b-lab").onclick) return setTimeout(tweak, 50);     // after the page wired its buttons
+  const adv = q("#adv"); if (adv) adv.hidden = true;
+  const chk = q("#b-check"); chk.title = "Needs the local map server. Save, and Claude runs the rulebook on it.";
+  const save = q("#b-save"); save.title = "Save in this browser (Download to keep or send the file)";
+  const imp = document.createElement("button"); imp.id = "b-import"; imp.textContent = "Import"; imp.title = "Open a map .json file from your computer";
+  const fin = document.createElement("input"); fin.type = "file"; fin.accept = ".json,application/json"; fin.hidden = true;
+  imp.onclick = () => fin.click();
+  fin.onchange = async () => {
+    const f = fin.files[0]; if (!f) return;
+    try { const m = JSON.parse(await f.text()); if (!m.nodes || !m.edges) throw new Error("not a map file"); window.MB_HOOK.load(m); q("#path").value = "References/Ooze Syndicate maps - lab tests/json/" + f.name; q("#msg").textContent = "Imported " + f.name; }
+    catch (e){ q("#msg").textContent = "Import failed: " + e.message; }
+    fin.value = "";
+  };
+  save.after(imp); imp.after(fin);
+  const dl = q("#b-lab");
+  dl.textContent = "Download"; dl.title = "Download the map as a .json file";
+  dl.onclick = async () => {
+    const msg = t => { q("#msg").textContent = t; q("#msg").title = t; };
+    const dls = await dlp;
+    if (!dls){ msg("Downloads aren't available in this view - use Save"); return; }
+    const m = window.MB_HOOK.map(), path = q("#path").value.trim() || "map.json";
+    try { await dls.save({filename: path.split("/").pop() || "map.json", data: JSON.stringify(m, null, 1)}); msg("Downloaded"); }
+    catch (e){ msg(e.code === "declined" ? "Download cancelled" : "Download failed: " + (e.message || e.code)); }
+  };
+  dbp.then(db => {
+    if (!db) return;
+    const sel = q("#open");
+    const grp = document.createElement("optgroup"); grp.label = "\u2605 My maps (saved in this browser)";
+    db.collection("maps").onSnapshot(snap => {
+      saved = {};
+      grp.textContent = "";
+      for (const d of snap.docs){ const v = d.data() || {}; saved[d.id] = v; grp.appendChild(new Option((v.code ? v.code + " " : "") + (v.name || d.id) + "  (" + (v.savedAt || "").slice(0, 16).replace("T", " ") + ")", "saved:" + d.id)); }
+      if (snap.size && !grp.parentNode) sel.insertBefore(grp, sel.children[1] || null);   // right under "Open..."
+    }, () => {});
+  });
+}
+tweak();
+})();
+</script>
+<script>
+(function(){
+"use strict";
+const $ = s => document.querySelector(s);
+const NS = "http://www.w3.org/2000/svg";
+let K = null;                                   // kit from /api/kit
+let SPR = {};                                   // sprites/sprites.json (Blender top-down renders)
+const R = () => K.R, PIER = () => K.PIER;
+const sprUrl = sp => sp.url || "/sprites/" + sp.file;
+window.MB_HOOK = {map: () => toMap().m, load: m => { snapshot(); fromMap(m); lastCheck = null; fit(); side(); }};   // the standalone pages: download / import      // the standalone page downloads the current map through this
+const MODS = {S:1, M:2, L:3, H:0.5, X16:4, X20:5, FLEX:2}, SECS = {S:2, M:4, L:6};   // H / X16 / X20: EXPERIMENTAL lengths (Build page only)
+const DECKW = 3.48;
+const STATE_COL = {"":null, ret:"#ff5a5a", r1:"#ffd23f", r2:"#ff8c2a", s1:"#9cffd0", s2:"#8fb3ff", m1:"#ff9ecf"};
+const SEATS = ["A", "B", "C", "D", "E", "F"];
+const ROLE_COL = {normal:"#3f5566", hill:"#ffd23f", homeA:"#2ee6ff", homeB:"#7dff5a", homeC:"#ff6bd6", homeD:"#ffb13b", homeE:"#a98bff", homeF:"#ff5e5e", relay:"#ff8c2a"};
+const ROLE_LBL = {hill:"HILL T4"}; for (const x of SEATS) ROLE_LBL["home" + x] = "HOME " + x;
+const isHome = p => p && /^home[A-F]$/.test(p.role || ""), seatOf = p => p.role.slice(4);
+const GLYPH = {retract:"X", rotation:"R", switch:"S", remote:"M"};
+
+// ------------------------------------------------------------------ state
+let S = blank();
+let undo = [];
+let view = {s: 6, tx: 40, ty: 40};
+let drag = null;
+let dir8 = false;
+let keepSeparate = false;  // bridges joined end to end: false = one longer bridge, true = two bridges through a Link (EXP)          // bridges leave platforms every 45 degrees instead of every 5
+const STEP = () => dir8 ? 45 : 5;          // current pointer interaction
+let lastCheck = null;
+function blank(){ return {pieces:{}, decks:{}, next:1, sel:null, meta:{code:"N-99", name:"New map", note:""}, outward:false}; }
+function nid(){ return S.next++; }
+function snapshot(){ undo.push(JSON.stringify(S)); if (undo.length > 80) undo.shift(); }
+function msg(t){ $("#msg").textContent = t; $("#msg").title = t; }
+
+// ------------------------------------------------------------------ geometry (map metres, y down; angles ccw, y up)
+const rad = d => d * Math.PI / 180, deg = r => r * 180 / Math.PI;
+const norm = a => ((a % 360) + 360) % 360;
+const adiff = (a, b) => Math.abs(((a - b) % 360 + 540) % 360 - 180);
+function dirv(a){ return [Math.cos(rad(a)), -Math.sin(rad(a))]; }
+function angTo(p, q){ return norm(deg(Math.atan2(-(q[1]-p[1]), q[0]-p[0]))); }
+function rot(x, y, yaw){ const c = Math.cos(rad(yaw)), s = Math.sin(rad(yaw)); return [x*c - y*s, x*s + y*c]; }   // y up
+function isCurve(p){ return p.kind === "j" && p.piece.startsWith("Curve"); }
+function isSbend(p){ return p.kind === "j" && p.piece.startsWith("Sbend"); }
+const EXP = () => K.expInfo || {};                // EXPERIMENTAL pieces (editor/experimental/pieces.json): Build page only
+function isExperimental(){ return Object.values(S.pieces).some(p => p.kind === "j" && EXP()[p.piece]) || Object.values(S.decks).some(d => d.shape || !mods(d) || mods(d) % 1 || mods(d) > 3 || (d.a && d.a.skew)); }
+function ports(p){                                // [{x,y,a}] world
+  return (K.allPieces[p.piece] || []).map(q => { const [rx, ry] = rot(q.x, q.y, p.yaw); return {x: p.x + rx, y: p.y - ry, a: norm(q.a + p.yaw)}; });
+}
+function anchor(att){                               // where a deck end meets its piece, and the outward direction
+  const p = S.pieces[att.p];
+  if (!p) return null;
+  if (p.kind === "p"){ const d = dirv(att.ang), r = R() + PIER(); return {x: p.x + d[0]*r, y: p.y + d[1]*r, a: norm(att.ang + (att.skew || 0))}; }
+  const q = ports(p)[att.port];
+  return q ? {x: q.x, y: q.y, a: q.a} : null;
+}
+function mods(d){ return d.mods != null ? d.mods : MODS[d.tier]; }          // 4 m modules; bridges chained end to end add up
+function setMods(d, n){ d.mods = n; d.tier = n <= 1 ? "S" : n === 2 ? "M" : "L"; }
+function deckLen(d){ return mods(d) * K.S; }
+function deckEnds(d){
+  const A = anchor(d.a);
+  if (!A) return null;
+  if (d.shape === "s" && d.b){ const B = anchor(d.b); if (B){ const c = Math.hypot(B.x - A.x, B.y - A.y); return {A, B, ok: c > 2 && c < 32, flex:true}; } }
+  if (d.b){ const B = anchor(d.b); if (B){
+    if (!deckLen(d)) return {A, B, ok: Math.hypot(B.x-A.x, B.y-A.y) < 0.5 && adiff(A.a, norm(B.a + 180)) < 3};   // a joint: port on port
+    return {A, B, ok: Math.abs(Math.hypot(B.x-A.x, B.y-A.y) - deckLen(d)) < 1.0 && adiff(angTo([A.x,A.y],[B.x,B.y]), A.a) < 4}; } }
+  const v = dirv(A.a), L = deckLen(d);
+  return {A, B: {x: A.x + v[0]*L, y: A.y + v[1]*L, a: norm(A.a + 180)}, ok: true, loose: true};
+}
+function decksOf(pid){ return Object.values(S.decks).filter(d => d.a.p === pid || (d.b && d.b.p === pid)); }
+function usedPort(pid, k){ return Object.values(S.decks).some(d => (d.a.p === pid && d.a.port === k) || (d.b && d.b.p === pid && d.b.port === k)); }
+
+// ------------------------------------------------------------------ snapping
+function socketNear(pt, maxd, excludeDeck){        // for a bridge's start: a platform rim or a free junction port
+  let best = null;
+  for (const p of Object.values(S.pieces)){
+    if (p.kind === "p"){
+      const d = Math.hypot(pt[0]-p.x, pt[1]-p.y);
+      if (d < R() + 9 && d > 0.5){
+        const a = Math.round(angTo([p.x,p.y], pt) / STEP()) * STEP();
+        const score = Math.abs(d - R());
+        if (!best || score < best.score) best = {score, att: {p: p.id, ang: norm(a)}};
+      }
+    } else {
+      ports(p).forEach((q, k) => {
+        if (usedPort(p.id, k)) return;
+        const d = Math.hypot(pt[0]-q.x, pt[1]-q.y);
+        if (d < maxd && (!best || d < best.score)) best = {score: d, att: {p: p.id, port: k}};
+      });
+    }
+  }
+  return best && best.att;
+}
+function endSocket(B, skipPid){                     // for a bridge's far end: something already sitting exactly there
+  for (const p of Object.values(S.pieces)){
+    if (p.id === skipPid) continue;
+    if (p.kind === "p"){
+      if (Math.abs(Math.hypot(B.x-p.x, B.y-p.y) - (R() + PIER())) < 1.0 && adiff(angTo([p.x,p.y],[B.x,B.y]), B.a) < 5) return {p: p.id, ang: norm(Math.round(B.a))};
+    } else {
+      const ps = ports(p);
+      for (let k = 0; k < ps.length; k++){
+        if (usedPort(p.id, k)) continue;
+        if (Math.hypot(B.x-ps[k].x, B.y-ps[k].y) < 1.0 && adiff(ps[k].a, B.a) < 6) return {p: p.id, port: k};
+      }
+    }
+  }
+  return null;
+}
+function looseEndNear(pt, maxd){
+  let best = null;
+  for (const d of Object.values(S.decks)){
+    if (d.b) continue;
+    const e = deckEnds(d);
+    if (!e) continue;
+    const dist = Math.hypot(pt[0]-e.B.x, pt[1]-e.B.y);
+    if (dist < maxd && (!best || dist < best.dist)) best = {dist, deck: d, B: e.B};
+  }
+  return best;
+}
+function poseOnEnd(piece, B, k){                   // a junction / curve with port k sitting on loose end B (port faces B.a)
+  const pp = K.allPieces[piece];
+  const q = pp[k % pp.length];
+  const yaw = norm(B.a - q.a);
+  const [rx, ry] = rot(q.x, q.y, yaw);
+  return {x: B.x - rx, y: B.y + ry, yaw, port: k % pp.length};
+}
+function freePortNear(pt, maxd){                   // the nearest open port of a junction / curve / S-bend
+  let best = null;
+  for (const p of Object.values(S.pieces)){
+    if (p.kind !== "j") continue;
+    ports(p).forEach((q, k) => {
+      if (usedPort(p.id, k)) return;
+      const d = Math.hypot(pt[0] - q.x, pt[1] - q.y);
+      if (d < maxd && (!best || d < best.d)) best = {d, p:p.id, k, x:q.x, y:q.y, a:q.a};
+    });
+  }
+  return best;
+}
+function joinPorts(){                                // two open ports on the same spot, facing each other: a joint
+  let n = 0;
+  const open = [];
+  for (const p of Object.values(S.pieces)) if (p.kind === "j") ports(p).forEach((q, k) => { if (!usedPort(p.id, k)) open.push({p:p.id, k, q}); });
+  const done = new Set();
+  for (const u of open) for (const v of open){
+    if (u.p === v.p || done.has(u.p + ":" + u.k) || done.has(v.p + ":" + v.k)) continue;
+    if (Math.hypot(u.q.x - v.q.x, u.q.y - v.q.y) < 0.3 && adiff(u.q.a, norm(v.q.a + 180)) < 3){
+      const id = nid(); S.decks[id] = {id, tier:"S", mods:0, height:"", a:{p:u.p, port:u.k}, b:{p:v.p, port:v.k}, state:"", owner:null};
+      done.add(u.p + ":" + u.k); done.add(v.p + ":" + v.k); n++;
+    }
+  }
+  return n;
+}
+function addLink(dk){                                // a Link piece on bridge dk's loose end: dk ends on its port 0, port 1 faces on
+  const e = deckEnds(Object.assign({}, dk, {b:null}));
+  const id = nid(), pose = poseOnEnd("Link", e.B, 0);
+  S.pieces[id] = {id, kind:"j", piece:"Link", x:pose.x, y:pose.y, yaw:pose.yaw};
+  dk.b = {p:id, port:0};
+  return id;
+}
+function splitDeck(dk, k){                          // dk becomes k modules; a Link; a new bridge carries on to dk's old far end
+  const far = dk.b, total = mods(dk);
+  dk.b = null; setMods(dk, k);
+  const lk = addLink(dk), id = nid();
+  S.decks[id] = {id, tier:"S", height:dk.height, a:{p:lk, port:1}, b:far, state:"", owner:null};
+  setMods(S.decks[id], total - k);
+  S.sel = {t:"d", id:dk.id};
+  msg("Split into " + (k * K.S) + " m + " + ((total - k) * K.S) + " m - the second bridge has no relay state");
+}
+function autoAttach(){                               // close every loose end that now touches a socket
+  let n = joinPorts();
+  for (const d of Object.values(S.decks)){
+    if (d.b) continue;
+    const e = deckEnds(d);
+    if (!e) continue;
+    const s = endSocket(e.B, d.a.p);
+    if (s){ d.b = s; n++; continue; }
+    for (const d2 of Object.values(S.decks)){          // two loose ends meeting head on: one longer bridge
+      if (d2 === d || d2.b || !S.decks[d2.id]) continue;
+      const e2 = deckEnds(d2);
+      if (!e2 || Math.hypot(e.B.x - e2.B.x, e.B.y - e2.B.y) > 1.0 || adiff(e.B.a, e2.B.a) < 174) continue;
+      if (keepSeparate || d.state || d2.state){ const lk = addLink(d); d2.b = {p:lk, port:1}; n++; break; }
+      d.b = d2.a; setMods(d, mods(d) + mods(d2));
+      d.height = d.height || d2.height;
+      if (!d.state && d2.state){ d.state = d2.state; d.owner = d2.owner; }
+      delete S.decks[d2.id];
+      n++; break;
+    }
+  }
+  return n;
+}
+// ---- closing onto a nearby node (triangles, loops): the bridge takes the best-fitting honest length and the far side
+// slides (a separate group) or swings on its one bridge (same group) so the length stays honest
+const HONEST = n => n * K.S + 2 * (R() + PIER());          // platform centre to platform centre
+function subtree(start, block){                           // pieces reachable from start without crossing deck `block`
+  const seen = new Set([start]), st = [start];
+  while (st.length){ const v = st.pop(); for (const d of decksOf(v)){ if (!d.b || d === block) continue; for (const w of [d.a.p, d.b.p]) if (!seen.has(w)){ seen.add(w); st.push(w); } } }
+  return seen;
+}
+function shiftGroup(ids, dx, dy){ for (const id of ids){ S.pieces[id].x += dx; S.pieces[id].y += dy; } }
+function turnGroup(ids, cx, cy, delta){                   // ccw degrees (y up) around (cx, cy)
+  for (const id of ids){ const p = S.pieces[id]; const [rx, ry] = rot(p.x - cx, -(p.y - cy), delta); p.x = cx + rx; p.y = cy - ry; if (p.kind === "j") p.yaw = norm(p.yaw + delta); }
+  for (const d of Object.values(S.decks)) for (const k of ["a", "b"]){ const at = d[k]; if (at && ids.has(at.p) && S.pieces[at.p].kind === "p") at.ang = norm(at.ang + delta); }
+}
+function closeTarget(e, fromPid){                         // a node the loose end B of a bridge nearly reaches,
+  let best = null;                                        // or one straight ahead along it (a wrong length misses it)
+  const v = dirv(e.A.a), reach = R() + PIER() + 3 * K.S + 1.5;
+  const ray = (x, y) => { const rx = x - e.A.x, ry = y - e.A.y; return {along: rx * v[0] + ry * v[1], lat: Math.abs(rx * v[1] - ry * v[0])}; };
+  for (const p of Object.values(S.pieces)){
+    if (p.id === fromPid) continue;
+    if (p.kind === "p"){
+      const gap = Math.abs(Math.hypot(e.B.x - p.x, e.B.y - p.y) - (R() + PIER()));
+      const r = ray(p.x, p.y), ahead = r.lat < 3.5 && r.along > R() + PIER() + 2 && r.along < reach;
+      const score = ahead ? Math.min(gap, 1 + r.lat) : gap;
+      if ((gap < 7 || ahead) && (!best || score < best.gap)) best = {gap: score, p};
+    } else ports(p).forEach((q, k) => {
+      if (usedPort(p.id, k)) return;
+      const gap = Math.hypot(e.B.x - q.x, e.B.y - q.y);
+      const r = ray(q.x, q.y), ahead = r.lat < 1.5 && r.along > 2 && r.along < reach && adiff(q.a, norm(e.A.a + 180)) < 10;
+      const score = ahead ? Math.min(gap, 1 + r.lat) : gap;
+      if (((gap < 5 && adiff(q.a, e.B.a) < 25) || ahead) && (!best || score < best.gap)) best = {gap: score, p, port:k};
+    });
+  }
+  return best;
+}
+function fitLength(d, t){                                 // the S / M / L that joins the two ends where they already are
+  const X = S.pieces[d.a.p], Y = t.p, RP = R() + PIER(), ok = n => n >= 1 && n <= 3;
+  if (X.kind === "p"){                                    // a platform start can aim anywhere
+    if (Y.kind === "p"){ const dist = Math.hypot(Y.x - X.x, Y.y - X.y), n = Math.round((dist - 2 * RP) / K.S); return ok(n) && Math.abs(dist - HONEST(n)) < 1.2 ? n : null; }
+    const q = ports(Y)[t.port], dist = Math.hypot(q.x - X.x, q.y - X.y), n = Math.round((dist - RP) / K.S);
+    if (adiff(q.a, angTo([q.x, q.y], [X.x, X.y])) > 8) return null;          // the port must face the platform
+    return ok(n) && Math.abs(dist - RP - n * K.S) < 1.2 ? n : null;
+  }
+  const A = anchor(d.a), v = dirv(A.a);                   // a junction start runs straight out of its port
+  const T = Y.kind === "p" ? [Y.x, Y.y] : [ports(Y)[t.port].x, ports(Y)[t.port].y];
+  const rx = T[0] - A.x, ry = T[1] - A.y, along = rx * v[0] + ry * v[1], lat = Math.abs(rx * v[1] - ry * v[0]);
+  if (lat > 1.2) return null;
+  if (Y.kind !== "p" && adiff(ports(Y)[t.port].a, norm(A.a + 180)) > 6) return null;
+  const run = Y.kind === "p" ? along - RP : along, n = Math.round(run / K.S);
+  return ok(n) && Math.abs(run - n * K.S) < 1.2 ? n : null;
+}
+function pivotFit(M, O, D){                               // swing platform M on its one outside bridge so |OM| = D
+  let best = null;
+  for (const pd of decksOf(M.id)){
+    if (!pd.b) continue;
+    const zAtt = pd.a.p === M.id ? pd.b : pd.a, Z = S.pieces[zAtt.p];
+    if (Z.kind !== "p") continue;                        // a junction's port can't turn
+    const ids = subtree(M.id, pd);
+    if (ids.has(Z.id) || ids.has(O.id)) continue;
+    const r2 = Math.hypot(M.x - Z.x, M.y - Z.y), d = Math.hypot(Z.x - O.x, Z.y - O.y);
+    if (d > D + r2 || d < Math.abs(D - r2) || d < 0.01) continue;
+    const a = (D * D - r2 * r2 + d * d) / (2 * d), h = Math.sqrt(Math.max(0, D * D - a * a));
+    const ux = (Z.x - O.x) / d, uy = (Z.y - O.y) / d, px = O.x + a * ux, py = O.y + a * uy;
+    for (const s of [1, -1]){
+      const nx = px - s * h * uy, ny = py + s * h * ux, mv = Math.hypot(nx - M.x, ny - M.y);
+      if (!best || mv < best.mv) best = {mv, ids, Z, zAtt, delta: norm(angTo([Z.x, Z.y], [nx, ny]) - angTo([Z.x, Z.y], [M.x, M.y]))};
+    }
+  }
+  return best;
+}
+function closeOnto(d, t, fixedMods, prefer){              // join bridge d's loose end to target t; true when done
+  // prefer: the length the user picked - kept whenever the far side can slide or swing to it
+  const X = S.pieces[d.a.p], Y = t.p;
+  const loop = cluster(X.id).has(Y.id);
+  const fit = fixedMods ? null : fitLength(d, t);        // the two places already fit an honest length: use it
+  if (fit) prefer = fit;
+  const tries = fixedMods ? [fixedMods] : prefer ? [prefer].concat([1, 2, 3].filter(k => k !== prefer)) : [1, 2, 3];
+  if (Y.kind === "j"){                                   // a junction port: only a separate group can slide onto it
+    if (prefer && !fixedMods) setMods(d, prefer);
+    if (fit && X.kind === "p"){ const q = ports(Y)[t.port]; d.a.ang = angTo([X.x, X.y], [q.x, q.y]); delete d.a.skew; }
+    if (loop){ if (!fit) return false; d.b = {p:Y.id, port:t.port}; return true; }
+    const e = deckEnds(Object.assign({}, d, {b:null}));
+    if (!decksOf(Y.id).length){ const pose = poseOnEnd(Y.piece, e.B, t.port); Y.yaw = pose.yaw; shiftGroup([Y.id], pose.x - Y.x, pose.y - Y.y); }
+    else { if (adiff(ports(Y)[t.port].a, e.B.a) > 6) return false; const q = ports(Y)[t.port]; shiftGroup(cluster(Y.id), e.B.x - q.x, e.B.y - q.y); }
+    d.b = {p:Y.id, port:t.port};
+    return true;
+  }
+  if (X.kind !== "p"){                                   // from a junction port: straight on, the far group slides
+    if (loop){ if (!fit) return false; setMods(d, fit); d.b = {p:Y.id, ang: angTo([Y.x, Y.y], [anchor(d.a).x, anchor(d.a).y])}; return true; }
+    const A = anchor(d.a), v = dirv(A.a);
+    const along = (Y.x - A.x) * v[0] + (Y.y - A.y) * v[1] - (R() + PIER());
+    const n = fixedMods || prefer || Math.max(1, Math.min(3, Math.round(along / K.S)));
+    setMods(d, n);
+    const tx = A.x + v[0] * (n * K.S + R() + PIER()), ty = A.y + v[1] * (n * K.S + R() + PIER());
+    shiftGroup(cluster(Y.id), tx - Y.x, ty - Y.y);
+    d.b = {p:Y.id, ang: norm(A.a + 180)};
+    return true;
+  }
+  const dist = Math.hypot(Y.x - X.x, Y.y - X.y);
+  if (!loop){                                            // a separate group: aim at it, slide it to the honest distance
+    const n = fixedMods || prefer || tries.reduce((b, k) => Math.abs(HONEST(k) - dist) < Math.abs(HONEST(b) - dist) ? k : b, tries[0]);
+    const ang = angTo([X.x, X.y], [Y.x, Y.y]), v = dirv(ang), D = HONEST(n);
+    shiftGroup(cluster(Y.id), X.x + v[0] * D - Y.x, X.y + v[1] * D - Y.y);
+    setMods(d, n); d.a.ang = ang; delete d.a.skew; d.b = {p:Y.id, ang: norm(ang + 180)};
+    return true;
+  }
+  let pick = null;                                       // a loop: the length that fits, else swing one side into place
+  for (const n of tries){
+    if (Math.abs(HONEST(n) - dist) < 0.4){ pick = {n, mv:0}; break; }
+    for (const [M, O] of [[Y, X], [X, Y]]){
+      if (M.kind !== "p") continue;
+      const f = pivotFit(M, O, HONEST(n));
+      if (f && f.mv < 14 && (!pick || f.mv < pick.mv)) pick = Object.assign({n}, f);
+    }
+    if (pick && prefer && n === prefer) break;          // the picked length works: keep it
+  }
+  if (!pick) return false;
+  if (pick.ids){
+    turnGroup(pick.ids, pick.Z.x, pick.Z.y, pick.delta);
+    pick.zAtt.ang = norm(pick.zAtt.ang + pick.delta);
+  }
+  setMods(d, pick.n);
+  d.a.ang = angTo([X.x, X.y], [Y.x, Y.y]); delete d.a.skew; d.b = {p:Y.id, ang: angTo([Y.x, Y.y], [X.x, X.y])};
+  return true;
+}
+function cluster(pid){
+  const seen = new Set([pid]), st = [pid];
+  while (st.length){
+    const v = st.pop();
+    for (const d of decksOf(v)){
+      if (!d.b) continue;
+      for (const w of [d.a.p, d.b.p]) if (!seen.has(w)){ seen.add(w); st.push(w); }
+    }
+  }
+  return seen;
+}
+
+// ------------------------------------------------------------------ drawing (sprites)
+function el(tag, attrs, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function sprite(g, name, x, y, yaw, op, sx){       // a top-down render of the kit piece, its origin at (x, y); sx stretches it
+  const sp = SPR[name];
+  if (!sp) return null;
+  const h = sp.half;
+  return el("image", {href:sprUrl(sp), x:-h, y:-h, width:2*h, height:2*h, opacity: op == null ? 1 : op,
+                      transform:`translate(${x},${y}) rotate(${-(yaw || 0)})` + (sx && Math.abs(sx - 1) > 0.02 ? ` scale(${sx},1)` : ""), "image-rendering":"optimizeQuality"}, g);
+}
+function structSprite(p){
+  if (p.role === "relay") return "relay_" + p.relay;
+  if (p.role === "hill") return "vat_t4";
+  if (isHome(p)) return "vat_t3";
+  return p.structure === "vat" ? "vat_t" + (p.tier || 1) : p.structure;
+}
+function drawPlatform(g, p, ghost){
+  const op = ghost ? 0.6 : 1;
+  if (!sprite(g, "platform", p.x, p.y, 0, op)) el("circle", {cx:p.x, cy:p.y, r:R(), fill:"#1b2833", stroke:"#3f5566", "stroke-width":1.1}, g);
+  sprite(g, structSprite(p), p.x, p.y, 0, op);
+  if (p.role === "relay" && p.structure && p.structure !== "vat") sprite(g, p.structure, p.x + 3.4, p.y + 3.4, 0, op);
+  const col = ROLE_COL[p.role];
+  if (p.role !== "normal"){
+    el("circle", {cx:p.x, cy:p.y, r:R() + 0.5, fill:"none", stroke:col, "stroke-width":0.7, opacity:op}, g);
+    const t = el("text", {x:p.x, y:p.y - R() - 1.2, "text-anchor":"middle", "font-size":3.2, "font-weight":700, fill:col}, g);
+    t.textContent = p.role === "relay" ? p.relay + " " + (p.tag || "") : ROLE_LBL[p.role];
+  } else {
+    const t = el("text", {x:p.x, y:p.y - R() - 1.0, "text-anchor":"middle", "font-size":2.8, "font-weight":700, fill:"#9fb4c2"}, g);
+    t.textContent = p.structure === "vat" ? "T" + (p.tier || 1) : p.structure + " T" + (p.tier || 1);
+  }
+  if (p.core) el("circle", {cx:p.x, cy:p.y, r:R() + 1.6, fill:"none", stroke:"#ffd23f", "stroke-width":0.35, "stroke-dasharray":"1 1"}, g);
+}
+function curvePoints(p){
+  const pp = K.allPieces[p.piece];
+  const phi = rad(pp[1].a);
+  const r = Math.hypot(pp[1].x, pp[1].y) / (2 * Math.sin(phi / 2));
+  const pts = [];
+  for (let i = 0; i <= 16; i++){
+    const t = phi * i / 16;
+    const [rx, ry] = rot(r * Math.sin(t), r * (1 - Math.cos(t)), p.yaw);
+    pts.push([p.x + rx, p.y - ry]);
+  }
+  return pts;
+}
+function drawJunction(g, p, ghost){
+  const op = ghost ? 0.6 : 1;
+  if (!sprite(g, p.piece, p.x, p.y, p.yaw, op)){
+    ports(p).forEach(q => el("line", {x1:p.x, y1:p.y, x2:q.x, y2:q.y, stroke:"#566d80", "stroke-width":DECKW}, g));
+  }
+  ports(p).forEach((q, k) => { if (!usedPort(p.id, k)) el("circle", {cx:q.x, cy:q.y, r:0.9, fill:"#2ee6ff", opacity:0.9}, g); });
+}
+function drawDeck(g, d, ghost){
+  const e = deckEnds(d);
+  if (!e) return;
+  if (!deckLen(d)){                                   // a joint: the two ports meet, just mark the seam
+    const v = dirv(e.A.a + 90);
+    el("line", {x1:e.A.x - v[0]*1.3, y1:e.A.y - v[1]*1.3, x2:e.A.x + v[0]*1.3, y2:e.A.y + v[1]*1.3, stroke: e.ok ? "#8aa3b6" : "#ff5a5a", "stroke-width":0.3, opacity: ghost ? 0.6 : 0.9}, g);
+    return;
+  }
+  const op = ghost ? 0.6 : 1;
+  const L = Math.hypot(e.B.x - e.A.x, e.B.y - e.A.y) || 1, a = angTo([e.A.x, e.A.y], [e.B.x, e.B.y]);
+  const u = [(e.B.x - e.A.x) / L, (e.B.y - e.A.y) / L];
+  for (const att of [d.a, d.b]){                     // piers at platform ends
+    if (!att) continue;
+    const p = S.pieces[att.p];
+    if (p && p.kind === "p"){
+      const dv = dirv(att.ang);
+      el("line", {x1:p.x + dv[0]*R(), y1:p.y + dv[1]*R(), x2:p.x + dv[0]*(R()+PIER()), y2:p.y + dv[1]*(R()+PIER()), stroke:"#3a4c5b", "stroke-width":DECKW - 0.6, opacity:op}, g);
+    }
+  }
+  if (e.flex){ drawFlex(g, e, op); return; }
+  const kind = d.state === "ret" ? "retract" : ({r:"rotation", s:"switch", m:"remote"})[(d.state || " ")[0]];
+  const one = !kind && !d.height && ({0.5:"Deck_Half_2m", 4:"Deck_Span_16m", 5:"Deck_Span_20m"})[mods(d)];   // the Skin Designer's EXP deck models
+  const n = one && SPR[one] ? 0 : Math.max(1, Math.round(L / K.S)), step = n ? L / n : L;
+  if (!n) sprite(g, one, e.A.x, e.A.y, a, op, L / (mods(d) * K.S));
+  for (let k = 0; k < n; k++){
+    let name = kind ? "deck_" + kind : "deck";
+    if (d.height === "over") name = (k === 0 || k === n - 1) ? "deck_over_ramp" : "deck_over_span";
+    if (d.height === "under") name = (k === 0 || k === n - 1) ? "deck_under_ramp" : "deck_under_span";
+    let x = e.A.x + u[0] * k * step, y = e.A.y + u[1] * k * step, yaw = a;
+    if ((d.height === "over" || d.height === "under") && k === n - 1 && n > 1){ x += u[0] * step; y += u[1] * step; yaw = norm(a + 180); }   // ramp down, laid from the far end
+    if (!sprite(g, name, x, y, yaw, op, step / K.S)) el("line", {x1:x, y1:y, x2:x + u[0]*step, y2:y + u[1]*step, stroke:"#566d80", "stroke-width":DECKW}, g);
+  }
+  if (!e.ok) el("line", {x1:e.A.x, y1:e.A.y, x2:e.B.x, y2:e.B.y, stroke:"#ff5a5a", "stroke-width":0.5, opacity:0.9}, g);
+  if (e.loose) el("circle", {cx:e.B.x, cy:e.B.y, r:1.3, fill:"none", stroke:"#2ee6ff", "stroke-width":0.5, "stroke-dasharray":"0.8 0.6"}, g);
+}
+function flexPts(e){                                 // the flex S-bridge's centre line: a cubic from A along A.a to B along B.a
+  const c = Math.hypot(e.B.x - e.A.x, e.B.y - e.A.y), k = Math.max(1.5, c * 0.42);
+  const u = dirv(e.A.a), v = dirv(e.B.a);
+  const P = [[e.A.x, e.A.y], [e.A.x + u[0]*k, e.A.y + u[1]*k], [e.B.x + v[0]*k, e.B.y + v[1]*k], [e.B.x, e.B.y]];
+  const pts = [];
+  for (let i = 0; i <= 32; i++){
+    const t = i / 32, m = 1 - t;
+    pts.push([m*m*m*P[0][0] + 3*m*m*t*P[1][0] + 3*m*t*t*P[2][0] + t*t*t*P[3][0], m*m*m*P[0][1] + 3*m*m*t*P[1][1] + 3*m*t*t*P[2][1] + t*t*t*P[3][1]]);
+  }
+  return pts;
+}
+function flexLen(e){ const q = flexPts(e); let L = 0; for (let i = 1; i < q.length; i++) L += Math.hypot(q[i][0] - q[i-1][0], q[i][1] - q[i-1][1]); return L; }
+function drawFlex(g, e, op){                          // a deck band with plank seams, drawn along the S
+  const d = "M " + flexPts(e).map(q => q[0].toFixed(2) + " " + q[1].toFixed(2)).join(" L ");
+  el("path", {d, fill:"none", stroke:"#2f3437", "stroke-width":2.8, "stroke-linecap":"butt", opacity:op}, g);
+  el("path", {d, fill:"none", stroke:"#4a5053", "stroke-width":2.35, "stroke-linecap":"butt", opacity:op}, g);
+  el("path", {d, fill:"none", stroke:"#3a4043", "stroke-width":2.1, "stroke-dasharray":"0.12 0.88", opacity:op}, g);
+  if (!e.ok) el("path", {d, fill:"none", stroke:"#ff5a5a", "stroke-width":0.5, opacity:0.9}, g);
+}
+function relayTags(){                               // every relay platform its own letter: A, B, ... Z, AA, AB ...
+  const name = i => (i >= 26 ? name(Math.floor(i / 26) - 1) : "") + String.fromCharCode(65 + i % 26);
+  const relays = Object.values(S.pieces).filter(p => p.kind === "p" && p.role === "relay").sort((a, b) => a.id - b.id);
+  const used = new Set();
+  for (const p of relays){ if (p.tag && !used.has(p.tag)) used.add(p.tag); else p.tag = null; }   // keep letters, drop copies' duplicates
+  let i = 0;
+  for (const p of relays) if (!p.tag){ while (used.has(name(i))) i++; p.tag = name(i); used.add(p.tag); }
+  for (const p of Object.values(S.pieces)) if (p.kind === "p" && p.role !== "relay" && p.tag) delete p.tag;
+}
+function drawRelayBadges(w){                         // the driving relay's letter on each bridge it moves
+  for (const d of Object.values(S.decks)){
+    if (!d.state || d.owner == null || !S.pieces[d.owner]) continue;
+    const e = deckEnds(d);
+    if (!e) continue;
+    let m = [(e.A.x + e.B.x) / 2, (e.A.y + e.B.y) / 2];
+    if (e.flex){ const q = flexPts(e); m = q[Math.floor(q.length / 2)]; }
+    el("circle", {cx:m[0], cy:m[1], r:1.55, fill:"#0b0f14", stroke: STATE_COL[d.state] || "#ff8c2a", "stroke-width":0.35}, w);
+    const t = el("text", {x:m[0], y:m[1] + 0.95, "text-anchor":"middle", "font-size":2.5, "font-weight":700, fill: STATE_COL[d.state] || "#ff8c2a"}, w);
+    t.textContent = S.pieces[d.owner].tag || "?";
+  }
+}
+function render(){
+  relayTags();
+  for (const d of Object.values(S.decks)) if (!d.b && !deckLen(d)) delete S.decks[d.id];   // a joint whose other piece left
+  const w = $("#world");
+  w.textContent = "";
+  w.setAttribute("transform", `translate(${view.tx},${view.ty}) scale(${view.s})`);
+  el("rect", {x:0, y:0, width:160, height:80, fill:"none", stroke:"#4a6070", "stroke-width":0.3, "stroke-dasharray":"2 1.5"}, w);
+  el("rect", {x:-21, y:-1.5, width:202, height:83, fill:"none", stroke:"#5a4a30", "stroke-width":0.25, "stroke-dasharray":"1 1.5"}, w);
+  el("line", {x1:80, y1:-3, x2:80, y2:83, stroke:"#1e2c38", "stroke-width":0.25, "stroke-dasharray":"1 1"}, w);
+  el("line", {x1:-3, y1:40, x2:163, y2:40, stroke:"#1e2c38", "stroke-width":0.25, "stroke-dasharray":"1 1"}, w);
+  const gd = el("g", {}, w), gp = el("g", {}, w), gs = el("g", {}, w);
+  for (const d of Object.values(S.decks)) drawDeck(gd, d);
+  for (const p of Object.values(S.pieces)) (p.kind === "p" ? drawPlatform : drawJunction)(gp, p);
+  if (S.sel){                                        // selection ring
+    if (S.sel.t === "p"){ const p = S.pieces[S.sel.id]; if (p) el("circle", {cx:p.x, cy:p.y, r:(p.kind === "p" ? R() : 3.6) + 1.6, fill:"none", stroke:"#2ee6ff", "stroke-width":0.5}, gs); }
+    else { const d = S.decks[S.sel.id]; const e = d && deckEnds(d); if (e) el("line", {x1:e.A.x, y1:e.A.y, x2:e.B.x, y2:e.B.y, stroke:"#2ee6ff", "stroke-width":DECKW + 2, opacity:0.35}, gs); }
+  }
+  if (drag && drag.ghost){                           // the piece being placed
+    const g = el("g", {}, w);
+    if (drag.ghost.kind === "d"){
+      drawDeck(g, drag.ghost.deck, true);
+      const c = drag.ghost.close;
+      if (c){ const q = c.port != null ? ports(c.p)[c.port] : c.p; el("circle", {cx:q.x, cy:q.y, r: c.port != null ? 2.2 : R() + 1.4, fill:"none", stroke:"#7dff5a", "stroke-width":0.7}, g); }
+    }
+    else if (drag.ghost.kind === "s"){ sprite(g, drag.what, drag.ghost.x, drag.ghost.y, 0, 0.8); if (drag.target) el("circle", {cx:drag.target.x, cy:drag.target.y, r:R() + 1.4, fill:"none", stroke:"#2ee6ff", "stroke-width":0.6}, g); }
+    else (drag.ghost.kind === "p" ? drawPlatform : drawJunction)(g, drag.ghost, true);
+  }
+  drawRelayBadges(w);
+  if (lastCheck) drawFindings(w);
+}
+function drawFindings(w){
+  const bad = new Set(), soft = new Set();
+  for (const f of lastCheck.findings || []) for (const id of (f.nodes || [])) (f.sev === "hard" ? bad : soft).add(id);
+  const ids = lastCheck.ids || [];
+  ids.forEach((pid, i) => {
+    const p = S.pieces[pid];
+    if (!p || !(bad.has(i) || soft.has(i))) return;
+    el("circle", {cx:p.x, cy:p.y, r:(p.kind === "p" ? R() : 3) + 2.4, fill:"none", stroke: bad.has(i) ? "#ff5a5a" : "#ffc24a", "stroke-width":0.6}, w);
+  });
+}
+
+// ------------------------------------------------------------------ palette
+const PALETTE = [
+  ["Platforms", [["p", "normal", "Platform", "platform"], ["p", "homeA", "Home A", "vat_t3"], ["p", "homeB", "Home B", "vat_t3"], ["p", "hill", "Hill T4", "vat_t4"],
+                 ["p", "homeC", "Home C", "vat_t3"], ["p", "homeD", "Home D", "vat_t3"], ["p", "homeE", "Home E", "vat_t3"], ["p", "homeF", "Home F", "vat_t3"]]],
+  ["On a platform (sockets)", [["s", "vat_t1", "Vat T1", "vat_t1"], ["s", "vat_t2", "Vat T2", "vat_t2"], ["s", "vat_t3", "Vat T3", "vat_t3"], ["s", "vat_t4", "Vat T4 hill", "vat_t4"],
+                   ["s", "laser", "Laser", "laser"], ["s", "forge", "Forge", "forge"]]],
+  ["Relays (on a platform)", [["s", "relay_retract", "Retract", "relay_retract"], ["s", "relay_rotation", "Rotation", "relay_rotation"],
+                   ["s", "relay_switch", "Switch", "relay_switch"], ["s", "relay_remote", "Remote", "relay_remote"]]],
+  ["Bridges", [["d", "S", "Short 4 m", "deck"], ["d", "M", "Medium 8 m", "deck"], ["d", "L", "Long 12 m", "deck"],
+               ["d", "M/over", "Overpass 8 m", "deck_over_ramp"], ["d", "L/over", "Overpass 12 m", "deck_over_span"],
+               ["d", "M/under", "Underpass 8 m", "deck_under_ramp"], ["d", "L/under", "Underpass 12 m", "deck_under_span"]]],
+  ["Junctions", [["j", "Junction_X", "X", "Junction_X"], ["j", "Junction_T", "T", "Junction_T"], ["j", "Junction_Y", "Y", "Junction_Y"],
+                 ["j", "Junction_L", "L", "Junction_L"], ["j", "Junction_K", "K", "Junction_K"], ["j", "Junction_Fork", "Fork", "Junction_Fork"],
+                 ["j", "Junction_Hub6", "Hub6", "Junction_Hub6"]]],
+  ["Curves", [["j", "Curve_45", "Curve 45", "Curve_45"], ["j", "Curve_90", "Curve 90", "Curve_90"]]],
+];
+function buildPalette(){
+  const pal = $("#palette");
+  const groups = {};
+  groups["EXP · Bridges"] = [["d", "FLEX", "Flex S-bridge", SPR.Sbend_L2 ? "Sbend_L2" : "deck"], ["d", "H", "Half 2 m", SPR.Deck_Half_2m ? "Deck_Half_2m" : "deck"], ["d", "X16", "Span 16 m", SPR.Deck_Span_16m ? "Deck_Span_16m" : "deck"], ["d", "X20", "Span 20 m", SPR.Deck_Span_20m ? "Deck_Span_20m" : "deck"]];
+  for (const [name, inf] of Object.entries(EXP())){ const g = "EXP · " + inf.group; (groups[g] = groups[g] || []).push(["j", name, inf.label, name]); }
+  for (const [title, items] of PALETTE.concat(Object.entries(groups))){
+    const h = document.createElement("h4"); h.textContent = title; if (title.startsWith("EXP")) h.className = "exp"; pal.appendChild(h);
+    const grid = document.createElement("div"); grid.className = "pal"; pal.appendChild(grid);
+    for (const [kind, what, label, spr] of items){
+      if (kind === "j" && !K.allPieces[what]) continue;
+      const it = document.createElement("div"); it.className = "item";
+      if (SPR[spr]){ const im = document.createElement("img"); im.src = sprUrl(SPR[spr]); im.draggable = false; im.style.cssText = "width:56px;height:56px;object-fit:contain;display:block;margin:0 auto;pointer-events:none"; it.appendChild(im); }
+      const sp = document.createElement("span"); sp.textContent = label; it.appendChild(sp);
+      if (title.startsWith("EXP")) it.classList.add("exp");
+      it.title = kind === "s" ? "Drop onto a platform" : kind === "d" ? "Drag onto a platform rim, an open junction port, or another bridge's loose end (makes it longer)" : "Drop anywhere, or on a bridge's loose end";
+      it.addEventListener("pointerdown", ev => { ev.preventDefault(); startPlace(kind, what); });
+      grid.appendChild(it);
+    }
+  }
+}
+
+// ------------------------------------------------------------------ interaction
+const svg = $("#stage");
+function world(ev){ const r = svg.getBoundingClientRect(); return [(ev.clientX - r.left - view.tx) / view.s, (ev.clientY - r.top - view.ty) / view.s]; }
+function hitPiece(pt){
+  let best = null;
+  for (const p of Object.values(S.pieces)){
+    let c = [p.x, p.y];
+    if (isCurve(p)){ const ps = curvePoints(p); c = ps[Math.floor(ps.length / 2)]; }
+    else if (isSbend(p)){ const q = ports(p); c = [(q[0].x + q[1].x) / 2, (q[0].y + q[1].y) / 2]; }
+    const d = Math.hypot(pt[0]-c[0], pt[1]-c[1]), lim = p.kind === "p" ? R() : 4;
+    if (d < lim && (!best || d < best.d)) best = {d, p};
+  }
+  return best && best.p;
+}
+function hitDeck(pt){
+  for (const d of Object.values(S.decks)){
+    const e = deckEnds(d); if (!e) continue;
+    if (e.flex){ if (flexPts(e).some(q => Math.hypot(pt[0] - q[0], pt[1] - q[1]) < DECKW)) return d; continue; }
+    const v = [e.B.x-e.A.x, e.B.y-e.A.y], L2 = v[0]*v[0] + v[1]*v[1] || 1;
+    const t = Math.max(0, Math.min(1, ((pt[0]-e.A.x)*v[0] + (pt[1]-e.A.y)*v[1]) / L2));
+    if (Math.hypot(pt[0] - (e.A.x + t*v[0]), pt[1] - (e.A.y + t*v[1])) < DECKW) return d;
+  }
+  return null;
+}
+function startPlace(kind, what){
+  drag = {mode:"place", kind, what, portPick:0, ghost:null};
+  msg(kind === "d" ? "Drag onto a platform rim, an open junction port, or another bridge's loose end (makes it longer)" : "Drop anywhere, or on a bridge's loose end to snap");
+}
+function updatePlace(pt){
+  const d = drag;
+  if (d.kind === "s"){
+    const p = hitPiece(pt);
+    d.target = p && p.kind === "p" ? p : null;
+    d.ghost = {kind:"s", x: d.target ? d.target.x : pt[0], y: d.target ? d.target.y : pt[1]};
+    return;
+  }
+  if (d.kind === "d"){
+    const [tier, height] = d.what.split("/");
+    const loose = looseEndNear(pt, 6);
+    if (loose){                                    // on a bridge's loose end: carry on from it, one longer bridge
+      const x = JSON.parse(JSON.stringify(loose.deck));
+      x.id = -1; setMods(x, mods(loose.deck) + MODS[tier]); x.height = height || loose.deck.height || "";
+      d.ghost = {kind:"d", deck:x, extend:loose.deck.id, link: keepSeparate || !!loose.deck.state};
+      d.ghost.close = closeTarget(deckEnds(Object.assign({}, x, {b:null})), x.a.p);
+      return;
+    }
+    const att = socketNear(pt, 7);
+    if (!att){ d.ghost = null; return; }
+    const tmp = {id:-1, tier, height: height || "", a:att, b:null, state:""};
+    setMods(tmp, MODS[tier]);
+    if (S.pieces[att.p].kind === "p"){           // on a platform the bridge points where the pointer is
+      const p = S.pieces[att.p];
+      att.ang = norm(Math.round(angTo([p.x, p.y], pt) / STEP()) * STEP());
+    }
+    d.ghost = {kind:"d", deck:tmp};
+    const e0 = deckEnds(tmp);
+    d.ghost.close = e0 ? closeTarget(e0, att.p) : null;
+  } else {
+    const loose = looseEndNear(pt, d.kind === "p" ? 12 : 8);
+    if (d.kind === "p"){
+      let x = pt[0], y = pt[1], snap = null;
+      if (loose){ const v = dirv(loose.B.a + 180), r = R() + PIER(); x = loose.B.x + v[0]*r; y = loose.B.y + v[1]*r; snap = loose; }
+      d.ghost = {id:-1, kind:"p", x, y, role:d.what, tier:1, relay:"retract", structure:"vat", snap};
+    } else {
+      if (loose){
+        const pose = poseOnEnd(d.what, loose.B, d.portPick);
+        d.ghost = {id:-1, kind:"j", piece:d.what, x:pose.x, y:pose.y, yaw:pose.yaw, snap:loose, port:pose.port};
+      } else {
+        const q = freePortNear(pt, 5);
+        if (q){                                        // plug straight into another junction / curve port
+          const pose = poseOnEnd(d.what, {x:q.x, y:q.y, a: norm(q.a + 180)}, d.portPick);
+          d.ghost = {id:-1, kind:"j", piece:d.what, x:pose.x, y:pose.y, yaw:pose.yaw, plug:{p:q.p, port:q.k}, port:pose.port};
+        } else d.ghost = {id:-1, kind:"j", piece:d.what, x:pt[0], y:pt[1], yaw:d.yaw || 0};
+      }
+    }
+  }
+}
+function finishPlace(){
+  const g = drag && drag.ghost;
+  if (!g){ drag = null; msg(""); render(); return; }
+  if (g.kind === "s"){
+    const p = drag.target;
+    if (!p){ drag = null; msg("Drop structures and relays onto a platform"); render(); return; }
+    snapshot();
+    const w = drag.what;
+    if (w.startsWith("relay_")){ p.role = "relay"; p.relay = w.slice(6); if (p.structure === "vat") p.structure = "laser"; }
+    else if (w === "vat_t4"){ p.role = "hill"; p.structure = "vat"; }
+    else if (w.startsWith("vat_t")){ if (p.role === "hill" || p.role === "relay") p.role = "normal"; p.structure = "vat"; p.tier = Number(w.slice(5)); }
+    else { p.structure = w; if (p.role === "hill") p.role = "normal"; }
+    S.sel = {t:"p", id:p.id};
+    drag = null; msg("Platform set: " + w.replace("_", " ")); render(); side(); return;
+  }
+  snapshot();
+  if (g.kind === "d" && g.extend != null && g.link){  // two separate bridges through a Link at the old loose end
+    const dk = S.decks[g.extend], lk = addLink(dk);
+    const id = nid(), [tier, height] = drag.what.split("/");
+    S.decks[id] = {id, tier, height: height || "", a:{p:lk, port:1}, b:null, state:"", owner:null};
+    setMods(S.decks[id], MODS[tier]);
+    let n = autoAttach();
+    if (!S.decks[id].b && g.close && closeOnto(S.decks[id], g.close, MODS[tier])){ n++; autoAttach(); }
+    S.sel = {t:"d", id};
+    msg("Two separate bridges, linked" + (n ? " and joined" : "") + " - each keeps its own relay state");
+  } else if (g.kind === "d" && g.extend != null){
+    const dk = S.decks[g.extend];
+    setMods(dk, g.deck.mods); dk.height = g.deck.height;
+    let n = autoAttach();
+    if (!dk.b && g.close && closeOnto(dk, g.close, mods(dk))){ n++; autoAttach(); }
+    S.sel = {t:"d", id:dk.id};
+    msg("Bridge extended to " + deckLen(dk) + " m" + (n ? " and joined" : "") + (mods(dk) > 3 ? "" : ""));
+  } else if (g.kind === "d"){
+    const id = nid();
+    S.decks[id] = {id, tier:g.deck.tier, height:g.deck.height, a:g.deck.a, b:null, state:"", owner:null};
+    setMods(S.decks[id], mods(g.deck));
+    let n = 0;
+    if (drag.what === "FLEX"){                       // the flex S-bridge: onto the node it points at, where it stands
+      const dk = S.decks[id];
+      dk.shape = "s"; setMods(dk, 2);
+      if (g.close){
+        const t = g.close;
+        dk.b = t.port != null ? {p:t.p.id, port:t.port} : {p:t.p.id, ang: norm(anchor(dk.a).a + 180)};
+        n = 1;
+      }
+    } else n = autoAttach();
+    if (!S.decks[id].b && g.close && drag.what !== "FLEX"){
+      if (closeOnto(S.decks[id], g.close, null, MODS[g.deck.tier])){ n++; autoAttach(); }
+    }
+    S.sel = {t:"d", id};
+    if (drag.what === "FLEX"){ msg(n ? "Flex S-bridge joined - side panel: ends parallel (S) or aimed (straight)" : "Flex S-bridge placed: point it at a platform or open port to join"); }
+    else msg(n ? "Bridge placed and joined at both ends" + (mods(S.decks[id]) !== MODS[g.deck.tier] ? " (length set to " + deckLen(S.decks[id]) + " m to fit)" : "") : g.close ? "No honest length reaches that node from here - move a piece and try again" : "Bridge placed: drop a platform or junction on its loose end");
+  } else {
+    const id = nid();
+    const p = g.kind === "p" ? {id, kind:"p", x:g.x, y:g.y, role:g.role, tier:1, relay:"retract", structure:"vat", core:false}
+                             : {id, kind:"j", piece:g.piece, x:g.x, y:g.y, yaw:g.yaw};
+    S.pieces[id] = p;
+    if (g.snap){ g.snap.deck.b = p.kind === "p" ? {p:id, ang:norm(g.snap.B.a)} : {p:id, port:g.port}; }
+    else if (g.plug){ const jid = nid(); S.decks[jid] = {id:jid, tier:"S", mods:0, height:"", a:g.plug, b:{p:id, port:g.port}, state:"", owner:null}; }
+    const n = autoAttach();
+    S.sel = {t:"p", id};
+    msg(g.snap ? "Snapped onto the bridge" + (n ? " (and joined " + n + " more)" : "") : "Placed");
+  }
+  drag = null;
+  render(); side();
+}
+let lastTap = null;                                   // double tap / double click: {kind, id, t}
+const DOUBLE_MS = 400;
+function unsnap(pid){                                 // free a piece from every bridge; each bridge stays with its other side
+  const p = S.pieces[pid];
+  const ds = decksOf(pid).filter(d => d.b && d.a.p !== d.b.p);
+  if (!ds.length){ msg("Nothing to unsnap"); return false; }
+  snapshot();
+  for (const d of ds){ if (d.a.p === pid){ d.a = d.b; } d.b = null; }
+  shiftGroup([pid], 0, p.kind === "p" ? 3 : 2);        // a small nudge so it reads as free
+  S.sel = {t:"p", id:pid};
+  msg("Unsnapped from " + ds.length + " bridge(s) - move it where you want");
+  return true;
+}
+function swingPivot(pid){                             // the bridge this piece swings on: towards the earliest-placed neighbour
+  const cands = [];
+  for (const dk of decksOf(pid)){
+    if (!dk.b || dk.a.p === dk.b.p) continue;
+    const zEnd = dk.a.p === pid ? "b" : "a", Z = S.pieces[dk[zEnd].p];
+    if (Z.kind !== "p") continue;                      // a junction's port can't turn
+    const ids = subtree(pid, dk);
+    if (ids.has(Z.id)) continue;                       // part of a loop: can't swing
+    cands.push({z:Z.id, deck:dk.id, zEnd, ids:[...ids]});
+  }
+  cands.sort((a, b) => a.z - b.z);
+  return cands[0] || null;
+}
+function applyMove(pt){                               // from the drag's start pose: swing on the pivot bridge, or slide the group
+  S = JSON.parse(drag.base);
+  const dx = pt[0] - drag.start[0], dy = pt[1] - drag.start[1];
+  const pv = drag.piv;
+  if (pv){
+    const Z = S.pieces[pv.z], zAtt = S.decks[pv.deck][pv.zEnd], a0 = zAtt.ang;
+    const raw = a0 + (angTo([Z.x, Z.y], pt) - angTo([Z.x, Z.y], drag.start));
+    const delta = norm(Math.round(raw / STEP()) * STEP() - a0);
+    turnGroup(new Set(pv.ids), Z.x, Z.y, delta);
+    zAtt.ang = norm(a0 + delta);
+    drag.onAxis = false;
+    return;
+  }
+  const orig = drag.members.map(id => [id, S.pieces[id].x, S.pieces[id].y]);
+  const [ax, ay] = axisSnap(orig, dx, dy);            // lock onto a middle line when close
+  for (const [id, x, y] of orig){ S.pieces[id].x = x + (ax !== null ? ax : dx); S.pieces[id].y = y + (ay !== null ? ay : dy); }
+  drag.onAxis = ax !== null || ay !== null;
+}
+svg.addEventListener("pointerdown", ev => {
+  if (drag && drag.mode === "place") return;          // placing: the pointer-up drops it
+  if (drag && drag.mode === "move" && drag.carry){ drag.dropOnUp = true; return; }
+  svg.setPointerCapture(ev.pointerId);
+  const pt = world(ev);
+  const p = hitPiece(pt), d = p ? null : hitDeck(pt);
+  if (p){
+    S.sel = {t:"p", id:p.id};
+    drag = {mode:"move", start:pt, pid:p.id, shift:ev.altKey, ctrl:ev.shiftKey || ev.ctrlKey || ev.metaKey, moved:false, carry:false, dropOnUp:false};   // shift = detach (Alt), ctrl = whole set (Shift / Ctrl)
+  } else if (d){
+    S.sel = {t:"d", id:d.id}; drag = null;
+    const now = performance.now();
+    if (lastTap && lastTap.kind === "d" && lastTap.id === d.id && now - lastTap.t < DOUBLE_MS && d.b){ snapshot(); d.b = null; msg("Bridge's far end unsnapped"); lastTap = null; }
+    else lastTap = {kind:"d", id:d.id, t:now};
+  }
+  else { S.sel = null; drag = {mode:"pan", sx:ev.clientX, sy:ev.clientY, tx:view.tx, ty:view.ty}; }
+  render(); side();
+});
+function insideStage(ev){ const r = svg.getBoundingClientRect(); return ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom; }
+function cancelMove(){ if (drag && drag.mode === "move" && drag.moved) S = JSON.parse(undo.pop()); drag = null; render(); side(); }
+let lastPt = null;                                   // the pointer on the map, in metres (paste puts the copy here)
+window.addEventListener("pointermove", ev => {
+  if (insideStage(ev)) lastPt = world(ev);
+  if (!drag) return;
+  if (drag.mode === "place"){ drag.last = world(ev); updatePlace(drag.last); render(); return; }
+  if (drag.mode === "pan"){ view.tx = drag.tx + ev.clientX - drag.sx; view.ty = drag.ty + ev.clientY - drag.sy; render(); return; }
+  if (drag.mode === "move"){
+    if (drag.carry && !insideStage(ev)){ cancelMove(); msg("Put back (the pointer left the map)"); return; }
+    const pt = world(ev);
+    if (!drag.moved){
+      if (Math.hypot(pt[0] - drag.start[0], pt[1] - drag.start[1]) < 0.4) return;
+      snapshot(); drag.moved = true;
+      if (drag.shift){                               // Alt: this piece leaves its bridges
+        for (const dk of decksOf(drag.pid)){
+          if (dk.b && dk.b.p === drag.pid) dk.b = null;
+          else if (dk.a.p === drag.pid){ if (dk.b){ dk.a = dk.b; dk.b = null; } else delete S.decks[dk.id]; }
+        }
+      }
+      drag.piv = drag.shift || drag.ctrl ? null : swingPivot(drag.pid);
+      drag.members = drag.shift ? [drag.pid] : [...cluster(drag.pid)];
+      drag.base = JSON.stringify(S);
+    }
+    applyMove(pt);
+    render();
+  }
+});
+function axisSnap(orig, dx, dy){
+  // candidates in the moving group: a piece's centre, and where a junction / platform would sit on a loose bridge end
+  const ids = new Set(orig.map(o => o[0]));
+  const xs = [], ys = [];
+  for (const [id, x, y] of orig){ xs.push(x); ys.push(y); }
+  for (const d of Object.values(S.decks)){
+    if (d.b || !ids.has(d.a.p)) continue;
+    const e = deckEnds(d), v = dirv(e.A.a);
+    for (const k of [0, 2.4, R() + PIER()]){ xs.push(e.B.x + v[0] * k); ys.push(e.B.y + v[1] * k); }
+  }
+  const pick = (vals, C, dd) => { let best = null; for (const x of vals){ const need = C - x; if (Math.abs(need - dd) < 1.6 && (best === null || Math.abs(need - dd) < Math.abs(best - dd))) best = need; } return best; };
+  return [pick(xs, 80, dx), pick(ys, 40, dy)];
+}
+function nearSnap(members){
+  // a loose bridge end of the moved group near an open socket of another group (or the reverse): the correction
+  let best = null;
+  const tryPair = (B, pid, sign) => {
+    for (const p of Object.values(S.pieces)){
+      if (members.has(p.id) === (sign > 0) ) continue;
+      if (p.kind === "p"){                            // the platform's centre goes on the bridge's own line, one pier past its end
+        const v = dirv(B.a), tgt = [p.x + v[0] * (R() + PIER()), p.y + v[1] * (R() + PIER())];
+        const c = [sign * (tgt[0] - B.x), sign * (tgt[1] - B.y)], m = Math.hypot(c[0], c[1]);
+        if (m < 3.5 && (!best || m < best.m)) best = {m, c};
+      } else {
+        ports(p).forEach((q, k) => {
+          if (usedPort(p.id, k) || adiff(q.a, B.a) > 6) return;
+          const c = [sign * (q.x - B.x), sign * (q.y - B.y)], m = Math.hypot(c[0], c[1]);
+          if (m < 2.5 && (!best || m < best.m)) best = {m, c};
+        });
+      }
+    }
+  };
+  for (const d of Object.values(S.decks)){
+    if (d.b) continue;
+    const e = deckEnds(d);
+    if (!e) continue;
+    tryPair(e.B, d.a.p, members.has(d.a.p) ? 1 : -1);
+    if (!members.has(d.a.p)) continue;
+    for (const d2 of Object.values(S.decks)){         // a loose end of the moved group near another group's loose end
+      if (d2.b || members.has(d2.a.p)) continue;
+      const e2 = deckEnds(d2);
+      if (!e2 || adiff(e.B.a, e2.B.a) < 174) continue;
+      const c = [e2.B.x - e.B.x, e2.B.y - e.B.y], m = Math.hypot(c[0], c[1]);
+      if (m < 2.5 && (!best || m < best.m)) best = {m, c};
+    }
+  }
+  for (const p of Object.values(S.pieces)){            // an open port of the moved group near another group's open port
+    if (p.kind !== "j" || !members.has(p.id)) continue;
+    ports(p).forEach((q, k) => {
+      if (usedPort(p.id, k)) return;
+      for (const o of Object.values(S.pieces)){
+        if (o.kind !== "j" || members.has(o.id)) continue;
+        ports(o).forEach((r, kk) => {
+          if (usedPort(o.id, kk) || adiff(q.a, norm(r.a + 180)) > 6) return;
+          const c = [r.x - q.x, r.y - q.y], m = Math.hypot(c[0], c[1]);
+          if (m < 2.5 && (!best || m < best.m)) best = {m, c};
+        });
+      }
+    });
+  }
+  return best && best.c;
+}
+function finishMove(){
+  if (drag.piv){ const n = autoAttach(); msg(n ? "Joined " + n + " bridge end(s)" : "Swung on its bridge (Shift+drag moves the whole set)"); }
+  else {
+    const members = new Set(drag.members);
+    const c = nearSnap(members);                        // a nearby socket wins over the middle-line lock
+    if (c) for (const id of members){ S.pieces[id].x += c[0]; S.pieces[id].y += c[1]; }
+    const n = autoAttach();
+    msg(n ? "Joined " + n + " bridge end(s)" : drag.onAxis ? "On the middle line" : "");
+  }
+  drag = null; render(); side();
+}
+window.addEventListener("pointerup", ev => {
+  if (!drag) return;
+  if (drag.mode === "place"){                         // click a palette piece, then click on the map (or drag it there)
+    if (insideStage(ev)) finishPlace();
+    else if (!drag.ghost) msg("Now click on the map to put it down · Esc cancels");
+    return;
+  }
+  if (drag.mode === "move"){
+    const now = performance.now();
+    const quick = lastTap && lastTap.kind === "p" && lastTap.id === drag.pid && now - lastTap.t < DOUBLE_MS;
+    if (drag.carry){
+      if (!drag.dropOnUp) return;
+      if (!drag.moved && quick){ const pid = drag.pid; drag = null; lastTap = null; unsnap(pid); render(); side(); return; }
+      if (!drag.moved){ drag = null; msg(""); render(); side(); return; }
+      finishMove(); return;
+    }
+    if (drag.moved){ finishMove(); return; }
+    const pid = drag.pid;                            // a click without moving: select it (twice quickly: unsnap)
+    drag = null;
+    if (quick){ lastTap = null; unsnap(pid); }
+    else lastTap = {kind:"p", id:pid, t:now};
+    render(); side(); return;
+  }
+  drag = null; render(); side();
+});
+svg.addEventListener("wheel", ev => {
+  ev.preventDefault();
+  const r = svg.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top;
+  const f = ev.deltaY < 0 ? 1.12 : 1 / 1.12;
+  view.tx = mx - (mx - view.tx) * f; view.ty = my - (my - view.ty) * f; view.s *= f;
+  render();
+}, {passive:false});
+window.addEventListener("keydown", ev => {
+  if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
+  if (ev.key === "Escape"){ if (drag && drag.mode === "move") cancelMove(); else { drag = null; render(); } msg(""); }
+  if (ev.key === "Tab" && drag && drag.mode === "place"){ ev.preventDefault(); drag.portPick++; }
+  if ((ev.key === "r" || ev.key === "R") && drag && drag.mode === "place" && drag.kind === "j"){ drag.yaw = norm((drag.yaw || 0) + (ev.shiftKey ? -15 : 15)); if (drag.ghost && !drag.ghost.snap) drag.ghost.yaw = drag.yaw; render(); return; }
+  if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === "z"){ doUndo(); return; }
+  if ((ev.ctrlKey || ev.metaKey) && ["c", "x"].includes(ev.key.toLowerCase())){ ev.preventDefault(); copyParts(ev.key.toLowerCase() === "x", ev.shiftKey); return; }
+  if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === "v"){ ev.preventDefault(); pasteParts(); return; }
+  if ((ev.key === "r" || ev.key === "R") && drag && drag.mode === "move" && drag.paste){ turnPaste(ev.shiftKey ? -STEP() : STEP()); return; }
+  const sel = S.sel;
+  if (!sel) return;
+  if (ev.key === "Delete" || ev.key === "Backspace"){
+    snapshot();
+    if (sel.t === "d") delete S.decks[sel.id];
+    else {
+      for (const d of decksOf(sel.id)){
+        if (d.a.p === sel.id){ if (d.b && d.b.p !== sel.id){ d.a = d.b; d.b = null; } else delete S.decks[d.id]; }
+        else d.b = null;
+      }
+      delete S.pieces[sel.id];
+    }
+    S.sel = null; render(); side();
+  }
+  if (!drag && (ev.key === "r" || ev.key === "R") && sel.t === "p"){ rotatePiece(S.pieces[sel.id], ev.shiftKey ? -15 : 15); }
+  if (!drag && (ev.key === "f" || ev.key === "F" || ev.key === "Tab") && sel.t === "p" && S.pieces[sel.id].kind === "j"){ ev.preventDefault(); rotatePiece(S.pieces[sel.id], 0, 1); }
+});
+function reseat(p, dir){                             // a piece held by one bridge: turn it so another port meets that bridge
+  const held = decksOf(p.id).filter(d => d.b && d.a.p !== d.b.p);
+  const d = held[0];
+  const mine = d.b.p === p.id ? "b" : "a", other = mine === "b" ? d.a : d.b;
+  const A = anchor(other), v = dirv(A.a), L = deckLen(d);
+  const B = {x: A.x + v[0]*L, y: A.y + v[1]*L, a: norm(A.a + 180)};
+  const n = K.allPieces[p.piece].length, cur = d[mine].port;
+  const busy = new Set(decksOf(p.id).filter(x => x !== d).map(x => x.a.p === p.id ? x.a.port : x.b.port));
+  let k = cur;
+  for (let i = 0; i < n; i++){ k = (k + dir + n) % n; if (!busy.has(k)) break; }
+  if (k === cur){ msg("No other free port to turn to"); return; }
+  snapshot();
+  const pose = poseOnEnd(p.piece, B, k);
+  p.x = pose.x; p.y = pose.y; p.yaw = pose.yaw;
+  d.a = other; d.b = {p:p.id, port:pose.port};
+  msg(isCurve(p) ? "Curve flipped" : "Turned to port " + (pose.port + 1) + " of " + n);
+}
+function rotatePiece(p, step, dir){                  // step degrees for a free piece; held by one bridge: next / previous port
+  if (!p || p.kind !== "j") return;
+  const held = decksOf(p.id).filter(d => d.b && d.a.p !== d.b.p);
+  if (!held.length){
+    if (!step){ msg("A free piece: use the rotate buttons (or R / Shift+R)"); return; }
+    snapshot(); p.yaw = norm(p.yaw + step); msg("Rotated to " + Math.round(p.yaw) + "°");      // its loose bridges turn with it
+  } else if (held.length === 1) reseat(p, dir || (step < 0 ? -1 : 1));
+  else { msg("Held by " + held.length + " bridges: double-click it to unsnap first, then rotate"); return; }
+  render(); side();
+}
+// ---- copy / cut / paste: Ctrl+C the selected piece (with its loose bridges), Ctrl+Shift+C its whole snapped set;
+// Ctrl+X / Ctrl+Shift+X the same, removed; Ctrl+V carries the copy on the pointer: click to drop (it snaps like a move)
+let clip = null;
+function copyParts(cut, whole){
+  const sel = S.sel;
+  if (!sel || sel.t !== "p" || !S.pieces[sel.id]){ msg("Select a platform, junction or curve first (Shift: its whole set)"); return; }
+  const ids = whole ? cluster(sel.id) : new Set([sel.id]);
+  const decks = Object.values(S.decks).filter(d => ids.has(d.a.p) && (!d.b || ids.has(d.b.p)));
+  const ps = [...ids].map(id => S.pieces[id]);
+  const cx = ps.reduce((a, p) => a + p.x, 0) / ps.length, cy = ps.reduce((a, p) => a + p.y, 0) / ps.length;
+  clip = JSON.parse(JSON.stringify({pieces: ps, decks, cx, cy}));
+  const what = ps.length + " piece(s) and " + decks.length + " bridge(s)";
+  if (cut){
+    snapshot();
+    for (const id of ids){
+      for (const d of decksOf(id)){
+        if (ids.has(d.a.p) && (!d.b || ids.has(d.b.p))) delete S.decks[d.id];     // goes with the cut
+        else if (d.a.p === id){ d.a = d.b; d.b = null; }                            // stays with the other side, loose
+        else d.b = null;
+      }
+      delete S.pieces[id];
+    }
+    S.sel = null; render(); side();
+    msg("Cut " + what + " - Ctrl+V to paste");
+  } else msg("Copied " + what + " - Ctrl+V to paste");
+}
+function pasteParts(){
+  if (!clip){ msg("Nothing copied yet: select a piece and press Ctrl+C (Ctrl+Shift+C for its whole set)"); return; }
+  if (drag) return;
+  const at = lastPt || [clip.cx + 12, clip.cy + 12];
+  snapshot();
+  const map = {};
+  for (const p of clip.pieces){ const id = nid(); map[p.id] = id; S.pieces[id] = Object.assign({}, p, {id}); }
+  const remap = att => att && Object.assign({}, att, {p: map[att.p]});
+  for (const d of clip.decks){
+    const id = nid();
+    S.decks[id] = Object.assign(JSON.parse(JSON.stringify(d)), {id, a: remap(d.a), b: remap(d.b), owner: d.owner != null && map[d.owner] ? map[d.owner] : null});
+  }
+  const members = Object.values(map);
+  shiftGroup(members, at[0] - clip.cx, at[1] - clip.cy);   // the copy's centre on the pointer
+  const pid = members[0];
+  S.sel = {t:"p", id:pid};
+  drag = {mode:"move", paste:true, start:at.slice(), pid, shift:false, ctrl:true, moved:true, carry:true, dropOnUp:false,
+          piv:null, members, base: JSON.stringify(S)};
+  lastTap = null;
+  msg("Pasting - click to drop it · R / Shift+R turns it · Esc cancels");
+  render(); side();
+}
+function turnPaste(step){                            // turn the carried copy around the pointer
+  const pt = lastPt || drag.start;
+  S = JSON.parse(drag.base);
+  const dx = pt[0] - drag.start[0], dy = pt[1] - drag.start[1];
+  turnGroup(new Set(drag.members), drag.start[0], drag.start[1], step);   // turn in the start pose, then re-apply the move
+  drag.base = JSON.stringify(S);
+  applyMove([drag.start[0] + dx, drag.start[1] + dy]);
+  render();
+}
+let listMap = () => {};
+function doUndo(){ if (!undo.length) return; S = JSON.parse(undo.pop()); render(); side(); msg("Undone"); }
+
+// ------------------------------------------------------------------ side panel
+function side(){
+  const b = $("#side");
+  b.textContent = "";
+  const H = t => { const h = document.createElement("h3"); h.textContent = t; b.appendChild(h); };
+  const fld = (label, node) => { const f = document.createElement("div"); f.className = "fld"; const l = document.createElement("label"); l.textContent = label; f.appendChild(l); f.appendChild(node); b.appendChild(f); return node; };
+  const chips = (opts, cur, set) => { const c = document.createElement("div"); c.className = "chips"; for (const [v, t] of opts){ const bt = document.createElement("button"); bt.textContent = t; if (v === cur) bt.className = "on"; bt.onclick = () => { snapshot(); set(v); render(); side(); }; c.appendChild(bt); } return c; };
+  const sel = S.sel;
+  if (sel && sel.t === "p" && S.pieces[sel.id]){
+    const p = S.pieces[sel.id];
+    if (p.kind === "p"){
+      H(p.role === "relay" ? "Relay " + (p.tag || "") + " · " + p.relay : "Platform");
+      fld("Role", chips([["normal","Neutral"],["home","Home"],["hill","Hill T4"],["relay","Relay"]], isHome(p) ? "home" : p.role, v => {
+        if (v !== "home"){ p.role = v; delete p.team; return; }
+        const used = new Set(Object.values(S.pieces).filter(isHome).map(seatOf));
+        p.role = "home" + (SEATS.find(x => !used.has(x)) || "A");
+      }));
+      if (isHome(p)){
+        fld("Player seat", chips(SEATS.map(x => ["home" + x, x]), p.role, v => p.role = v));
+        fld("Team (same number = allies; Own = free for all)", chips([[null, "Own"], [1, "1"], [2, "2"], [3, "3"]], p.team || null, v => { if (v) p.team = v; else delete p.team; }));
+        const t = document.createElement("p"); t.className = "muted"; t.textContent = "Mode from the homes: " + modeOf().label; b.appendChild(t);
+      }
+      if (p.role === "normal"){
+        fld("Tier", chips([[1,"T1"],[2,"T2"],[3,"T3"]], p.tier || 1, v => p.tier = v));
+        fld("Structure", chips([["vat","Vat"],["laser","Laser"],["forge","Forge"]], p.structure, v => p.structure = v));
+      }
+      if (p.role === "relay"){
+        fld("Relay kind", chips([["retract","Retract"],["rotation","Rotation"],["switch","Switch"],["remote","Remote"]], p.relay, v => p.relay = v));
+        fld("Holds", chips([["laser","Laser"],["forge","Forge"]], p.structure === "vat" ? "laser" : p.structure, v => p.structure = v));
+      }
+      fld("Last Stand", chips([[false,"Outer ring (falls)"],[true,"Survivor ring"]], !!p.core, v => p.core = v));
+    } else {
+      H(p.piece.replace("Junction_", "Junction ").replace("_", " "));
+      if (EXP()[p.piece]){ const t = document.createElement("p"); t.className = "find soft"; t.textContent = "Experimental piece: Build page only - not in the rulebook, the lab or the game." + (EXP()[p.piece].note ? " " + EXP()[p.piece].note + "." : ""); b.appendChild(t); }
+      const held = decksOf(p.id).filter(d => d.b && d.a.p !== d.b.p).length;
+      const row = document.createElement("div"); row.className = "chips";
+      const btn = (t, f, title) => { const x = document.createElement("button"); x.textContent = t; x.title = title || ""; x.onclick = f; row.appendChild(x); };
+      if (!held){
+        btn("⟲ 45°", () => rotatePiece(p, 45), "Rotate 45° counter-clockwise"); btn("⟲ 15°", () => rotatePiece(p, 15), "Rotate 15° counter-clockwise (R)");
+        btn("⟳ 15°", () => rotatePiece(p, -15), "Rotate 15° clockwise (Shift+R)"); btn("⟳ 45°", () => rotatePiece(p, -45), "Rotate 45° clockwise");
+      } else if (held === 1){
+        if (isCurve(p)) btn("Flip the curve", () => rotatePiece(p, 0, 1), "Turn the other way on its bridge (F)");
+        else { btn("⟲ Turn", () => rotatePiece(p, 0, -1), "Another port meets the bridge"); btn("Turn ⟳", () => rotatePiece(p, 0, 1), "Another port meets the bridge (Tab)"); }
+      }
+      fld("Rotate", row);
+      const t = document.createElement("p"); t.className = "muted";
+      t.textContent = !held ? "Free piece: turns in place, its loose bridges turn with it." : held === 1 ? "Held by one bridge: it turns so another port meets that bridge. Blue dots are open ports." : "Held by " + held + " bridges: double-click it to unsnap, then rotate.";
+      b.appendChild(t);
+    }
+  } else if (sel && sel.t === "d" && S.decks[sel.id]){
+    const d = S.decks[sel.id];
+    const fe = d.shape === "s" && deckEnds(d);
+    H(fe && fe.flex ? "Flex S-bridge " + flexLen(fe).toFixed(1) + " m (EXP)" : "Bridge " + deckLen(d) + " m" + (mods(d) > 1 ? " (" + mods(d) + " pieces)" : ""));
+    if (d.b){
+      const row = document.createElement("div"); row.className = "chips";
+      const bt = (t, f, title) => { const x = document.createElement("button"); x.textContent = t; x.title = title; x.onclick = () => { snapshot(); f(); render(); side(); }; row.appendChild(x); };
+      if (d.shape !== "s") bt("Make it a flex S-bridge", () => { d.shape = "s"; }, "Bends to join its two ends where they are, any length (experimental)");
+      else {
+        bt("Straight", () => { delete d.shape; }, "Back to a straight bridge of " + deckLen(d) + " m (it goes red if that length does not fit)");
+        const pa = S.pieces[d.a.p], pb = S.pieces[d.b.p];
+        if (pa.kind === "p" && pb.kind === "p"){
+          bt("Ends parallel (S)", () => { d.a.ang = norm(Math.round(angTo([pa.x, pa.y], [pb.x, pb.y]) / 45) * 45); d.b.ang = norm(d.a.ang + 180); delete d.a.skew; }, "Both ends leave along the nearest of the 8 directions: the bridge makes an S");
+          bt("Ends aimed (straight)", () => { d.a.ang = angTo([pa.x, pa.y], [pb.x, pb.y]); d.b.ang = angTo([pb.x, pb.y], [pa.x, pa.y]); delete d.a.skew; }, "Both ends face each other: a straight bridge of any length");
+        }
+      }
+      fld("EXP · Shape", row);
+    }
+    if (d.shape !== "s" && mods(d) >= 2 && mods(d) % 1 === 0){     // split a chained bridge back into two, through a Link
+      const row = document.createElement("div"); row.className = "chips";
+      for (let k = 1; k < mods(d); k++){
+        const x = document.createElement("button"); x.textContent = (k * K.S) + " + " + ((mods(d) - k) * K.S) + " m";
+        x.title = "Two bridges joined by a Link; the first keeps this bridge's relay state";
+        x.onclick = () => { snapshot(); splitDeck(d, k); render(); side(); };
+        row.appendChild(x);
+      }
+      fld("EXP · Split into two bridges (from the start end)", row);
+    }
+    if (mods(d) > 3){ const t = document.createElement("p"); t.className = "muted"; t.textContent = "Longer than 12 m: the game's longest single bridge is 12 m. Fine as a direction; to play it, put a junction or curve in the middle."; b.appendChild(t); }
+    fld("Height", chips([["","Ground"],["over","Overpass"],["under","Underpass"]], d.height || "", v => d.height = v));
+    if (S.pieces[d.a.p] && S.pieces[d.a.p].kind === "p"){
+      if (!d.b) fld("EXP · Pier angle (leaves the platform off-centre)", chips([[-30,"-30°"],[-15,"-15°"],[0,"0°"],[15,"+15°"],[30,"+30°"]], d.a.skew || 0, v => { if (v) d.a.skew = v; else delete d.a.skew; }));
+      else if (d.a.skew){ const t = document.createElement("p"); t.className = "muted"; t.textContent = "Pier angle " + d.a.skew + "° (experimental)."; b.appendChild(t); }
+    }
+    { const t = document.createElement("p"); t.className = "muted"; t.textContent = "Heights are the game's planner's call: wherever two bridges cross it lifts one (+4 / +8 m) or lowers one (-4 m) on its own. This marks your intent and shows the ramps. (Maps with junctions can't cross bridges yet.)"; b.appendChild(t); }
+    fld("Relay state", chips([["","Fixed"],["ret","Retract"],["r1","Rotor 1"],["r2","Rotor 2"],["s1","Switch 1"],["s2","Switch 2"],["m1","Remote"]], d.state || "", v => { d.state = v; d.owner = null; }));
+    if (d.state){
+      const relays = Object.values(S.pieces).filter(p => p.kind === "p" && p.role === "relay");
+      const want = d.state === "ret" ? "retract" : ({r:"rotation", s:"switch", m:"remote"})[d.state[0]];
+      const ends = [d.a.p, d.b && d.b.p];
+      const opts = relays.filter(p => p.relay === want && (want === "remote" || ends.includes(p.id)));
+      const s = document.createElement("select");
+      s.appendChild(new Option("(pick the " + want + " relay)", ""));
+      for (const p of opts) s.appendChild(new Option(want + " " + (p.tag || "") + "  at (" + p.x.toFixed(0) + ", " + p.y.toFixed(0) + ")", p.id));
+      s.value = d.owner || "";
+      s.onchange = () => { snapshot(); d.owner = s.value ? Number(s.value) : null; render(); };
+      fld("Driven by", s);
+      if (!opts.length){ const t = document.createElement("p"); t.className = "muted"; t.textContent = want === "remote" ? "Make some platform a Remote relay (its console) first." : "One end of this bridge must be a " + want + " relay platform."; b.appendChild(t); }
+    }
+    if (!d.b){ const t = document.createElement("p"); t.className = "muted"; t.textContent = "Loose end: drop a platform or junction on it (or drag something onto it)."; b.appendChild(t); }
+  } else {
+    H("Map");
+    const code = fld("Code", document.createElement("input")); code.value = S.meta.code; code.onchange = () => S.meta.code = code.value;
+    const name = fld("Name", document.createElement("input")); name.value = S.meta.name; name.onchange = () => S.meta.name = name.value;
+    const note = fld("Note", document.createElement("textarea")); note.value = S.meta.note; note.onchange = () => S.meta.note = note.value;
+    fld("Last Stand finales", chips([[false,"Inward"],[true,"Inward + outward"]], !!S.outward, v => S.outward = v));
+    const np = Object.values(S.pieces).filter(p => p.kind === "p").length, nj = Object.values(S.pieces).length - np;
+    const loose = Object.values(S.decks).filter(d => !d.b).length;
+    const t = document.createElement("p"); t.className = "muted";
+    t.textContent = np + " platforms · " + nj + " junctions · " + Object.keys(S.decks).length + " bridges" + (loose ? " (" + loose + " with a loose end - not saved)" : "");
+    b.appendChild(t);
+  }
+  H("Rules");
+  const sum = document.createElement("div"); sum.id = "sum";
+  if (!lastCheck){ sum.className = "idle"; sum.textContent = "Press Check rules"; }
+  else { const s = lastCheck.summary; sum.className = s.pass ? "pass" : "fail"; sum.textContent = s.pass ? "Passes (" + s.soft + " soft)" : s.hard + " hard · " + s.soft + " soft"; }
+  b.appendChild(sum);
+  if (lastCheck) for (const f of lastCheck.findings){ const d = document.createElement("div"); d.className = "find " + f.sev; d.textContent = f.rule + " " + f.msg; b.appendChild(d); }
+}
+
+// ------------------------------------------------------------------ the map file
+function modeOf(){                                  // 1v1, FFA 3..6, or teams (2v2, 3v3, 2v2v2) from the homes
+  const homes = Object.values(S.pieces).filter(isHome).sort((a, b) => seatOf(a) < seatOf(b) ? -1 : 1);
+  const key = p => p.team ? "t" + p.team : "s" + seatOf(p);
+  const keys = [...new Set(homes.map(key))], size = k => homes.filter(p => key(p) === k).length;
+  const team = p => keys.indexOf(key(p));
+  const sizes = keys.map(size);
+  let mode;
+  if (homes.length <= 2 && sizes.every(n => n === 1)) mode = "1v1";
+  else if (sizes.every(n => n === 1)) mode = "FFA" + homes.length;
+  else mode = sizes.join("v");
+  return {homes, team, mode, label: mode.replace("FFA", "FFA ") + " (" + homes.length + " homes)"};
+}
+function toMap(){
+  const order = Object.values(S.pieces).sort((a, b) => a.y - b.y || a.x - b.x);
+  const idx = {}; order.forEach((p, i) => idx[p.id] = i);
+  const nodes = order.map((p, i) => {
+    const n = {id:i, x:+p.x.toFixed(2), y:+p.y.toFixed(2), plaza:null, socket:null, ring: p.core ? 0 : 1, category:"normal", relay:null, home:false, neutral:null, buildable:["vat"]};
+    if (p.kind === "p" && p.role === "relay" && p.tag) n.relayTag = p.tag;          // the Build page's letter for this relay
+    if (p.kind === "j"){ Object.assign(n, {category:"junction", buildable:[], junction:p.piece, junctionYaw:+p.yaw.toFixed(2)}); n.ring = junctionRing(p); }
+    else if (isHome(p)) n.home = true;
+    else if (p.role === "hill") Object.assign(n, {category:"strategic", neutral:{tier:4, structure:"vat"}});
+    else if (p.role === "relay") Object.assign(n, {category:"relay", relay:p.relay, neutral:{tier:2, structure: p.structure === "vat" ? "laser" : p.structure}, buildable:["laser", "forge", "monster_hub"]});
+    else n.neutral = {tier: p.tier || 1, structure: p.structure || "vat"};
+    return n;
+  });
+  const edges = [];
+  for (const d of Object.values(S.decks)){
+    if (!d.b) continue;
+    const e = {from:idx[d.a.p], to:idx[d.b.p], tier:d.tier, seconds:mods(d) * 2, level:0, state:null, relay:null, retracts:false, deckMetres:deckLen(d)};
+    if (mods(d) > 3 || mods(d) % 1) e.modules = mods(d);
+    if (!mods(d)) Object.assign(e, {joint:true, modules:0, seconds:0, deckMetres:0});
+    if (d.shape === "s"){ const fe = deckEnds(d); if (fe && fe.flex){ const L = flexLen(fe); Object.assign(e, {shape:"sbend", deckMetres:+L.toFixed(2), modules:+(L / K.S).toFixed(2), seconds:+(L / 2).toFixed(1)}); } }   // EXPERIMENTAL: port plugged into port
+    if (d.a.skew) e.pierSkew = d.a.skew;              // EXPERIMENTAL: the start end leaves off its platform's radial line             // longer than the game's L bridge: kept as a design direction
+    if (d.height === "over") e.overpass = true;
+    if (d.height === "under") e.underpass = true;
+    if (d.state === "ret") Object.assign(e, {retracts:true, relay: d.owner != null ? idx[d.owner] : null});
+    else if (d.state) Object.assign(e, {state:d.state, relay: d.owner != null ? idx[d.owner] : null});
+    edges.push(e);
+  }
+  const md = modeOf();
+  const seats = md.homes.map(p => ({seat: seatOf(p), node: idx[p.id], team: md.team(p)}));
+  const methods = S.outward ? ["inward", "outward"] : ["inward"];
+  const orders = {inward:[1, 0]}; if (S.outward) orders.outward = [0, 1];
+  const m = {code:S.meta.code, name:S.meta.name, group:"lab", players:"versus", playersLabel: md.label, combatMode:"both", family:"build page",
+    modes:[md.mode], symmetry: S.sym || "mirror left/right", frame:{width:160, height:80, units:"metres", version:"lab"}, minEnemyHomeHops:2,
+    centreSpawn:false, plazas:[], nodes, edges, rings:{count:2, boundaries:[30], aspect:2, shape:"ellipse"},
+    lastStand:{methods, orders}, seats:{[md.mode]: seats}, note:S.meta.note, geometricSymmetry:true, labVariant:{junctions:true}};
+  if (isExperimental()) Object.assign(m, {experimental:true, group:"experimental", note: (m.note ? m.note + " " : "") + "[Build page experiment - not for the game]"});
+  return {m, ids: order.map(p => p.id)};
+}
+function junctionRing(p){                          // a junction falls with the platforms it joins (core if any is core)
+  return decksOf(p.id).some(d => { const o = d.a.p === p.id ? d.b && d.b.p : d.a.p; const q = S.pieces[o]; return q && q.kind === "p" && q.core; }) ? 0 : 1;
+}
+function fromMap(m){
+  S = blank();
+  S.meta = {code:m.code || "N-99", name:m.name || "", note:m.note || ""};
+  S.outward = ((m.lastStand || {}).methods || []).includes("outward");
+  if (/^mirror/.test(m.symmetry || "")) S.sym = m.symmetry;
+  const byId = {}, seatTeam = {};
+  let teamMode = false;
+  for (const n of m.nodes){
+    const id = nid();
+    let p;
+    if (n.junction) p = {id, kind:"j", piece:n.junction, x:n.x, y:n.y, yaw:n.junctionYaw || 0};
+    else {
+      let role = "normal";
+      if (n.home){ const mode = (m.modes || [])[0], s = (m.seats || {})[mode] || Object.values(m.seats || {})[0] || []; const st = s.find(x => x.node === n.id);
+        role = "home" + (st && SEATS.includes(st.seat) ? st.seat : "A"); seatTeam[n.id] = st ? st.team : null; teamMode = /v/.test(mode || "") && mode !== "1v1"; }
+      else if (n.relay) role = "relay";
+      else if (n.category === "strategic" || ((n.neutral || {}).tier || 0) >= 4) role = "hill";
+      const ne = n.neutral || {};
+      p = {id, kind:"p", x:n.x, y:n.y, tag: n.relayTag || undefined, role, tier: Math.max(1, Math.min(3, ne.tier || 1)), relay:n.relay || "retract",
+           structure: ne.structure === "forge" || ne.structure === "laser" ? ne.structure : "vat", core: n.ring === 0};
+    }
+    S.pieces[id] = p; byId[n.id] = id;
+    if (teamMode && seatTeam[n.id] != null) p.team = seatTeam[n.id] + 1;
+  }
+  const taken = {};
+  const attFor = (pid, otherPid) => {
+    const p = S.pieces[pid], o = S.pieces[otherPid];
+    if (p.kind === "p") return {p:pid, ang: norm(Math.round(angTo([p.x, p.y], [o.x, o.y])))};
+    const ps = ports(p), want = angTo([p.x, p.y], [o.x, o.y]);
+    let best = 0, bd = 999;
+    ps.forEach((q, k) => { if (taken[pid + ":" + k]) return; const dd = isCurve(p) ? Math.hypot(q.x - o.x, q.y - o.y) : adiff(q.a, want); if (dd < bd){ bd = dd; best = k; } });
+    taken[pid + ":" + best] = true;
+    return {p:pid, port:best};
+  };
+  for (const e of m.edges){
+    const id = nid(), a = byId[e.from], b = byId[e.to];
+    const st = e.retracts ? "ret" : (e.state || "");
+    S.decks[id] = {id, tier:e.tier, shape: e.shape === "sbend" ? "s" : undefined, mods: e.joint ? 0 : (e.modules || MODS[e.tier]), height: e.overpass ? "over" : e.underpass ? "under" : "", a:attFor(a, b), b:attFor(b, a), state:st, owner: e.relay != null ? byId[e.relay] : null};
+  }
+  m.edges.forEach((e, i) => { if (e.pierSkew){ const d = Object.values(S.decks)[i]; if (d) d.a.skew = e.pierSkew; } });
+  for (const d of Object.values(S.decks)){          // platform ends face the other end's anchor exactly
+    for (const [me, ot] of [["a", "b"], ["b", "a"]]){
+      const p = S.pieces[d[me].p];
+      if (p.kind !== "p") continue;
+      const O = anchor(d[ot]) || S.pieces[d[ot].p];
+      d[me].ang = norm(angTo([p.x, p.y], [O.x, O.y]));
+    }
+  }
+}
+
+// ------------------------------------------------------------------ mirror
+function mirrorRight(){ mirror("x"); }
+function mirrorDown(){ mirror("y"); }
+function mirror(ax){                                  // "x": left half -> right (about x = 80); "y": top half -> bottom (about y = 40)
+  const C = ax === "x" ? 80 : 40;
+  const sideOf = p => ax === "x" ? p.x : p.y;
+  const onAxis = p => Math.abs(sideOf(p) - C) < 0.6;
+  const reflP = (x, y) => ax === "x" ? [2*C - x, y] : [x, 2*C - y];
+  const reflA = a => norm(ax === "x" ? 180 - a : -a);
+  const src = Object.values(S.pieces).filter(p => sideOf(p) < C - 0.6);
+  if (!src.length){ msg(ax === "x" ? "Build the left half first (left of the dotted middle line)" : "Build the top half first (above the dotted middle line)"); return; }
+  snapshot();
+  for (const p of Object.values(S.pieces)) if (sideOf(p) > C + 0.6){ for (const d of decksOf(p.id)) delete S.decks[d.id]; delete S.pieces[p.id]; }
+  const twin = {}, portMap = {};
+  for (const p of Object.values(S.pieces)) if (onAxis(p)){ if (ax === "x") p.x = C; else p.y = C; twin[p.id] = p.id; }
+  for (const p of src){
+    const id = nid();
+    let q;
+    if (p.kind === "p"){ const [x, y] = reflP(p.x, p.y); q = Object.assign({}, p, {id, x, y, role: isHome(p) ? "home" + ({A:"B", B:"A", C:"D", D:"C", E:"F", F:"E"})[seatOf(p)] : p.role}); }
+    else if (isSbend(p)){                             // an S-bend mirrors into its other hand, from the same start
+      const ps = ports(p), [x, y] = reflP(ps[0].x, ps[0].y);
+      q = {id, kind:"j", piece: (EXP()[p.piece] || {}).twin || p.piece, x, y, yaw: norm(reflA(ps[0].a) - 180)};
+      portMap[p.id] = [0, 1];
+    }
+    else if (isCurve(p)){
+      const ps = ports(p), end = ps[1], a1 = K.allPieces[p.piece][1].a, [x, y] = reflP(end.x, end.y);
+      q = {id, kind:"j", piece:p.piece, x, y, yaw: norm(reflA(a1 + p.yaw) - 180)};
+      portMap[p.id] = [1, 0];
+    } else {
+      const ps = ports(p), want = ps.map(x => reflA(x.a)), base = K.allPieces[p.piece];
+      let yaw = 0, map = null;
+      for (const cand of base.map(b => norm(want[0] - b.a))){
+        const got = base.map(b => norm(b.a + cand));
+        const m2 = want.map(w => got.findIndex(g => adiff(g, w) < 0.5));
+        if (m2.every(i => i >= 0)){ yaw = cand; map = m2; break; }
+      }
+      const [x, y] = reflP(p.x, p.y);
+      q = {id, kind:"j", piece:p.piece, x, y, yaw};
+      portMap[p.id] = map || base.map((_, i) => i);
+    }
+    S.pieces[id] = q; twin[p.id] = id;
+  }
+  const mirAtt = att => {
+    const p = S.pieces[att.p], t = twin[att.p];
+    if (t == null) return null;
+    if (p.kind === "p") return att.skew ? {p:t, ang: reflA(att.ang), skew: -att.skew} : {p:t, ang: reflA(att.ang)};
+    if (onAxis(p)){                                  // an axis junction: the mirrored port
+      const ps = ports(p), w = reflA(ps[att.port].a);
+      return {p:t, port: ps.findIndex(x => adiff(x.a, w) < 1)};
+    }
+    return {p:t, port: portMap[att.p][att.port]};
+  };
+  let made = 0;
+  for (const d of Object.values(S.decks)){
+    const ends = [d.a, d.b].filter(Boolean).map(x => S.pieces[x.p]);
+    if (!ends.every(p => sideOf(p) < C + 0.6) || ends.every(p => onAxis(p))) continue;
+    const a = mirAtt(d.a), b = d.b ? mirAtt(d.b) : null;
+    if (!a || (d.b && !b) || a.port === -1 || (b && b.port === -1)) continue;
+    const id = nid();
+    S.decks[id] = {id, tier:d.tier, mods:mods(d), height:d.height, a, b, state:d.state, owner: d.owner != null ? twin[d.owner] : null};
+    if (d.shape) S.decks[id].shape = d.shape;
+    made++;
+  }
+  S.sym = ax === "x" ? "mirror left/right" : "mirror top/bottom";
+  autoAttach();
+  msg("Mirrored " + src.length + " pieces and " + made + " bridges " + (ax === "x" ? "to the right" : "to the bottom"));
+  render(); side();
+}
+
+// ------------------------------------------------------------------ server
+async function api(url, body){
+  if (window.MB_LOCAL) return window.MB_LOCAL(url, body);        // the standalone page (make_standalone.py) answers locally
+  const r = await fetch(url, body ? {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)} : {});
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.status);
+  return j;
+}
+async function check(){
+  if (isExperimental()){ msg("Experimental pieces aren't in the rulebook - Check rules skips this map"); return; }
+  const {m, ids} = toMap();
+  msg("Checking…");
+  try { lastCheck = await api("/api/check", {map:m}); lastCheck.ids = ids;
+    const long = Object.values(S.decks).filter(d => mods(d) > 3);
+    if (long.length){ lastCheck.findings.unshift({rule:"B01", sev:"soft", msg: long.length + " bridge(s) longer than 12 m (" + long.map(d => deckLen(d) + " m").join(", ") + "): the game has no single bridge this long - add a junction or curve in the middle", nodes:[]}); lastCheck.summary.soft += 1; }
+    msg(lastCheck.summary.pass ? "Passes the rulebook" : "See the findings on the right"); }
+  catch (e){ msg("Check failed: " + e.message); }
+  render(); side();
+}
+async function save(lab){
+  if (isExperimental() && lab){ msg("Experimental maps stay out of the Map Lab (Save keeps them in the experimental pack)"); return; }
+  if (isExperimental()){ const f = $("#path").value.trim().split("/").pop() || "X-99-experiment.json"; $("#path").value = "References/Ooze Syndicate maps - experimental/json/" + f; }
+  const path = $("#path").value.trim();
+  if (!path){ msg("Type a save path first"); return; }
+  const {m} = toMap();
+  msg(lab ? "Saving and sending to the Map Lab…" : "Saving…");
+  const loose = Object.values(S.decks).filter(d => !d.b).length;
+  try { const r = await api(lab ? "/api/lab" : "/api/save", {path, map:m});
+    msg((lab ? "Sent to the Map Lab" : "Saved " + r.saved) + (loose ? " - " + loose + " bridge(s) with a loose end left out (join them to keep them)" : ""));
+    listMap(path); }
+  catch (e){ msg("Failed: " + e.message); }
+}
+function fit(){
+  const ps = Object.values(S.pieces);
+  const r = svg.getBoundingClientRect();
+  if (r.width < 10 || r.height < 10){ setTimeout(fit, 50); return; }   // not laid out yet
+  let x0 = -22, x1 = 182, y0 = -3, y1 = 83;
+  if (ps.length){ x0 = Math.min(...ps.map(p => p.x)) - 14; x1 = Math.max(...ps.map(p => p.x)) + 14; y0 = Math.min(...ps.map(p => p.y)) - 14; y1 = Math.max(...ps.map(p => p.y)) + 14; x0 = Math.min(x0, -22); x1 = Math.max(x1, 182); y0 = Math.min(y0, -3); y1 = Math.max(y1, 83); }
+  view.s = Math.min(r.width / (x1 - x0), r.height / (y1 - y0));
+  view.tx = (r.width - (x1 + x0) * view.s) / 2; view.ty = (r.height - (y1 + y0) * view.s) / 2;
+  render();
+}
+async function init(){
+  K = await api("/api/kit");
+  try {                                              // EXPERIMENTAL pieces: Build page only (editor/experimental/pieces.json)
+    const ex = await api("/experimental/pieces.json");
+    K.expInfo = ex.info;
+    for (const [k, v] of Object.entries(ex.pieces)) K.allPieces[k] = v.map(q => ({a: q.angle_deg, x: q.edge_centre[0], y: q.edge_centre[1]}));
+  } catch (e){ K.expInfo = {}; }
+  try { SPR = await api("/sprites/sprites.json"); } catch (e){ SPR = {}; }
+  buildPalette();
+  $("#path").value = (K.default_dir || "References/Ooze Syndicate maps - lab tests/json") + "/N-99-new-map.json";
+  const maps = await api("/api/maps");
+  const sel = $("#open"), groups = {};
+  listMap = path => {                                 // a file saved under a new name shows in Open at once
+    if (!path.startsWith("References/") || [...sel.options].some(o => o.value === path)) return;
+    const pack = path.split("/")[1];
+    if (!groups[pack]){ groups[pack] = document.createElement("optgroup"); groups[pack].label = pack; sel.appendChild(groups[pack]); }
+    groups[pack].appendChild(new Option(path.split("/").pop(), path));
+  };
+  const mine = document.createElement("optgroup"); mine.label = "★ My maps (made on this page)";   // first in the list
+  sel.insertBefore(mine, sel.children[1] || null);
+  const addMine = path => { if (![...mine.children].some(o => o.value === path)) mine.appendChild(new Option(path.split("/").pop().replace(/\.json$/, "") + "  ·  " + path.split("/")[1].replace("Ooze Syndicate maps - ", ""), path)); };
+  const listMap0 = listMap;
+  listMap = path => { listMap0(path); addMine(path); };
+  (async () => {                                     // every map the Build page wrote (family "build page"), found in the background
+    for (const x of maps){
+      try { const m = await api("/api/map?path=" + encodeURIComponent(x.path)); if (m.family === "build page") addMine(x.path); } catch (e){}
+    }
+  })();
+  for (const x of maps){ if (!groups[x.pack]){ groups[x.pack] = document.createElement("optgroup"); groups[x.pack].label = x.pack; sel.appendChild(groups[x.pack]); } groups[x.pack].appendChild(new Option(x.file, x.path)); }
+  sel.onchange = async () => { if (!sel.value) return; const m = await api("/api/map?path=" + encodeURIComponent(sel.value)); snapshot(); const where = m._savePath || sel.value; delete m._savePath; fromMap(m); lastCheck = null; $("#path").value = where; fit(); side(); msg("Opened " + where.split("/").pop() + (m._savedNote ? " " + m._savedNote : "")); };
+  $("#b-new").onclick = () => { snapshot(); S = blank(); lastCheck = null; render(); side(); };
+  $("#b-save").onclick = () => save(false);
+  $("#b-lab").onclick = () => save(true);
+  $("#b-check").onclick = check;
+  $("#b-mirror").onclick = mirrorRight;
+  $("#b-mirror-y").onclick = mirrorDown;
+  $("#b-fit").onclick = fit;
+  $("#b-undo").onclick = doUndo;
+  const setDir8 = on => { dir8 = on; $("#b-dir8").className = on ? "on" : ""; msg(on ? "Bridges snap to 8 directions (45 degrees)" : "Bridges snap every 5 degrees"); try { localStorage.setItem("mb-dir8", on ? "1" : "0"); } catch (e){} if (drag && drag.mode === "place" && drag.last) updatePlace(drag.last); render(); };
+  $("#b-dir8").onclick = () => setDir8(!dir8);
+  const setChain = on => { keepSeparate = on; $("#b-chain").textContent = on ? "Chain: separate" : "Chain: merge"; $("#b-chain").className = on ? "on" : "";
+    msg(on ? "Bridges added end to end stay separate (a Link between them)" : "Bridges added end to end merge into one longer bridge"); try { localStorage.setItem("mb-chain", on ? "1" : "0"); } catch (e){} };
+  $("#b-chain").onclick = () => setChain(!keepSeparate);
+  window.addEventListener("keydown", ev => { if ((ev.key === "j" || ev.key === "J") && !ev.ctrlKey && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) setChain(!keepSeparate); });
+  try { if (localStorage.getItem("mb-chain") === "1"){ keepSeparate = true; $("#b-chain").textContent = "Chain: separate"; $("#b-chain").className = "on"; } } catch (e){}
+  window.addEventListener("keydown", ev => { if ((ev.key === "d" || ev.key === "D") && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) setDir8(!dir8); });
+  try { if (localStorage.getItem("mb-dir8") === "1"){ dir8 = true; $("#b-dir8").className = "on"; } } catch (e){}
+  const lgShow = on => { $("#legend").style.display = on ? "" : "none"; $("#lg-show").style.display = on ? "none" : ""; try { localStorage.setItem("mb-legend", on ? "1" : "0"); } catch (e){} };
+  $("#lg-x").onclick = () => lgShow(false); $("#lg-show").onclick = () => lgShow(true);
+  try { if (localStorage.getItem("mb-legend") === "0") lgShow(false); } catch (e){}
+  fit(); side();
+  msg("Drag a platform in, then bridges and junctions from its rim");
+}
+window.addEventListener("resize", () => { if (!(view.s > 0.01)) fit(); else render(); });
+init();
+})();
+</script>
+
+</body>
+</html>

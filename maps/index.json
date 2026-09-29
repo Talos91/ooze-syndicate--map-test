@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 13:47",
- "stamp": "20260929134701",
+ "built": "2026-09-29 13:54",
+ "stamp": "20260929135436",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -1686,7 +1686,7 @@
    ],
    "nodes": 25,
    "footprint": [
-    116.2,
+    115.6,
     81.4
    ],
    "pass": true,
@@ -1701,7 +1701,7 @@
     {
      "rule": "G01",
      "sev": "soft",
-     "msg": "node 0 at (64.7, 5.3): beyond the standard 160 x 80 frame",
+     "msg": "node 0 at (57.4, 5.3): beyond the standard 160 x 80 frame",
      "nodes": [
       0
      ],
@@ -1710,7 +1710,7 @@
     {
      "rule": "G01",
      "sev": "soft",
-     "msg": "node 24 at (95.3, 74.7): beyond the standard 160 x 80 frame",
+     "msg": "node 24 at (102.6, 74.7): beyond the standard 160 x 80 frame",
      "nodes": [
       24
      ],
@@ -1719,9 +1719,9 @@
     {
      "rule": "T03",
      "sev": "soft",
-     "msg": "home 2: 1 T1 in its pocket",
+     "msg": "home 1: 1 T1 in its pocket",
      "nodes": [
-      2
+      1
      ],
      "edges": []
     },
@@ -1746,9 +1746,9 @@
     {
      "rule": "T03",
      "sev": "soft",
-     "msg": "home 22: 1 T1 in its pocket",
+     "msg": "home 23: 1 T1 in its pocket",
      "nodes": [
-      22
+      23
      ],
      "edges": []
     },
@@ -2293,11 +2293,11 @@
    "nodes": 25,
    "footprint": [
     135.1,
-    79.3
+    81.4
    ],
    "pass": true,
    "hard": 0,
-   "soft": 3,
+   "soft": 5,
    "note": "S, 13 platforms, choke, inward. The round ring of curved quarter arcs round a 4-way grinder hub (N-11), reached through Y junctions: each home's front bridge splits (60 degrees each way) to both pockets, which land on the ring. Point-symmetric. Survivor ring: the hub and the ring.",
    "skins": {
     "vat": "reactor",
@@ -2305,20 +2305,38 @@
    },
    "findings": [
     {
-     "rule": "T03",
+     "rule": "G01",
      "sev": "soft",
-     "msg": "home 10: 0 T1 in its pocket",
+     "msg": "node 0 at (55.4, 5.3): beyond the standard 160 x 80 frame",
      "nodes": [
-      10
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 24 at (104.6, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      24
      ],
      "edges": []
     },
     {
      "rule": "T03",
      "sev": "soft",
-     "msg": "home 14: 0 T1 in its pocket",
+     "msg": "home 9: 0 T1 in its pocket",
      "nodes": [
-      14
+      9
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 15: 0 T1 in its pocket",
+     "nodes": [
+      15
      ],
      "edges": []
     },

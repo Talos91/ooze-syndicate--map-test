@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 16:53",
- "stamp": "20260929165342",
+ "built": "2026-09-29 16:55",
+ "stamp": "20260929165545",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -1911,6 +1911,167 @@
      "edges": [
       41
      ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "K-07-square-team-bridges.json",
+   "code": "K-07",
+   "name": "Square Team Bridges",
+   "modes": [
+    "2v2"
+   ],
+   "nodes": 42,
+   "footprint": [
+    192.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 2,
+   "soft": 13,
+   "note": "Round 2 relay test (2026-09-28), rebuilt 2026-09-29 as K-07: Special: 2v2 on the big square lattice, two homes per side. Three relays: the centre plus a mirrored pair of another kind on the other lane, so both Last Stand finales keep a relay.",
+   "skins": {
+    "vat": "reactor",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "machinegoon": "spitter",
+    "monster": "alt"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (-10.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 10 at (170.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 11 at (-10.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 19 at (170.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 20 at (-10.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 30 at (170.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      30
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 31 at (-10.0, 67.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      31
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 41 at (170.0, 67.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      41
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 19: 0 T1 in its pocket",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 41: 0 T1 in its pocket",
+     "nodes": [
+      41
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 0 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 31: 0 T1 in its pocket",
+     "nodes": [
+      31
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [17, 25, 27] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      27,
+      17,
+      25
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "outward: after ring 0 falls, survivor-ring platform(s) [5] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      5
+     ],
+     "edges": []
     },
     {
      "rule": "M05",
@@ -5516,6 +5677,852 @@
      "msg": "outward: no standing relay changes a travel time between survivor-ring platforms",
      "nodes": [],
      "edges": []
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "X-04-small-three-gates.json",
+   "code": "X-04",
+   "name": "Small Three Gates",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 26,
+   "footprint": [
+    120.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 4,
+   "soft": 3,
+   "note": "Round 1 relay test (2026-09-28, X-junction lattice), rebuilt 2026-09-29 as X-04: Small lattice (120 x 66 m). Three relays: the centre drawbridge plus a mirrored pair of gates on the other lane, so both Last Stand finales keep a relay.",
+   "skins": {},
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 23: 0 T1 in its pocket",
+     "nodes": [
+      23
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [13, 20] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      20,
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "outward: after ring 0 falls, survivor-ring platform(s) [11] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 4 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      4
+     ],
+     "edges": [
+      12
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 18 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      18
+     ],
+     "edges": [
+      21
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'S', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "X-05-small-five-gates.json",
+   "code": "X-05",
+   "name": "Small Five Gates",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 26,
+   "footprint": [
+    120.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 6,
+   "soft": 3,
+   "note": "Round 1 relay test (2026-09-28, X-junction lattice), rebuilt 2026-09-29 as X-05: Small lattice (120 x 66 m). Five relays (relay-heavy): the centre drawbridge and two mirrored pairs of gates, each on a main lane, facing the centre.",
+   "skins": {},
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 23: 0 T1 in its pocket",
+     "nodes": [
+      23
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [13, 20] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      20,
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "outward: after ring 0 falls, survivor-ring platform(s) [11] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 4 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      4
+     ],
+     "edges": [
+      12
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 6 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      6
+     ],
+     "edges": [
+      14
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 18 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      18
+     ],
+     "edges": [
+      21
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 20 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      20
+     ],
+     "edges": [
+      23
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'S', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "X-06-mid-doorsteps.json",
+   "code": "X-06",
+   "name": "Mid Doorsteps",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 27,
+   "footprint": [
+    156.0,
+    48.0
+   ],
+   "pass": false,
+   "hard": 3,
+   "soft": 3,
+   "note": "Round 1 relay test (2026-09-28, X-junction lattice), rebuilt 2026-09-29 as X-06: Mid lattice (156 x 48 m). Three relays: the centre drawbridge plus a mirrored pair of gates on the other lane, so both Last Stand finales keep a relay.",
+   "skins": {},
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 25: 0 T1 in its pocket",
+     "nodes": [
+      25
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [13] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 7 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      7
+     ],
+     "edges": [
+      4
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 19 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      19
+     ],
+     "edges": [
+      36
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'S', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "X-07-mid-five-gates.json",
+   "code": "X-07",
+   "name": "Mid Five Gates",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 27,
+   "footprint": [
+    156.0,
+    48.0
+   ],
+   "pass": false,
+   "hard": 5,
+   "soft": 3,
+   "note": "Round 1 relay test (2026-09-28, X-junction lattice), rebuilt 2026-09-29 as X-07: Mid lattice (156 x 48 m). Five relays (relay-heavy): the centre drawbridge and two mirrored pairs of gates, each on a main lane, facing the centre.",
+   "skins": {},
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 25: 0 T1 in its pocket",
+     "nodes": [
+      25
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [13] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 7 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      7
+     ],
+     "edges": [
+      4
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 9 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      9
+     ],
+     "edges": [
+      19
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 15 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      15
+     ],
+     "edges": [
+      18
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 19 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      19
+     ],
+     "edges": [
+      36
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'S', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "X-08-big-three-gates.json",
+   "code": "X-08",
+   "name": "Big Three Gates",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 40,
+   "footprint": [
+    192.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 4,
+   "soft": 9,
+   "note": "Round 1 relay test (2026-09-28, X-junction lattice), rebuilt 2026-09-29 as X-08: Big lattice (192 x 66 m). Three relays: the centre drawbridge plus a mirrored pair of gates on the other lane, so both Last Stand finales keep a relay.",
+   "skins": {},
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (-10.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (-10.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 2 at (-10.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 37 at (170.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      37
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 38 at (170.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      38
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 39 at (170.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      39
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 38: 0 T1 in its pocket",
+     "nodes": [
+      38
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [20, 27] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      27,
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "outward: after ring 0 falls, survivor-ring platform(s) [18] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      18
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 11 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      11
+     ],
+     "edges": [
+      24
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 25 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      25
+     ],
+     "edges": [
+      33
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "X-09-big-five-gates.json",
+   "code": "X-09",
+   "name": "Big Five Gates",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 40,
+   "footprint": [
+    192.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 6,
+   "soft": 9,
+   "note": "Round 1 relay test (2026-09-28, X-junction lattice), rebuilt 2026-09-29 as X-09: Big lattice (192 x 66 m). Five relays (relay-heavy): the centre drawbridge and two mirrored pairs of gates, each on a main lane, facing the centre.",
+   "skins": {},
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (-10.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (-10.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 2 at (-10.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 37 at (170.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      37
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 38 at (170.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      38
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 39 at (170.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      39
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 38: 0 T1 in its pocket",
+     "nodes": [
+      38
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [20, 27] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      27,
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "outward: after ring 0 falls, survivor-ring platform(s) [18] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      18
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 11 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      11
+     ],
+     "edges": [
+      24
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 13 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      13
+     ],
+     "edges": [
+      26
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 25 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      25
+     ],
+     "edges": [
+      33
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 27 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      27
+     ],
+     "edges": [
+      35
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "X-10-team-drawbridges.json",
+   "code": "X-10",
+   "name": "Team Drawbridges",
+   "modes": [
+    "2v2"
+   ],
+   "nodes": 42,
+   "footprint": [
+    192.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 4,
+   "soft": 13,
+   "note": "Round 1 relay test (2026-09-28, X-junction lattice), rebuilt 2026-09-29 as X-10: Special: 2v2 on the big lattice (two homes per side). The centre drawbridge and the top-lane gates decide which lanes stay open between the teams.",
+   "skins": {},
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (-10.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (-10.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 2 at (-10.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 3 at (-10.0, 67.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      3
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 38 at (170.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      38
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 39 at (170.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      39
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 40 at (170.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      40
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 41 at (170.0, 67.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      41
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 3: 0 T1 in its pocket",
+     "nodes": [
+      3
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 41: 0 T1 in its pocket",
+     "nodes": [
+      41
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 39: 0 T1 in its pocket",
+     "nodes": [
+      39
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [21, 28] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      28,
+      21
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "outward: after ring 0 falls, survivor-ring platform(s) [19] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 12 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      12
+     ],
+     "edges": [
+      26
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 26 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      26
+     ],
+     "edges": [
+      35
+     ]
     },
     {
      "rule": "M05",

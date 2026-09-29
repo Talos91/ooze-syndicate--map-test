@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 16:43",
- "stamp": "20260929164313",
+ "built": "2026-09-29 16:50",
+ "stamp": "20260929165057",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -4611,6 +4611,245 @@
      "rule": "L04",
      "sev": "soft",
      "msg": "21 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "X-01-small-drawbridge.json",
+   "code": "X-01",
+   "name": "Small Drawbridge",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 26,
+   "footprint": [
+    120.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 2,
+   "soft": 3,
+   "note": "Round 1 relay test (2026-09-28, X-junction lattice), rebuilt 2026-09-29 as X-01: Small lattice (120 x 66 m). One relay: the centre drawbridge (Forge) on the main lane - both its lane decks pull in, closing the middle passage for everyone. The inward Last Stand keeps it; the outward finale plays on the rim without a relay.",
+   "skins": {},
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 23: 0 T1 in its pocket",
+     "nodes": [
+      23
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [13, 20] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      20,
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L05",
+     "sev": "hard",
+     "msg": "outward: no standing relay changes a travel time between survivor-ring platforms",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'S', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "X-02-mid-drawbridge.json",
+   "code": "X-02",
+   "name": "Mid Drawbridge",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 27,
+   "footprint": [
+    156.0,
+    48.0
+   ],
+   "pass": false,
+   "hard": 2,
+   "soft": 3,
+   "note": "Round 1 relay test (2026-09-28, X-junction lattice), rebuilt 2026-09-29 as X-02: Mid lattice (156 x 48 m). One relay: the centre drawbridge (Forge) on the main lane - both its lane decks pull in, closing the middle passage for everyone. The inward Last Stand keeps it; the outward finale plays on the rim without a relay.",
+   "skins": {},
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 25: 0 T1 in its pocket",
+     "nodes": [
+      25
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [13] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L05",
+     "sev": "hard",
+     "msg": "outward: no standing relay changes a travel time between survivor-ring platforms",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'S', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "X-03-big-drawbridge.json",
+   "code": "X-03",
+   "name": "Big Drawbridge",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 40,
+   "footprint": [
+    192.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 2,
+   "soft": 9,
+   "note": "Round 1 relay test (2026-09-28, X-junction lattice), rebuilt 2026-09-29 as X-03: Big lattice (192 x 66 m). One relay: the centre drawbridge (Forge) on the main lane - both its lane decks pull in, closing the middle passage for everyone. The inward Last Stand keeps it; the outward finale plays on the rim without a relay.",
+   "skins": {},
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (-10.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (-10.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 2 at (-10.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 37 at (170.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      37
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 38 at (170.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      38
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 39 at (170.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      39
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 38: 0 T1 in its pocket",
+     "nodes": [
+      38
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [20, 27] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      27,
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L05",
+     "sev": "hard",
+     "msg": "outward: no standing relay changes a travel time between survivor-ring platforms",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
      "nodes": [],
      "edges": []
     }

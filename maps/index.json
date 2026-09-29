@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 14:26",
- "stamp": "20260929142621",
+ "built": "2026-09-29 15:06",
+ "stamp": "20260929150628",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -2584,6 +2584,691 @@
      "rule": "L04",
      "sev": "soft",
      "msg": "11 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-31-trefoil.json",
+   "code": "N-31",
+   "name": "Trefoil",
+   "modes": [
+    "FFA3"
+   ],
+   "nodes": 13,
+   "footprint": [
+    78.5,
+    69.6
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 2,
+   "note": "S, 13 platforms, FFA 3, inward. A three-way grinder: a rotor hub (no fixed deck) turns its three bridges between the two triangles of a hexagon of platforms, killing whatever is on them. The hexagon platforms never link each other directly: a pocket between each pair of homes joins two of them, so every road from home to home either crosses the grinder or goes through a pocket two players fight over (both are four bridges). Three-fold symmetric.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "heartforge"
+   },
+   "findings": [
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "13 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "G10",
+     "sev": "soft",
+     "msg": "relay 6: no clear ledge, the tower holds the socket",
+     "nodes": [
+      6
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-32-carousel.json",
+   "code": "N-32",
+   "name": "Carousel",
+   "modes": [
+    "FFA3"
+   ],
+   "nodes": 13,
+   "footprint": [
+    78.5,
+    69.6
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 4,
+   "note": "S, 13 platforms, FFA 3, king of the hill, inward. The hill (T4) sits inside a hexagon; three hexagon platforms hold spokes to it, and the other three are switches that turn their hexagon bridge from one neighbour to the other, so the ring round the hill rotates its links. A pocket between each pair of homes joins two hexagon platforms. Three-fold symmetric.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 0: 1 T1 in its pocket",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 1 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 7: 1 T1 in its pocket",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "13 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-34-tri-roundabout.json",
+   "code": "N-34",
+   "name": "Tri-Roundabout",
+   "modes": [
+    "FFA3"
+   ],
+   "nodes": 13,
+   "footprint": [
+    78.5,
+    69.6
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 4,
+   "note": "S, 12 platforms, FFA 3, inward. A six-way deck roundabout (Junction_Hub6) in a hexagon of platforms, three homes round it with a pocket between each pair. Every other hexagon platform is a switch: its bridge goes into the roundabout or across to the next platform. Three-fold symmetric.",
+   "skins": {
+    "vat": "crystal",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 0: 1 T1 in its pocket",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 1 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 7: 1 T1 in its pocket",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "13 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-35-round-four.json",
+   "code": "N-35",
+   "name": "Round Four",
+   "modes": [
+    "FFA4",
+    "2v2"
+   ],
+   "nodes": 29,
+   "footprint": [
+    126.0,
+    80.5
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 9,
+   "note": "L, 21 platforms, FFA 4 and 2v2, inward. The round ring of N-11 (four platforms on curved quarter arcs round a 4-way grinder hub) in the middle of a wide map with a home in every corner: each home's pocket lands on the ring's near side, and a high road crosses the top and bottom edges. Mirrored left / right and top / bottom, so each grinder state is fair on its own (a map turned four ways would swap the two states).",
+   "skins": {
+    "vat": "hive",
+    "forge": "heartforge"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (68.4, 5.8): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (91.6, 5.8): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 27 at (68.4, 74.2): beyond the standard 160 x 80 frame",
+     "nodes": [
+      27
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 28 at (91.6, 74.2): beyond the standard 160 x 80 frame",
+     "nodes": [
+      28
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 24: 0 T1 in its pocket",
+     "nodes": [
+      24
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 4: 0 T1 in its pocket",
+     "nodes": [
+      4
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 5: 0 T1 in its pocket",
+     "nodes": [
+      5
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 23: 0 T1 in its pocket",
+     "nodes": [
+      23
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "29 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-36-four-corners.json",
+   "code": "N-36",
+   "name": "Four Corners",
+   "modes": [
+    "FFA4",
+    "2v2"
+   ],
+   "nodes": 17,
+   "footprint": [
+    99.7,
+    80.7
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 10,
+   "note": "M, 17 platforms, FFA 4 and 2v2, inward. A home in every corner; the lanes run along the top and bottom and down the sides to a 4-way grinder hub in the middle (a rotor with no fixed deck turning between the middle row and the middle column). In 2v2 the left pair faces the right pair. Mirrored left / right and top / bottom.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "anvil"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (36.1, 5.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (123.9, 5.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 15 at (36.1, 74.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 16 at (123.9, 74.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 0: 0 T1 in its pocket",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 16: 0 T1 in its pocket",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 15: 0 T1 in its pocket",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "17 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "G10",
+     "sev": "soft",
+     "msg": "relay 8: no clear ledge, the tower holds the socket",
+     "nodes": [
+      8
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-37-crescent-four.json",
+   "code": "N-37",
+   "name": "Crescent Four",
+   "modes": [
+    "FFA4",
+    "2v2"
+   ],
+   "nodes": 21,
+   "footprint": [
+    146.4,
+    75.8
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 5,
+   "note": "L, 19 platforms, FFA 4 and 2v2, outward, king of the hill. N-13 Crescent for four: a home in every corner, each with a remote console one deck away that raises its middle platform's shortcut to the rim. The hill falls first at the Last Stand; the rim with the consoles survives. Mirrored left / right and top / bottom.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 0: 0 T1 in its pocket",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 19: 0 T1 in its pocket",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 20: 0 T1 in its pocket",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "21 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-38-switchyard-three.json",
+   "code": "N-38",
+   "name": "Switchyard Three",
+   "modes": [
+    "3v3"
+   ],
+   "nodes": 19,
+   "footprint": [
+    101.1,
+    81.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 14,
+   "note": "L, 21 platforms, 3v3, inward. Three homes a side on three lanes. Every crossing of the middle is a relay: the top axis platform is a gate that draws up both lane bridges (a gate at the bottom would face the camera, rule G09), and the centre is a switch whose bridge goes up to the gate or down to the bottom crossing. Mirrored left / right.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "heartforge",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (35.5, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (124.5, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 15 at (70.8, 74.5): beyond the standard 160 x 80 frame",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 16 at (89.2, 74.5): beyond the standard 160 x 80 frame",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 17 at (47.6, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      17
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 18 at (112.4, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      18
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 0: 0 T1 in its pocket",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 10: 1 T1 in its pocket",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 1 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 17: 0 T1 in its pocket",
+     "nodes": [
+      17
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 18: 0 T1 in its pocket",
+     "nodes": [
+      18
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "19 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "G10",
+     "sev": "soft",
+     "msg": "relay 8: no clear ledge, the tower holds the socket",
+     "nodes": [
+      8
+     ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-39-serpent-lines.json",
+   "code": "N-39",
+   "name": "Serpent Lines",
+   "modes": [
+    "3v3"
+   ],
+   "nodes": 23,
+   "footprint": [
+    173.4,
+    59.0
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 9,
+   "note": "L, 19 platforms, 3v3, outward, king of the hill. Three homes a side (N-13's layout for three): the top and bottom homes reach their pockets, which snake up and down to the rim on S-bends of Curve_45s; the rim crosses the map at the top and bottom. The middle home's remote console raises two shortcuts from the middle platform to the rim. The hill falls first at the Last Stand; the rim and the consoles survive. Mirrored left / right.",
+   "skins": {
+    "vat": "graduate",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 13 at (-0.7, 42.5): beyond the standard 160 x 80 frame",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 14 at (160.7, 42.5): beyond the standard 160 x 80 frame",
+     "nodes": [
+      14
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 4: 1 T1 in its pocket",
+     "nodes": [
+      4
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 5: 1 T1 in its pocket",
+     "nodes": [
+      5
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 13: 0 T1 in its pocket",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 14: 0 T1 in its pocket",
+     "nodes": [
+      14
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 17: 1 T1 in its pocket",
+     "nodes": [
+      17
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 18: 1 T1 in its pocket",
+     "nodes": [
+      18
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "23 nodes, 1 method(s)",
      "nodes": [],
      "edges": []
     }

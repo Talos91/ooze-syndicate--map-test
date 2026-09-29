@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 06:28",
- "stamp": "20260929062803",
+ "built": "2026-09-29 13:33",
+ "stamp": "20260929133358",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -2050,6 +2050,492 @@
      "rule": "L04",
      "sev": "soft",
      "msg": "27 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-21-roundabout.json",
+   "code": "N-21",
+   "name": "Roundabout",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 21,
+   "footprint": [
+    131.6,
+    81.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 5,
+   "note": "L, 20 platforms, open, outward. A six-way deck roundabout (Junction_Hub6) in the middle feeds a hexagon of platforms; the rim runs round it with a crossing at the very top and bottom. The hexagon's west and east platforms are gates: each draws up its spoke into the roundabout and its bridge to the home's middle platform. At the Last Stand the roundabout falls first; the hexagon and the rim fight on round the gates. Point-symmetric.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (56.3, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 20 at (103.7, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 9: 1 T1 in its pocket",
+     "nodes": [
+      9
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 1 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "21 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-22-hex-gates.json",
+   "code": "N-22",
+   "name": "Hex Gates",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 15,
+   "footprint": [
+    109.0,
+    81.6
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 5,
+   "note": "M, 14 platforms, open, inward. The six-way roundabout (Junction_Hub6) inside a hexagon of platforms; the upper-left and lower-right hexagon platforms are gates that draw up their spoke into the roundabout and their hexagon edge in one go. Each home reaches the hexagon straight and through both pockets. Point-symmetric. Survivor ring: the roundabout and the hexagon.",
+   "skins": {
+    "vat": "reactor",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (45.3, 5.2): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 14 at (114.7, 74.8): beyond the standard 160 x 80 frame",
+     "nodes": [
+      14
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 10: 1 T1 in its pocket",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 4: 1 T1 in its pocket",
+     "nodes": [
+      4
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "15 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-23-crossroads.json",
+   "code": "N-23",
+   "name": "Crossroads",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 17,
+   "footprint": [
+    100.6,
+    81.5
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "M, 15 platforms, open, inward. The middle lane runs through two X junctions, one each side of a switch hub: every X splits the lane up to a high platform, down to a low one and on into the hub, whose bridges reach the two X junctions or the top and bottom platforms. Point-symmetric. Survivor ring: the hub, the top and bottom platforms and the high / low platforms by the X junctions.",
+   "skins": {
+    "vat": "hive",
+    "forge": "anvil"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (102.8, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 16 at (57.2, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "17 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-24-k-crossing.json",
+   "code": "N-24",
+   "name": "K Crossing",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 21,
+   "footprint": [
+    144.7,
+    78.2
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "L, 18 platforms, choke, outward. A K junction knots the middle: its four diagonal bridges run to the platforms above-left, below-left and their twins. Each home's remote console raises shortcuts from its middle platform up and down to the rim. The K and its platforms fall first at the Last Stand; the rim survives with the consoles. Point-symmetric.",
+   "skins": {
+    "vat": "crystal",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 13: 0 T1 in its pocket",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 7: 0 T1 in its pocket",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "21 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-25-y-ring.json",
+   "code": "N-25",
+   "name": "Y Ring",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 25,
+   "footprint": [
+    135.1,
+    79.3
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "S, 13 platforms, choke, inward. The round ring of curved quarter arcs round a 4-way grinder hub (N-11), reached through Y junctions: each home's front bridge splits (60 degrees each way) to both pockets, which land on the ring. Point-symmetric. Survivor ring: the hub and the ring.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "heartforge"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 10: 0 T1 in its pocket",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 14: 0 T1 in its pocket",
+     "nodes": [
+      14
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "25 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-26-t-bridges.json",
+   "code": "N-26",
+   "name": "T Bridges",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 17,
+   "footprint": [
+    114.2,
+    81.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 5,
+   "note": "M, 15 platforms, choke, outward. King of the hill: the top and bottom crossings are T junctions whose stems drop onto the hill; the rim's high platforms reach them. Each home's remote console raises its middle platform's shortcuts onto the rim. The hill and the T junctions fall first at the Last Stand; the rim survives with the consoles. Point-symmetric.",
+   "skins": {
+    "vat": "graduate",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (55.8, 5.3): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 16 at (104.2, 74.7): beyond the standard 160 x 80 frame",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 15: 0 T1 in its pocket",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "17 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-27-fork-delta.json",
+   "code": "N-27",
+   "name": "Fork Delta",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 17,
+   "footprint": [
+    155.3,
+    76.4
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "S, 13 platforms, choke, inward. A Fork junction splits every home's front into two narrow prongs (30 degrees each way) to the pockets, which climb to a switch hub's diagonal platforms (its bridges pick the upper-left and lower-right pair, or the other pair). A back platform over each home reaches the top pocket, and long straights cross to the far side. Point-symmetric. Survivor ring: the hub and its four platforms.",
+   "skins": {
+    "vat": "hive",
+    "laser": "obelisk"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 9: 0 T1 in its pocket",
+     "nodes": [
+      9
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 7: 0 T1 in its pocket",
+     "nodes": [
+      7
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "17 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-28-l-loops.json",
+   "code": "N-28",
+   "name": "L Loops",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 9,
+   "footprint": [
+    74.5,
+    51.2
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "XS, 9 platforms, choke, inward. Square loops: L corner junctions turn the top and bottom lanes 90 degrees onto the middle platforms, and a switch hub picks the middle platforms or the top and bottom crossings. Point-symmetric. Survivor ring: everything but the homes.",
+   "skins": {
+    "vat": "reactor",
+    "forge": "anvil"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 3: 1 T1 in its pocket",
+     "nodes": [
+      3
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 5: 1 T1 in its pocket",
+     "nodes": [
+      5
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "9 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-30-knot-garden.json",
+   "code": "N-30",
+   "name": "Knot Garden",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 11,
+   "footprint": [
+    72.4,
+    78.5
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 3,
+   "note": "S, 11 platforms, open, inward. A K junction at the centre with its four diagonal bridges to a switch-free ring of platforms; the platforms above-left and below-right are gates that draw up their bridge into the K and their curved bridge (Curve_90) to the next platform. Each home reaches both near platforms. Point-symmetric. Survivor ring: the K and its four platforms.",
+   "skins": {
+    "vat": "hive",
+    "forge": "heartforge"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 8: 1 T1 in its pocket",
+     "nodes": [
+      8
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 2: 1 T1 in its pocket",
+     "nodes": [
+      2
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "11 nodes, 1 method(s)",
      "nodes": [],
      "edges": []
     }

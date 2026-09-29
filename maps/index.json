@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 15:06",
- "stamp": "20260929150628",
+ "built": "2026-09-29 16:09",
+ "stamp": "20260929160933",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -470,6 +470,369 @@
      "nodes": [
       29
      ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "H-01-honey-gate.json",
+   "code": "H-01",
+   "name": "Honey Gate",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 25,
+   "footprint": [
+    136.7,
+    75.0
+   ],
+   "pass": false,
+   "hard": 4,
+   "soft": 3,
+   "note": "Round 2 relay test (2026-09-28), rebuilt 2026-09-29 as H-01: Small honeycomb (Y junctions, every platform on 3 decks). One relay on the main passage, in the centre (Forge). The inward Last Stand keeps it; the outward finale plays on the rim without a relay.",
+   "skins": {
+    "vat": "biopod",
+    "laser": "obelisk",
+    "forge": "anvil"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 9: 0 T1 in its pocket",
+     "nodes": [
+      9
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 13: 0 T1 in its pocket",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [10, 12] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      10,
+      12
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L05",
+     "sev": "hard",
+     "msg": "outward: no standing relay changes a travel time between survivor-ring platforms",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 11 drives deck 10-15 only 1 bridge(s) away",
+     "nodes": [
+      11
+     ],
+     "edges": [
+      8
+     ]
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 11 drives deck 12-16 only 1 bridge(s) away",
+     "nodes": [
+      11
+     ],
+     "edges": [
+      26
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'S', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "H-02-honey-gates.json",
+   "code": "H-02",
+   "name": "Honey Gates",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 25,
+   "footprint": [
+    136.7,
+    75.0
+   ],
+   "pass": false,
+   "hard": 6,
+   "soft": 3,
+   "note": "Round 2 relay test (2026-09-28), rebuilt 2026-09-29 as H-02: Small honeycomb (Y junctions, every platform on 3 decks). Three relays: the centre plus a mirrored pair of another kind on the other lane, so both Last Stand finales keep a relay.",
+   "skins": {
+    "vat": "crystal",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "machinegoon": "spitter"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 9: 0 T1 in its pocket",
+     "nodes": [
+      9
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 13: 0 T1 in its pocket",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [10, 12] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      10,
+      12
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "outward: after ring 0 falls, survivor-ring platform(s) [2, 3, 13, 20, 21] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      2,
+      3,
+      13,
+      21,
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 11 drives deck 10-15 only 1 bridge(s) away",
+     "nodes": [
+      11
+     ],
+     "edges": [
+      8
+     ]
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 11 drives deck 12-16 only 1 bridge(s) away",
+     "nodes": [
+      11
+     ],
+     "edges": [
+      26
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 19 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      19
+     ],
+     "edges": [
+      17
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 20 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      20
+     ],
+     "edges": [
+      18
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'S', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "H-03-honey-remote.json",
+   "code": "H-03",
+   "name": "Honey Remote",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 25,
+   "footprint": [
+    136.7,
+    75.0
+   ],
+   "pass": false,
+   "hard": 10,
+   "soft": 3,
+   "note": "Round 2 relay test (2026-09-28), rebuilt 2026-09-29 as H-03: Small honeycomb (Y junctions, every platform on 3 decks). Five relays (relay-heavy): the centre and two mirrored pairs of different kinds, each on the passage it changes.",
+   "skins": {
+    "vat": "distillery",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "machinegoon": "pepperbox"
+   },
+   "findings": [
+    {
+     "rule": "N04",
+     "sev": "hard",
+     "msg": "node 18 keeps 1 fixed decks",
+     "nodes": [
+      18
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N04",
+     "sev": "hard",
+     "msg": "node 21 keeps 1 fixed decks",
+     "nodes": [
+      21
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 9: 0 T1 in its pocket",
+     "nodes": [
+      9
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 13: 0 T1 in its pocket",
+     "nodes": [
+      13
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [10, 12] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      10,
+      12
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "outward: after ring 0 falls, survivor-ring platform(s) [2, 3, 13, 19, 20, 21] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      2,
+      3,
+      13,
+      21,
+      19,
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 0 makes no consistent bargain: it must be nearer a home than every deck it drives, or farther than every one (home hops: console 2, decks [2])",
+     "nodes": [
+      0
+     ],
+     "edges": [
+      14
+     ]
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 3 makes no consistent bargain: it must be nearer a home than every deck it drives, or farther than every one (home hops: console 2, decks [2])",
+     "nodes": [
+      3
+     ],
+     "edges": [
+      28
+     ]
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 11 drives deck 10-15 only 1 bridge(s) away",
+     "nodes": [
+      11
+     ],
+     "edges": [
+      8
+     ]
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 11 drives deck 12-16 only 1 bridge(s) away",
+     "nodes": [
+      11
+     ],
+     "edges": [
+      26
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 19 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      19
+     ],
+     "edges": [
+      17
+     ]
+    },
+    {
+     "rule": "N16",
+     "sev": "hard",
+     "msg": "retract 20 moves one deck and is no chokepoint (enemy homes still meet without it)",
+     "nodes": [
+      20
+     ],
+     "edges": [
+      18
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'S', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
      "edges": []
     }
    ]

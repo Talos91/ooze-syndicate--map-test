@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 13:33",
- "stamp": "20260929133358",
+ "built": "2026-09-29 13:47",
+ "stamp": "20260929134701",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -2488,6 +2488,90 @@
      "rule": "L04",
      "sev": "soft",
      "msg": "9 nodes, 1 method(s)",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "N-29-twin-roundabouts.json",
+   "code": "N-29",
+   "name": "Twin Roundabouts",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 17,
+   "footprint": [
+    97.9,
+    81.7
+   ],
+   "pass": true,
+   "hard": 0,
+   "soft": 7,
+   "note": "L, 18 platforms, open, inward. Two six-way roundabouts (Junction_Hub6), one in front of each home, share the centre platform: each feeds the home's pockets, the platforms above and below and the centre. The platforms above each roundabout are gates that draw up their spoke and their bridge to the centre. The rim crosses at the top and bottom. At the Last Stand the rim falls; the roundabouts, the centre and the gates fight on. Point-symmetric.",
+   "skins": {
+    "vat": "crystal",
+    "laser": "tesla"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (93.3, 5.2): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 1 at (37.1, 5.2): beyond the standard 160 x 80 frame",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 15 at (122.9, 74.8): beyond the standard 160 x 80 frame",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 16 at (66.7, 74.8): beyond the standard 160 x 80 frame",
+     "nodes": [
+      16
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 1: 0 T1 in its pocket",
+     "nodes": [
+      1
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 15: 0 T1 in its pocket",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L04",
+     "sev": "soft",
+     "msg": "17 nodes, 1 method(s)",
      "nodes": [],
      "edges": []
     }

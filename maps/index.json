@@ -1,6 +1,6 @@
 {
- "built": "2026-09-29 16:50",
- "stamp": "20260929165057",
+ "built": "2026-09-29 16:53",
+ "stamp": "20260929165342",
  "maps": [
   {
    "file": "D-11-size-94.json",
@@ -1246,6 +1246,677 @@
       10,
       19
      ],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "K-01-diamond-gate.json",
+   "code": "K-01",
+   "name": "Diamond Gate",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 37,
+   "footprint": [
+    156.0,
+    74.4
+   ],
+   "pass": false,
+   "hard": 2,
+   "soft": 3,
+   "note": "Round 2 relay test (2026-09-28), rebuilt 2026-09-29 as K-01: Mid diamond lattice (K junctions, zig-zag lanes, every platform on 4 decks). One relay on the main passage, in the centre (Forge). The inward Last Stand keeps it; the outward finale plays on the rim without a relay.",
+   "skins": {
+    "vat": "hive",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "monster_hub": "hatchery"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 21: 0 T1 in its pocket",
+     "nodes": [
+      21
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 15: 0 T1 in its pocket",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [18] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      18
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L05",
+     "sev": "hard",
+     "msg": "outward: no standing relay changes a travel time between survivor-ring platforms",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "K-02-diamond-swings.json",
+   "code": "K-02",
+   "name": "Diamond Swings",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 37,
+   "footprint": [
+    156.0,
+    74.4
+   ],
+   "pass": false,
+   "hard": 3,
+   "soft": 3,
+   "note": "Round 2 relay test (2026-09-28), rebuilt 2026-09-29 as K-02: Mid diamond lattice (K junctions, zig-zag lanes, every platform on 4 decks). Three relays: the centre plus a mirrored pair of another kind on the other lane, so both Last Stand finales keep a relay.",
+   "skins": {
+    "vat": "reactor",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "monster_hub": "pit"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 21: 0 T1 in its pocket",
+     "nodes": [
+      21
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 15: 0 T1 in its pocket",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [18] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      18
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N13",
+     "sev": "hard",
+     "msg": "rotation 17 turns r1: 1, r2: 1 decks per state (needs the same count, at least 2)",
+     "nodes": [
+      17
+     ],
+     "edges": [
+      12,
+      18
+     ]
+    },
+    {
+     "rule": "N13",
+     "sev": "hard",
+     "msg": "rotation 19 turns r1: 1, r2: 1 decks per state (needs the same count, at least 2)",
+     "nodes": [
+      19
+     ],
+     "edges": [
+      40,
+      45
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "K-03-diamond-switches.json",
+   "code": "K-03",
+   "name": "Diamond Switches",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 37,
+   "footprint": [
+    156.0,
+    74.4
+   ],
+   "pass": false,
+   "hard": 3,
+   "soft": 3,
+   "note": "Round 2 relay test (2026-09-28), rebuilt 2026-09-29 as K-03: Mid diamond lattice (K junctions, zig-zag lanes, every platform on 4 decks). Five relays (relay-heavy): the centre and two mirrored pairs of different kinds, each on the passage it changes.",
+   "skins": {
+    "vat": "graduate",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "machinegoon": "spitter"
+   },
+   "findings": [
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 21: 0 T1 in its pocket",
+     "nodes": [
+      21
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 15: 0 T1 in its pocket",
+     "nodes": [
+      15
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [18] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      18
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N13",
+     "sev": "hard",
+     "msg": "rotation 17 turns r1: 1, r2: 1 decks per state (needs the same count, at least 2)",
+     "nodes": [
+      17
+     ],
+     "edges": [
+      12,
+      18
+     ]
+    },
+    {
+     "rule": "N13",
+     "sev": "hard",
+     "msg": "rotation 19 turns r1: 1, r2: 1 decks per state (needs the same count, at least 2)",
+     "nodes": [
+      19
+     ],
+     "edges": [
+      40,
+      45
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "K-04-square-drawbridge.json",
+   "code": "K-04",
+   "name": "Square Drawbridge",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 40,
+   "footprint": [
+    192.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 2,
+   "soft": 9,
+   "note": "Round 2 relay test (2026-09-28), rebuilt 2026-09-29 as K-04: Big square lattice (X / T junctions). One relay on the main passage, in the centre (Forge). The inward Last Stand keeps it; the outward finale plays on the rim without a relay.",
+   "skins": {
+    "vat": "faction",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "monster": "alt"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (-10.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 10 at (170.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 11 at (-10.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 19 at (170.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 20 at (-10.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 30 at (170.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      30
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 19: 0 T1 in its pocket",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 0 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [17, 25, 27] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      27,
+      17,
+      25
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L05",
+     "sev": "hard",
+     "msg": "outward: no standing relay changes a travel time between survivor-ring platforms",
+     "nodes": [],
+     "edges": []
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "K-05-square-remote-bridges.json",
+   "code": "K-05",
+   "name": "Square Remote Bridges",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 40,
+   "footprint": [
+    192.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 4,
+   "soft": 9,
+   "note": "Round 2 relay test (2026-09-28), rebuilt 2026-09-29 as K-05: Big square lattice (X / T junctions). Three relays: the centre plus a mirrored pair of another kind on the other lane, so both Last Stand finales keep a relay.",
+   "skins": {
+    "vat": "biopod",
+    "laser": "tesla",
+    "forge": "heartforge",
+    "monster_hub": "hatchery"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (-10.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 10 at (170.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 11 at (-10.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 19 at (170.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 20 at (-10.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 30 at (170.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      30
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 19: 0 T1 in its pocket",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 0 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [17, 25, 27] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      27,
+      17,
+      25
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "outward: after ring 0 falls, survivor-ring platform(s) [5] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      5
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 32 makes no consistent bargain: it must be nearer a home than every deck it drives, or farther than every one (home hops: console 4, decks [4])",
+     "nodes": [
+      32
+     ],
+     "edges": [
+      6
+     ]
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 38 makes no consistent bargain: it must be nearer a home than every deck it drives, or farther than every one (home hops: console 4, decks [4])",
+     "nodes": [
+      38
+     ],
+     "edges": [
+      41
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
+     "edges": []
+    }
+   ]
+  },
+  {
+   "file": "K-06-square-bridges-and-swings.json",
+   "code": "K-06",
+   "name": "Square Bridges and Swings",
+   "modes": [
+    "1v1"
+   ],
+   "nodes": 40,
+   "footprint": [
+    192.0,
+    66.0
+   ],
+   "pass": false,
+   "hard": 6,
+   "soft": 9,
+   "note": "Round 2 relay test (2026-09-28), rebuilt 2026-09-29 as K-06: Big square lattice (X / T junctions). Five relays (relay-heavy): the centre and two mirrored pairs of different kinds, each on the passage it changes.",
+   "skins": {
+    "vat": "crystal",
+    "laser": "obelisk",
+    "forge": "anvil",
+    "machinegoon": "pepperbox",
+    "monster_hub": "pit"
+   },
+   "findings": [
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 0 at (-10.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      0
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 10 at (170.0, 13.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      10
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 11 at (-10.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 19 at (170.0, 31.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 20 at (-10.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      20
+     ],
+     "edges": []
+    },
+    {
+     "rule": "G01",
+     "sev": "soft",
+     "msg": "node 30 at (170.0, 49.0): beyond the standard 160 x 80 frame",
+     "nodes": [
+      30
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 19: 0 T1 in its pocket",
+     "nodes": [
+      19
+     ],
+     "edges": []
+    },
+    {
+     "rule": "T03",
+     "sev": "soft",
+     "msg": "home 11: 0 T1 in its pocket",
+     "nodes": [
+      11
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "inward: after ring 1 falls, survivor-ring platform(s) [17, 25, 27] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      17,
+      27,
+      25
+     ],
+     "edges": []
+    },
+    {
+     "rule": "L03",
+     "sev": "hard",
+     "msg": "outward: after ring 0 falls, survivor-ring platform(s) [5] are cut off over fixed decks (the game drops them)",
+     "nodes": [
+      5
+     ],
+     "edges": []
+    },
+    {
+     "rule": "N13",
+     "sev": "hard",
+     "msg": "rotation 23 turns r1: 1, r2: 1 decks per state (needs the same count, at least 2)",
+     "nodes": [
+      23
+     ],
+     "edges": [
+      17,
+      25
+     ]
+    },
+    {
+     "rule": "N13",
+     "sev": "hard",
+     "msg": "rotation 27 turns r1: 1, r2: 1 decks per state (needs the same count, at least 2)",
+     "nodes": [
+      27
+     ],
+     "edges": [
+      49,
+      56
+     ]
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 32 makes no consistent bargain: it must be nearer a home than every deck it drives, or farther than every one (home hops: console 4, decks [4])",
+     "nodes": [
+      32
+     ],
+     "edges": [
+      6
+     ]
+    },
+    {
+     "rule": "N15",
+     "sev": "hard",
+     "msg": "remote console 38 makes no consistent bargain: it must be nearer a home than every deck it drives, or farther than every one (home hops: console 4, decks [4])",
+     "nodes": [
+      38
+     ],
+     "edges": [
+      41
+     ]
+    },
+    {
+     "rule": "M05",
+     "sev": "soft",
+     "msg": "tags missing: ['size', 'family', 'finale'] (auto: {'size': 'L', 'family': 'choke', 'finale': 'both'})",
+     "nodes": [],
      "edges": []
     }
    ]
